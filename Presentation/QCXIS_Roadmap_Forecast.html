@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QCXIS — Roadmap & Forecast 2026–2031</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,600&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+/* ══════════════════════════════════════════════════════════════
+   DESIGN TOKENS
+   ══════════════════════════════════════════════════════════════ */
+:root {
+  --bg: #f5f6f8; --white: #fff; --border: #dfe2e8; --border2: #cdd2db;
+  --text: #161b2e; --body: #3b4460; --muted: #8590a6;
+  --accent: #0a7b6c; --accent-l: #e6f4f2;
+  --accent2: #1d4ed8; --accent2-l: #eff4ff;
+  --warn: #b45309; --warn-l: #fef3e2;
+  --cost-text: #991b1b; --cost-bg: #fef2f2;
+  --net-text: #065f46; --net-bg: #ecfdf5;
+  --rule: #dfe2e8;
+  --staff: #7c3aed; --staff-l: #f5f3ff;
+  --hr: #0891b2; --hr-l: #ecfeff;
+  /* Year palette */
+  --y26: #1d4ed8; --y27: #b45309; --y28: #0a7b6c;
+  --y29: #7c3aed; --y30: #dc2626; --y31: #0891b2;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   RESET & LAYOUT
+   ══════════════════════════════════════════════════════════════ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; min-height: 100vh; }
+.page { max-width: 1140px; margin: 0 auto; padding: 40px 32px 64px; }
+
+/* ── Header ────────────────────────────────────────────────── */
+.header {
+  border-bottom: 2px solid var(--text); padding-bottom: 18px; margin-bottom: 28px;
+  display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 12px;
+}
+.eyebrow { font-size: 9.5px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin-bottom: 5px; }
+.header h1 { font-family: 'Playfair Display', serif; font-size: clamp(22px, 3.6vw, 34px); line-height: 1.15; }
+.header h1 em { font-style: italic; color: var(--accent); }
+.header-right { text-align: right; }
+.header-date { font-size: 10.5px; color: var(--muted); margin-bottom: 2px; }
+.header-tag { display: inline-block; font-size: 9px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; background: var(--accent-l); color: var(--accent); padding: 3px 8px; border-radius: 3px; }
+
+/* ── KPI strip ─────────────────────────────────────────────── */
+.kpi-strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(135px, 1fr)); gap: 7px; margin-bottom: 12px; }
+.kpi { background: var(--white); border: 1px solid var(--border); border-radius: 5px; padding: 11px 12px; }
+.kpi-top { border-top: 3px solid var(--accent); }
+.kpi-label { font-size: 8.5px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.kpi-value { font-family: 'Playfair Display', serif; font-size: 19px; line-height: 1; }
+.kpi-note { margin-top: 3px; font-size: 9px; color: var(--muted); }
+
+/* ── Collapsible sections ──────────────────────────────────── */
+.cs { margin-bottom: 24px; }
+.cs-toggle {
+  display: flex; align-items: center; gap: 7px; cursor: pointer; margin-bottom: 10px;
+  padding-bottom: 7px; border-bottom: 1px solid var(--rule);
+  background: none; border-top: none; border-left: none; border-right: none;
+  width: 100%; text-align: left; font-family: 'DM Sans', sans-serif;
+}
+.cs-toggle:hover { opacity: .8; }
+.cs-label { font-size: 9.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.cs-arrow { font-size: 8px; color: var(--muted); transition: transform .2s; }
+.cs-toggle.open .cs-arrow { transform: rotate(90deg); }
+.cs-body { overflow: hidden; transition: max-height .35s ease; }
+.cs-body.collapsed { max-height: 0 !important; }
+
+/* ── Chart cards ───────────────────────────────────────────── */
+.chart-card { background: var(--white); border: 1px solid var(--border); border-radius: 5px; padding: 16px 18px; margin-bottom: 10px; }
+.chart-title { font-family: 'Playfair Display', serif; font-size: 13px; color: var(--text); margin-bottom: 1px; }
+.chart-sub { font-size: 9.5px; color: var(--muted); margin-bottom: 12px; }
+.chart-wrap { position: relative; height: 260px; }
+.chart-legend { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 6px; }
+.cl-item { display: flex; align-items: center; gap: 4px; font-size: 9.5px; color: var(--body); }
+.cl-line { width: 14px; height: 2px; border-radius: 2px; }
+.cl-bar { width: 9px; height: 9px; border-radius: 2px; }
+
+/* ── Callouts ──────────────────────────────────────────────── */
+.callout { border: 1px solid var(--border); border-radius: 5px; padding: 10px 14px; margin-bottom: 10px; font-size: 10px; color: var(--body); line-height: 1.55; }
+.callout strong { color: var(--text); }
+.callout-warn { border-left: 3px solid var(--warn); background: var(--white); }
+.callout-info { border-left: 3px solid var(--accent2); background: var(--white); }
+.callout-good { border-left: 3px solid var(--accent); background: var(--net-bg); }
+.callout-staff { border-left: 3px solid var(--staff); background: var(--staff-l); }
+.callout-md { border-left: 3px solid var(--y28); background: var(--accent-l); }
+
+/* ── Tables ────────────────────────────────────────────────── */
+.tw { overflow-x: auto; border: 1px solid var(--border); border-radius: 5px; margin-bottom: 10px; }
+table.dt { width: 100%; border-collapse: collapse; font-size: 11px; }
+table.dt th { font-size: 8.5px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); padding: 8px 9px; text-align: right; border-bottom: 1px solid var(--border2); background: var(--bg); white-space: nowrap; }
+table.dt th:first-child { text-align: left; }
+table.dt td { padding: 7px 9px; border-bottom: 1px solid var(--border); color: var(--body); white-space: nowrap; text-align: right; font-size: 10.5px; }
+table.dt td:first-child { text-align: left; font-weight: 500; color: var(--text); }
+table.dt tr:last-child td { border-bottom: none; }
+.pl-rev td { background: var(--warn-l); font-weight: 700; color: var(--warn); }
+.pl-cost-total td { background: var(--cost-bg); font-weight: 700; color: var(--cost-text); border-top: 2px solid var(--cost-text); }
+.pl-net td { background: var(--net-bg); font-weight: 700; color: var(--net-text); border-top: 2px solid var(--net-text); font-size: 11.5px; }
+.pl-net-neg td { background: var(--cost-bg); font-weight: 700; color: var(--cost-text); border-top: 2px solid var(--cost-text); font-size: 11.5px; }
+.pl-growth td { font-style: italic; color: var(--muted); font-size: 9.5px; }
+.pl-cat td { background: var(--bg); font-weight: 600; color: var(--body); font-size: 9.5px; letter-spacing: .04em; text-transform: uppercase; }
+.pl-sub td { padding-left: 16px; color: var(--muted); font-size: 10px; }
+.pl-sub td:first-child { font-weight: 400; color: var(--muted); }
+.hr-rev td { background: var(--hr-l); font-weight: 600; color: var(--hr); }
+
+/* ── Scenario toggle ───────────────────────────────────────── */
+.scenario-bar { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; flex-wrap: wrap; }
+.scenario-bar-label { font-size: 9px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.s-toggle { display: flex; background: var(--white); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+.s-btn { padding: 6px 12px; font-size: 10px; font-weight: 600; font-family: 'DM Sans', sans-serif; border: none; background: transparent; cursor: pointer; color: var(--muted); transition: all .18s; border-right: 1px solid var(--border); white-space: nowrap; }
+.s-btn:last-child { border-right: none; }
+.s-btn.active { color: #fff; }
+.s-btn[data-s="conservative"].active { background: #6366f1; }
+.s-btn[data-s="optimum"].active { background: var(--accent2); }
+.s-btn[data-s="aggressive"].active { background: #059669; }
+.r-btn { padding: 6px 12px; font-size: 10px; font-weight: 600; font-family: 'DM Sans', sans-serif; border: none; background: transparent; cursor: pointer; color: var(--muted); transition: all .18s; border-right: 1px solid var(--border); white-space: nowrap; }
+.r-btn:last-child { border-right: none; }
+.r-btn.active { background: var(--accent2); color: #fff; }
+
+/* ── Journey Timeline ──────────────────────────────────────── */
+.journey { margin-bottom: 24px; }
+.journey-track {
+  position: relative; display: flex; justify-content: space-between; align-items: flex-start;
+  padding: 0 20px; min-height: 300px; overflow-x: auto;
+}
+.journey-rail {
+  position: absolute; top: 60px; left: 50px; right: 50px; height: 4px;
+  background: linear-gradient(90deg, var(--y26), var(--y27), var(--y28), var(--y29), var(--y30), var(--y31));
+  border-radius: 2px; z-index: 0;
+}
+.journey-node {
+  position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center;
+  min-width: 140px; flex: 1; cursor: pointer; transition: transform .15s;
+}
+.journey-node:hover { transform: translateY(-2px); }
+.journey-node.active .jn-dot { box-shadow: 0 0 0 6px rgba(10, 123, 108, .15); }
+.jn-dot {
+  width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center;
+  justify-content: center; font-family: 'Playfair Display', serif; font-size: 17px;
+  font-weight: 700; color: #fff; box-shadow: 0 2px 10px rgba(0,0,0,.12);
+  margin-bottom: 8px; transition: box-shadow .2s;
+}
+.jn-year { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+.jn-theme { font-size: 8.5px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); text-align: center; max-width: 130px; line-height: 1.3; margin-bottom: 8px; }
+.jn-items { list-style: none; text-align: center; }
+.jn-items li { font-size: 9px; color: var(--body); line-height: 1.5; padding: 1px 0; }
+.jn-items li::before { content: '▸ '; color: var(--muted); font-size: 7px; }
+.jn-items li.milestone { font-weight: 600; color: var(--accent); }
+.jn-items li.milestone::before { content: '● '; color: var(--accent); }
+
+/* Journey expanded detail */
+.journey-detail {
+  background: var(--white); border: 1px solid var(--border); border-radius: 8px;
+  padding: 20px 24px; margin-top: 16px; display: none; animation: fadeIn .25s ease;
+}
+.journey-detail.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+.jd-head { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 2px solid var(--border); }
+.jd-dot { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: #fff; flex-shrink: 0; }
+.jd-title { font-family: 'Playfair Display', serif; font-size: 18px; }
+.jd-theme { font-size: 9.5px; color: var(--muted); font-style: italic; }
+.jd-badge { font-size: 8.5px; color: var(--muted); font-weight: 600; background: var(--bg); padding: 3px 8px; border-radius: 3px; margin-left: auto; }
+.jd-groups { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px 16px; margin-bottom: 12px; }
+.jd-group-label { font-size: 7.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 5px; padding-bottom: 3px; border-bottom: 1px solid var(--border); }
+.jd-item { display: flex; gap: 6px; padding: 4px 0; font-size: 10px; line-height: 1.4; }
+.jd-item-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border2); margin-top: 4px; flex-shrink: 0; }
+.jd-item.ms .jd-item-dot { background: var(--accent); width: 7px; height: 7px; box-shadow: 0 0 0 2px var(--accent-l); }
+.jd-item.ms .jd-item-title { color: var(--accent); font-weight: 600; }
+.jd-item-title { font-size: 10.5px; font-weight: 500; color: var(--text); }
+.jd-item-q { display: inline-block; font-size: 7.5px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); background: var(--bg); padding: 1px 4px; border-radius: 2px; margin-bottom: 1px; }
+.jd-item-desc { font-size: 8.5px; color: var(--muted); line-height: 1.35; margin-top: 1px; }
+.jd-endstate { padding: 10px 14px; border-top: 1px solid var(--border); background: var(--net-bg); border-radius: 0 0 7px 7px; margin: 0 -24px -20px; }
+.jd-endstate-label { font-size: 7.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); margin-bottom: 4px; }
+.jd-endstate-list { display: flex; flex-wrap: wrap; gap: 2px 14px; }
+.jd-endstate-item { font-size: 8.5px; color: var(--body); line-height: 1.5; }
+.jd-endstate-item::before { content: '\2713  '; color: var(--accent); font-weight: 700; }
+
+/* Category colors */
+.cat-product { color: var(--accent2); } .cat-revenue { color: var(--warn); } .cat-people { color: var(--staff); }
+.cat-infra { color: var(--muted); } .cat-governance { color: var(--text); } .cat-ip { color: var(--hr); }
+.cat-cert { color: var(--accent); } .cat-grant { color: #d97706; } .cat-rd { color: #dc2626; }
+.cat-ops { color: #6366f1; } .cat-strategic { color: var(--y31); }
+
+/* ── Module grid ───────────────────────────────────────────── */
+.mod-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 6px; margin-bottom: 10px; }
+.mod-card { background: var(--white); border: 1px solid var(--border); border-radius: 5px; padding: 8px 10px; text-align: center; transition: transform .15s; }
+.mod-card:hover { transform: translateY(-1px); }
+.mod-yr { font-size: 8px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 2px; }
+.mod-name { font-size: 11px; font-weight: 700; color: var(--text); }
+.mod-desc { font-size: 8.5px; color: var(--muted); margin-top: 1px; line-height: 1.35; }
+
+/* ── MD Status tracker ─────────────────────────────────────── */
+.md-track { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-bottom: 10px; }
+.md-req { background: var(--white); border: 1px solid var(--border); border-radius: 5px; padding: 10px 12px; position: relative; }
+.md-req-num { font-size: 22px; font-weight: 700; color: var(--border); position: absolute; top: 6px; right: 10px; font-family: 'Playfair Display', serif; }
+.md-req-title { font-size: 10px; font-weight: 700; color: var(--text); margin-bottom: 3px; padding-right: 20px; }
+.md-req-detail { font-size: 9px; color: var(--muted); line-height: 1.4; }
+.md-req-status { margin-top: 5px; font-size: 8px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
+.md-req.done { border-color: var(--accent); background: var(--net-bg); }
+.md-req.done .md-req-status { color: var(--accent); }
+.md-req.progress { border-color: var(--warn); }
+.md-req.progress .md-req-status { color: var(--warn); }
+.md-req.planned .md-req-status { color: var(--muted); }
+
+/* ── Dependencies ──────────────────────────────────────────── */
+.dep-risk { display: inline-block; font-size: 8px; font-weight: 700; padding: 1px 5px; border-radius: 3px; text-transform: uppercase; letter-spacing: .04em; }
+.dep-low { background: var(--net-bg); color: var(--net-text); }
+.dep-med { background: var(--warn-l); color: var(--warn); }
+.dep-high { background: var(--cost-bg); color: var(--cost-text); }
+
+/* ── Staffing net rows ─────────────────────────────────────── */
+.st-net.pos td { background: var(--net-bg); color: var(--net-text); font-weight: 700; border-top: 1px solid var(--net-text); }
+.st-net.neg td { background: var(--cost-bg); color: var(--cost-text); font-weight: 700; border-top: 1px solid var(--cost-text); }
+
+/* ── Accordion (appendix) ──────────────────────────────────── */
+.acc-item { border: 1px solid var(--border); border-radius: 5px; margin-bottom: 5px; overflow: hidden; }
+.acc-btn { width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; background: var(--white); border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; }
+.acc-btn:hover { background: var(--bg); }
+.acc-btn-left { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.acc-year { font-size: 11px; font-weight: 700; color: var(--text); }
+.acc-m { font-size: 10px; font-weight: 500; padding: 2px 5px; border-radius: 3px; }
+.acc-arrow { font-size: 9px; color: var(--muted); transition: transform .2s; }
+.acc-btn.open .acc-arrow { transform: rotate(90deg); }
+.acc-panel { overflow: hidden; max-height: 0; transition: max-height .3s ease; }
+.acc-panel.open { max-height: 9999px; }
+.acc-panel .tw { border: none; border-top: 1px solid var(--border); border-radius: 0; }
+.tr-dim td { opacity: .3; }
+.tr-total td { background: var(--bg); font-weight: 700; font-size: 10px; border-top: 2px solid var(--accent); color: var(--accent); }
+.note-pill { display: inline-block; font-size: 8.5px; padding: 2px 5px; border-radius: 3px; }
+.np-green { background: var(--accent-l); color: var(--accent); }
+.np-red { background: #fef2f2; color: #991b1b; }
+
+/* ── Assumptions ───────────────────────────────────────────── */
+.asum-toggle { display: flex; align-items: center; gap: 6px; font-size: 10px; color: var(--muted); cursor: pointer; background: none; border: none; font-family: 'DM Sans', sans-serif; padding: 0; margin-top: 10px; margin-bottom: 6px; }
+.asum-toggle:hover { color: var(--accent); }
+.asum-body { overflow: hidden; max-height: 0; transition: max-height .3s ease; }
+.asum-body.open { max-height: 2000px; }
+.asum-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 8px 18px; background: var(--white); border: 1px solid var(--border); border-radius: 5px; padding: 12px 16px; }
+.ak { font-size: 8.5px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: 1px; }
+.av { font-size: 10.5px; color: var(--body); }
+
+/* ── Footer ────────────────────────────────────────────────── */
+.footer { margin-top: 36px; padding-top: 10px; border-top: 1px solid var(--rule); display: flex; justify-content: space-between; font-size: 9.5px; color: var(--muted); flex-wrap: wrap; gap: 6px; }
+
+/* ── Responsive ────────────────────────────────────────────── */
+@media (max-width: 800px) {
+  .journey-track { flex-wrap: nowrap; overflow-x: auto; padding: 0 8px; }
+  .journey-node { min-width: 120px; }
+  .md-track { grid-template-columns: 1fr 1fr; }
+  .jd-groups { grid-template-columns: 1fr; }
+}
+@media (max-width: 500px) {
+  .md-track { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ══════════════════════════════════════════════════════════
+       HEADER
+       ══════════════════════════════════════════════════════════ -->
+  <div class="header">
+    <div>
+      <div class="eyebrow">QCXIS Sdn Bhd · Board Report</div>
+      <h1>Roadmap & <em>Forecast</em><br>2026–2031</h1>
+    </div>
+    <div class="header-right">
+      <div class="header-date">April 2026</div>
+      <div class="header-tag">Internal Use Only</div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════
+       ① P&L HERO
+       ══════════════════════════════════════════════════════════ -->
+  <div style="margin-bottom: 28px">
+    <div style="font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--rule);">① Financial Overview</div>
+
+    <div class="scenario-bar">
+      <span class="scenario-bar-label">Scenario</span>
+      <div class="s-toggle">
+        <button class="s-btn" data-s="conservative" onclick="setS('conservative')">Conservative</button>
+        <button class="s-btn active" data-s="optimum" onclick="setS('optimum')">Optimum</button>
+        <button class="s-btn" data-s="aggressive" onclick="setS('aggressive')">Aggressive</button>
+      </div>
+    </div>
+    <div class="scenario-bar" style="margin-top:-2px">
+      <span class="scenario-bar-label">Revenue</span>
+      <div class="s-toggle">
+        <button class="r-btn active" data-r="all" onclick="setR('all')">All Streams</button>
+        <button class="r-btn" data-r="fee" onclick="setR('fee')">Fee Only</button>
+        <button class="r-btn" data-r="saas" onclick="setR('saas')">HR & Portrait</button>
+      </div>
+    </div>
+
+    <!-- P&L Chart -->
+    <div class="chart-card">
+      <div class="chart-title">Revenue vs OPEX vs Net (RM)</div>
+      <div class="chart-sub" id="plChartSub">All streams (Fee + HR + Portrait) against total OPEX. Timeline starts Jun 2026.</div>
+      <div class="chart-wrap" style="height:280px"><canvas id="plChart"></canvas></div>
+      <div class="chart-legend" id="plLeg"></div>
+    </div>
+
+    <!-- KPI strip -->
+    <div class="kpi-strip" id="kpiStrip"></div>
+
+    <!-- Summary table -->
+    <div class="tw"><table class="dt" id="summaryTable"></table></div>
+
+    <!-- Expandable: Revenue detail -->
+    <div class="cs" style="margin-bottom:10px">
+      <button class="cs-toggle" onclick="tgl(this)"><span class="cs-arrow">▶</span><span class="cs-label">Revenue Breakdown — Where does the money come from?</span></button>
+      <div class="cs-body collapsed" style="max-height:0">
+        <div class="callout callout-warn"><strong>Stream 1 — Fee Collection:</strong> RM1/client/month invoiced to franchisee outlets. Verified via platform data. 30-day terms. Starts Jun 2026.</div>
+        <div class="tw"><table class="dt" id="feeTable"></table></div>
+        <div class="callout callout-info"><strong>Stream 2 — HR Module:</strong> RM40/mo sub + RM5/emp/mo (normal) · RM2/emp/mo (promo '27–'28). Avg 15 emp. 20% annual churn. 5 customers Y1 → 105 by 2031.</div>
+        <div class="tw"><table class="dt" id="hrTable"></table></div>
+        <div class="callout callout-info"><strong>Stream 3 — Portrait Module:</strong> RM40/mo sub + RM15/profile. 30% of HR customers adopt. Avg 3 profiles/mo = RM85/customer/mo.</div>
+        <div class="tw"><table class="dt" id="portTable"></table></div>
+      </div>
+    </div>
+
+    <!-- Expandable: Cost detail -->
+    <div class="cs" style="margin-bottom:10px">
+      <button class="cs-toggle" onclick="tgl(this)"><span class="cs-arrow">▶</span><span class="cs-label">Cost Breakdown — Where does the money go?</span></button>
+      <div class="cs-body collapsed" style="max-height:0">
+        <div class="callout callout-staff"><strong>Payroll:</strong> 2 exec RM5k + 2 IT RM2k + 1 admin RM1.9k base. All include RM450/mo allowances + 14.95% statutory + RM150 insurance.</div>
+        <div class="callout callout-info"><strong>Management Fee:</strong> RM4,000/mo to QC Group — covers all infrastructure (servers, DC, networking, hosting).</div>
+        <div class="tw"><table class="dt" id="costTable"></table></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════
+       ② JOURNEY TIMELINE
+       ══════════════════════════════════════════════════════════ -->
+  <div style="margin-bottom:28px">
+    <div style="font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--rule);">② Roadmap — 5-Year Journey</div>
+    <div class="callout callout-info" style="margin-bottom:14px"><strong>Click a year</strong> to expand detailed quarterly planning. Green items (●) are key milestones.</div>
+    <div class="journey">
+      <div class="journey-track">
+        <div class="journey-rail"></div>
+        <div id="journeyNodes"></div>
+      </div>
+      <div id="journeyDetails"></div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════
+       ③ MODULE LAUNCH GANTT
+       ══════════════════════════════════════════════════════════ -->
+  <div class="cs">
+    <button class="cs-toggle open" onclick="tgl(this)"><span class="cs-arrow">▶</span><span class="cs-label">③ Product — Module Launch Roadmap</span></button>
+    <div class="cs-body" style="max-height:6000px">
+      <div class="callout callout-info"><strong>Strategy:</strong> Start with Franchise core + Cashbook, then expand — each module adds value for franchise clients and opens external SaaS revenue.</div>
+      <div id="moduleGrid"></div>
+      <div class="chart-card" style="margin-top:10px">
+        <div class="chart-title">Module Launch Gantt</div>
+        <div class="chart-sub">When each module enters the product suite</div>
+        <div class="chart-wrap" style="height:320px"><canvas id="ganttChart"></canvas></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════
+       ④ STAFFING MODEL
+       ══════════════════════════════════════════════════════════ -->
+  <div class="cs">
+    <button class="cs-toggle open" onclick="tgl(this)"><span class="cs-arrow">▶</span><span class="cs-label">④ Staffing — Team Scaling & Cost Impact</span></button>
+    <div class="cs-body" style="max-height:6000px">
+      <div class="callout callout-staff"><strong>Baseline:</strong> 5 staff from mid-2027 (2 exec RM5k + 2 IT RM2k + 1 admin RM1.9k). All include RM450/mo allowances + 14.95% statutory + RM150 insurance. Optional <strong>6th hire from 2029</strong> modelled at three pay tiers.</div>
+      <div class="tw" style="margin-bottom:10px"><table class="dt" id="staffTable"></table></div>
+      <div class="chart-card">
+        <div class="chart-title">Net After 6th Hire — Baseline vs Scenarios</div>
+        <div class="chart-sub">Green = baseline (5 staff). Coloured lines = impact of adding a 6th hire from 2029.</div>
+        <div class="chart-wrap"><canvas id="sfChart"></canvas></div>
+        <div class="chart-legend" id="sfLeg"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════
+       ⑤ MD STATUS TRACKER
+       ══════════════════════════════════════════════════════════ -->
+  <div class="cs">
+    <button class="cs-toggle open" onclick="tgl(this)"><span class="cs-arrow">▶</span><span class="cs-label">⑤ MD Status — Requirements Tracker (Target: 2028)</span></button>
+    <div class="cs-body" style="max-height:6000px">
+      <div class="callout callout-md"><strong>Malaysia Digital (MD) Status</strong> grants tax incentives, grant eligibility, and enterprise credibility. Application targeted for Q1–Q2 2028 after all prerequisites are met.</div>
+      <div class="md-track">
+        <div class="md-req progress">
+          <div class="md-req-num">1</div>
+          <div class="md-req-title">Qualifying Digital Activities</div>
+          <div class="md-req-detail">SaaS platform operations, AI face recognition, cloud infrastructure</div>
+          <div class="md-req-status">● In progress — SaaS active</div>
+        </div>
+        <div class="md-req planned">
+          <div class="md-req-num">2</div>
+          <div class="md-req-title">≥2 Knowledge Workers at ≥RM5k/mo</div>
+          <div class="md-req-detail">CEO & DCEO starting at RM2,500/RM2,300 — must reach RM5,000 by early 2028</div>
+          <div class="md-req-status">○ Planned — salary ramp underway</div>
+        </div>
+        <div class="md-req progress">
+          <div class="md-req-num">3</div>
+          <div class="md-req-title">≥RM50k/yr OPEX on MD Activities</div>
+          <div class="md-req-detail">Infrastructure, cloud services, domains, server ops, software licenses</div>
+          <div class="md-req-status">● In progress — OPEX growing</div>
+        </div>
+        <div class="md-req planned">
+          <div class="md-req-num">4</div>
+          <div class="md-req-title">≥RM1k Paid-up Capital</div>
+          <div class="md-req-detail">Current: RM1k minimum. Target RM250k for future Expansion Incentive eligibility.</div>
+          <div class="md-req-status">○ Planned — capital review 2028</div>
+        </div>
+      </div>
+      <div class="tw">
+        <table class="dt">
+          <thead><tr><th style="text-align:left">MD Milestone</th><th>When</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>SaaS revenue active (fee collection)</td><td style="text-align:left">H2 2026</td><td style="text-align:left"><span style="color:var(--warn);font-weight:600">On track</span></td></tr>
+            <tr><td>AI R&D pilot (GPU testing)</td><td style="text-align:left">2027</td><td style="text-align:left"><span style="color:var(--muted)">Planned</span></td></tr>
+            <tr><td>Trademark registered</td><td style="text-align:left">Before 2028</td><td style="text-align:left"><span style="color:var(--warn);font-weight:600">Filing Q4 2026</span></td></tr>
+            <tr><td>CEO & DCEO salaries ≥ RM5,000</td><td style="text-align:left">Early 2028</td><td style="text-align:left"><span style="color:var(--muted)">Ramping</span></td></tr>
+            <tr><td>MDEC pre-consultation</td><td style="text-align:left">Q1–Q2 2028</td><td style="text-align:left"><span style="color:var(--muted)">Planned</span></td></tr>
+            <tr><td>MD Status application</td><td style="text-align:left">Q2–Q3 2028</td><td style="text-align:left"><span style="color:var(--muted)">Planned</span></td></tr>
+            <tr><td>MD Status approval (target)</td><td style="text-align:left">H2 2028</td><td style="text-align:left"><span style="color:var(--muted)">Planned</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════
+       ⑥ DEPENDENCIES & RISKS
+       ══════════════════════════════════════════════════════════ -->
+  <div class="cs">
+    <button class="cs-toggle" onclick="tgl(this)"><span class="cs-arrow">▶</span><span class="cs-label">⑥ Critical Dependencies & Risks</span></button>
+    <div class="cs-body collapsed" style="max-height:0">
+      <div class="tw">
+        <table class="dt" id="depTable">
+          <thead><tr><th style="text-align:left">Dependency</th><th style="text-align:left">Blocks</th><th style="text-align:left">Risk</th><th style="text-align:left">Mitigation</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════
+       ⑦ APPENDIX
+       ══════════════════════════════════════════════════════════ -->
+  <div class="cs">
+    <button class="cs-toggle" onclick="tgl(this)"><span class="cs-arrow">▶</span><span class="cs-label">⑦ Appendix — Monthly Detail & Assumptions</span></button>
+    <div class="cs-body collapsed" style="max-height:0">
+      <div id="monthAcc"></div>
+      <button class="asum-toggle" onclick="tglA()"><span id="aA">▶</span> <span>Show assumptions</span></button>
+      <div class="asum-body" id="aB"></div>
+    </div>
+  </div>
+
+  <div class="footer"><span>QCXIS Sdn Bhd · IT Ops & Management · Confidential</span><span>Prepared April 2026</span></div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════
+     JAVASCRIPT
+     ══════════════════════════════════════════════════════════════ -->
+<script>
+// ═══════════════════════════════════════
+// DATA — SHARED CONSTANTS
+// ═══════════════════════════════════════
+const MO = ['Jan','Feb','Mac','Apr','Mei','Jun','Jul','Ogos','Sep','Okt','Nov','Dis'];
+const YRS = [2026, 2027, 2028, 2029, 2030, 2031];
+const YR_COLORS = {2026:'#1d4ed8', 2027:'#b45309', 2028:'#0a7b6c', 2029:'#7c3aed', 2030:'#dc2626', 2031:'#0891b2'};
+
+// ── Historical client data ──
+const HIST = [
+  {y:2025,m:'Jan',mi:0,c:11244},{y:2025,m:'Feb',mi:1,c:12364},{y:2025,m:'Mac',mi:2,c:12320},
+  {y:2025,m:'Apr',mi:3,c:13516},{y:2025,m:'Mei',mi:4,c:14676},{y:2025,m:'Jun',mi:5,c:15463},
+  {y:2025,m:'Jul',mi:6,c:16006},{y:2025,m:'Ogos',mi:7,c:16780},{y:2025,m:'Sep',mi:8,c:17094},
+  {y:2025,m:'Okt',mi:9,c:17453},{y:2025,m:'Nov',mi:10,c:16917},{y:2025,m:'Dis',mi:11,c:15804},
+  {y:2026,m:'Jan',mi:0,c:17525},{y:2026,m:'Feb',mi:1,c:19144}
+];
+const ANC = 19144, P1S = 226;
+
+// ── Scenario parameters ──
+const SC = {
+  conservative: {l:'Conservative', cl:'#6366f1', cl2:'rgba(99,102,241,.07)', p1:280, p2:400, cap:100, re:.80, ramp:18, sm:1.2},
+  optimum:      {l:'Optimum',      cl:'#1d4ed8', cl2:'rgba(29,78,216,.07)', p1:300, p2:500, cap:120, re:.88, ramp:15, sm:1.0},
+  aggressive:   {l:'Aggressive',   cl:'#059669', cl2:'rgba(5,150,105,.07)', p1:320, p2:600, cap:140, re:.93, ramp:12, sm:.8}
+};
+const SEAS = {0:.109, 1:.092, 2:-.004, 3:.097, 4:.086, 5:.054, 6:.035, 7:.048, 8:.019, 9:.021, 10:-.031, 11:-.066};
+
+// ── Payroll ──
+const EPF_R = 0.13, SOCSO_R = 0.0175, EIS_R = 0.002;
+const EMPLOYER_STAT = EPF_R + SOCSO_R + EIS_R; // 14.95%
+const ALLOW_TOTAL = 50 + 200 + 200; // parking + travel + housing
+const INS = 150; // medical card per person/mo
+const TIER_EXEC = 5000, TIER_IT = 2000, TIER_ADMIN = 1900;
+const CEO_2026 = 2500, DCEO_2026 = 2300;
+const ANNUAL_INC = 0.05; // 5 % annual increment from 2028
+
+function ctcMo(b) { return Math.round((b + ALLOW_TOTAL) * (1 + EMPLOYER_STAT) + INS); }
+
+/* Month-aware payroll calculation
+   2026 (Jun–Dec): CEO RM2,500 + DCEO RM2,300 — 7 months only
+   2027: Exec salaries ramp linearly to RM5,000 by Nov 2027
+         +2 IT (RM2,000) & +1 Admin (RM1,900) join mid-year (6 mo)
+   2028+: Full year, 5 % annual increment on all roles              */
+function execBaseMo(role, year, month) {
+  const start = role === 'ceo' ? CEO_2026 : DCEO_2026;
+  // Before hire month (Jun 2026 = month index 5)
+  if (year === 2026 && month < 5) return 0;
+  if (year === 2026) return start;
+  // Linear ramp Jan–Nov 2027 → TIER_EXEC
+  if (year === 2027) {
+    const t = Math.min(month, 10) / 10; // 0 @ Jan, 1 @ Nov
+    return Math.round(start + (TIER_EXEC - start) * t);
+  }
+  // 2028+: 5 % annual increment from RM5,000
+  return Math.round(TIER_EXEC * Math.pow(1 + ANNUAL_INC, year - 2027));
+}
+
+function payrollYr(y) {
+  // -- Exec (CEO + DCEO) --
+  let execTotal = 0;
+  for (let m = 0; m < 12; m++) {
+    execTotal += ctcMo(execBaseMo('ceo', y, m)) + ctcMo(execBaseMo('dceo', y, m));
+  }
+  // -- Support hires (2 IT + 1 Admin), join Jun 2027 --
+  if (y < 2027) return Math.round(execTotal);
+  const itBase  = y === 2027 ? TIER_IT    : Math.round(TIER_IT    * Math.pow(1 + ANNUAL_INC, y - 2027));
+  const admBase = y === 2027 ? TIER_ADMIN : Math.round(TIER_ADMIN * Math.pow(1 + ANNUAL_INC, y - 2027));
+  const moO = y === 2027 ? 7 : 12; // Jun–Dec = 7 months in hire year
+  return Math.round(execTotal + 2 * ctcMo(itBase) * moO + ctcMo(admBase) * moO);
+}
+
+// ── Management Fee & Corporate ──
+const MGMT_MO = 4000;
+const TM = 3500, GPU = 5000, MDF = 1080;
+function corpYr(y) { return y === 2026 ? TM : y === 2027 ? GPU : y === 2028 ? MDF : 0; }
+const CONTINGENCY = 0.05;
+
+function yrCost(y) {
+  const payroll = payrollYr(y), mgmtFee = MGMT_MO * 12, corp = corpYr(y);
+  const contingency = Math.round((payroll + mgmtFee + corp) * CONTINGENCY);
+  return { payroll, mgmtFee, corp, contingency };
+}
+
+// ── HR Module Revenue ──
+const HR_SUB = 40, HR_HEAD_N = 5, HR_HEAD_P = 2, HR_AVG_EMP = 15;
+const HR_MO_N = HR_SUB + HR_HEAD_N * HR_AVG_EMP; // RM115/mo
+const HR_MO_P = HR_SUB + HR_HEAD_P * HR_AVG_EMP; // RM70/mo
+const HR_CUST = {2027:5, 2028:15, 2029:35, 2030:65, 2031:105};
+const HR_CHURN = 0.20;
+
+function hrRevByYear() {
+  const r = {}; let active = 0;
+  for (let y = 2027; y <= 2031; y++) {
+    const churned = Math.round(active * HR_CHURN); active -= churned;
+    const target = HR_CUST[y] || 0, newC = Math.max(0, target - active);
+    const mo = y <= 2028 ? HR_MO_P : HR_MO_N;
+    const recur = Math.round(active * mo * 12 + newC * mo * 6);
+    r[y] = {cust: target, newC, recur, total: recur}; active = target;
+  }
+  r[2026] = {cust:0, newC:0, recur:0, total:0}; return r;
+}
+const HR_REV = hrRevByYear();
+
+// ── Portrait Module Revenue ──
+const PORT_SUB = 40, PORT_PROF = 15, PORT_AVG = 3, PORT_ADOPT = 0.30;
+const PORT_MO = PORT_SUB + PORT_PROF * PORT_AVG; // RM85/mo
+function portRevByYear() {
+  const r = {};
+  for (let y = 2027; y <= 2031; y++) {
+    const pc = Math.round((HR_CUST[y] || 0) * PORT_ADOPT);
+    if (!pc) { r[y] = {cust:0, recur:0, total:0}; continue; }
+    const mo = y === 2027 ? 6 : 12;
+    const rev = Math.round(pc * PORT_MO * mo);
+    r[y] = {cust: pc, recur: rev, total: rev};
+  }
+  r[2026] = {cust:0, recur:0, total:0}; return r;
+}
+const PORT_REV = portRevByYear();
+
+// ── Projection engine ──
+function buildProj(k) {
+  const S = SC[k];
+  const getO = (y, m) => {
+    if (y === 2026) return Math.min(S.p1, Math.round(P1S + (S.p1 - P1S) / 9 * (m - 2)));
+    return Math.min(S.p2, Math.round(S.p1 + (S.p2 - S.p1) / 59 * ((y - 2027) * 12 + m)));
+  };
+  const obm = [];
+  for (let y = 2026; y <= 2031; y++) { const sm = y === 2026 ? 2 : 0; for (let m = sm; m <= 11; m++) obm.push({y, mi:m, mo:MO[m], o:getO(y, m)}); }
+  const rb = obm.map((d, i) => {
+    let e = P1S;
+    for (let j = 0; j <= i; j++) { const p = j === 0 ? P1S : obm[j-1].o; const n = obm[j].o - p; if (n <= 0) continue; e += n * Math.min((i - j + 1) / S.ramp, 1); }
+    return Math.round(e * S.cap * S.re);
+  });
+  const rs = ANC / rb[0]; const proj = []; let pc = ANC;
+  obm.forEach((d, i) => { const sr = rb[i] * rs; const sf = SEAS[d.mi] * S.sm; const fp = Math.round(pc * (1 + sf)); const c = Math.round(.6 * sr + .4 * fp); pc = c; proj.push({...d, c}); });
+
+  const ic = (y, m) => y > 2026 || (y === 2026 && m >= 5);
+  const as = {}; let gF = 0, gC = 0;
+  for (let y = 2026; y <= 2031; y++) {
+    const mo = proj.filter(d => d.y === y); let yF = 0;
+    mo.forEach(d => { if (!ic(d.y, d.mi)) return; yF += d.c; });
+    const f = yrCost(y); const hr = HR_REV[y]?.total || 0; const port = PORT_REV[y]?.total || 0;
+    const yTotRev = yF + hr + port;
+    const yOpex = f.payroll + f.mgmtFee + f.corp + f.contingency;
+    gF += yF; gC += yOpex;
+    const last = mo[mo.length - 1];
+    as[y] = {fee:yF, hr, port, totRev:yTotRev, payroll:f.payroll, mgmtFee:f.mgmtFee, corp:f.corp, contingency:f.contingency, opex:yOpex, cost:yOpex, net:yTotRev - yOpex, lc:last.c, lo:last.o};
+  }
+  const gHR = Object.values(HR_REV).reduce((a, b) => a + b.total, 0);
+  const gPort = Object.values(PORT_REV).reduce((a, b) => a + b.total, 0);
+  return {proj, as, gFee:gF, gHR, gPort, gSaaS:gHR + gPort, gTotRev:gF + gHR + gPort, gCost:gC, gNet:gF + gHR + gPort - gC};
+}
+const D = {}; for (const k of Object.keys(SC)) D[k] = buildProj(k);
+
+// ── 6th hire scenarios ──
+// 6th hire with 5 % annual increments from year 2
+function hire6thCosts(base) {
+  return {
+    2029: ctcMo(base) * 12,
+    2030: ctcMo(Math.round(base * (1 + ANNUAL_INC))) * 12,
+    2031: ctcMo(Math.round(base * Math.pow(1 + ANNUAL_INC, 2))) * 12
+  };
+}
+const STAFF = {
+  hire_it:     {l:'6th — IT Tier (RM2,000)',  d:'IT developer or DevOps, from 2029',  cl:'#7c3aed', c: hire6thCosts(TIER_IT)},
+  hire_mid:    {l:'6th — Mid Tier (RM3,000)', d:'Experienced dev or BD, from 2029',    cl:'#d97706', c: hire6thCosts(3000)},
+  hire_senior: {l:'6th — Senior (RM4,000)',   d:'Senior dev or specialist, from 2029', cl:'#dc2626', c: hire6thCosts(4000)},
+};
+
+// ── Modules ──
+const MODULES = [
+  {name:'Franchise',      yr:2026, desc:'HQ, franchisees, outlets, attendance, scheduling'},
+  {name:'Cashbook',       yr:2026, desc:'Basic financial tracking (Finance module v1)'},
+  {name:'Helpdesk',       yr:2026, desc:'Ticketing, SLA, workflows, assignment'},
+  {name:'OMNI',           yr:2027, desc:'Stock & Inventory, eCommerce, Warehouse'},
+  {name:'HR Module',      yr:2027, desc:'Payroll, leave, claims — external SaaS revenue'},
+  {name:'Portrait',       yr:2027, desc:'Psychometric assessments module'},
+  {name:'MEET',           yr:2028, desc:'Video conferencing, external integrations'},
+  {name:'ICARUS (RASCI)', yr:2028, desc:'Project & task management, RASCI framework'},
+  {name:'Finance+',       yr:2029, desc:'Full accounting: CoA, journals, banking, tax'},
+];
+
+// ── Dependencies ──
+const DEPENDENCIES = [
+  {dep:'Chief approves RM1/client fee', blocks:'All franchise revenue', risk:'Low', mit:'Confirmed and agreed — formalised in service agreement'},
+  {dep:'Outlets grow to 500', blocks:'Fee revenue projections', risk:'Medium', mit:"Chief's directive; not in QCXIS' direct control"},
+  {dep:'HR Module finds market fit', blocks:'Revenue stream #2, staffing viability', risk:'High', mit:'Start small (5 customers), validate before scaling'},
+  {dep:'QC Group fronts infra costs', blocks:'All infrastructure availability', risk:'Low', mit:'Aligned interests — formalised in Service Agreement'},
+  {dep:'Salaries reach RM5,000 by Nov 2027', blocks:'MD Status knowledge worker req.', risk:'Medium', mit:'Gradual ramp from Jun 2026 start, reaching RM5k by Nov 2027 with 5% annual increments thereafter'},
+  {dep:'MDEC approves MD Status', blocks:'Tax benefits, grants, credibility', risk:'Medium', mit:'Pre-consultation in 2028, buffer period built in'},
+  {dep:'Trademark completes before 2028', blocks:'MD application (IP requirement)', risk:'Low', mit:'Filed 2026, 12–18mo processing — timeline allows buffer'},
+  {dep:'MDCG grant approved', blocks:'Infra + AI module funding', risk:'Medium', mit:'Exploratory; not a dependency for core operations'},
+  {dep:'Key person risk (CTO/tech lead)', blocks:'Platform, all technical ops', risk:'High', mit:'2027 IT hires begin knowledge distribution'},
+];
+
+// ── Year-by-year timeline data ──
+const TIMELINE = [
+  {
+    year: 2026, theme: 'Revenue & Foundation',
+    highlights: ['Franchise + Cashbook + Helpdesk launch', 'Fee collection begins', 'Inter-company agreements', 'Trademark filed'],
+    items: [
+      {cat:'product', q:'H2', title:'Franchise Module launch', desc:'Core platform — HQ, franchisees, outlets, attendance (face recognition), scheduling, payments.', ms:true},
+      {cat:'product', q:'H2', title:'Cashbook (Finance v1)', desc:'Basic financial tracking for franchisees.'},
+      {cat:'product', q:'H2', title:'Helpdesk / Support Module', desc:'Ticketing, SLA, workflows, assignment, approvals.'},
+      {cat:'revenue', q:'Jun', title:'Fee collection begins', desc:'RM1/client/month invoiced to outlets. Verified via platform data.', ms:true},
+      {cat:'people',  q:'2026', title:'2 staff transferred from QC Group', desc:'CEO (RM2,500) and DCEO (RM2,300).'},
+      {cat:'governance', q:'2026', title:'Letter of Employment', desc:'For both transferred staff.'},
+      {cat:'governance', q:'2026', title:'Data Processing Agreement (DPA)', desc:'Between QCXIS and QC Group.'},
+      {cat:'governance', q:'2026', title:'DPO Appointment', desc:'QCXIS as Data Protection Officer for QC Group.'},
+      {cat:'governance', q:'2026', title:'IT Code of Conduct', desc:'Internal governance for all QCXIS staff.'},
+      {cat:'governance', q:'2026', title:'Inter-company Service Agreement', desc:'Mgmt fee, infra ownership model, repurchase terms.', ms:true},
+      {cat:'ip', q:'Q4', title:'Trademark application started', desc:'MyIPO filing — 12–18 month processing.'},
+    ],
+    endState: ['Revenue flowing (fee collection active)','Franchise Module + Cashbook + Helpdesk live','2 staff employed by QCXIS','All foundational agreements signed','Trademark application in progress','Infra owned by QC Group, paying management fee']
+  },
+  {
+    year: 2027, theme: 'Team Growth & Multi-Module Launch',
+    highlights: ['+3 staff (total 5)', 'HR + Portrait + OMNI launch', 'DC migration', 'AI R&D pilot'],
+    items: [
+      {cat:'product', q:'Early', title:'OMNI Module launch', desc:'Stock & Inventory, eCommerce, Warehouse.'},
+      {cat:'product', q:'2027', title:'HR Module launch', desc:'Revenue stream #2. Payroll, attendance, leave, claims.', ms:true},
+      {cat:'product', q:'2027', title:'Portrait Module launch', desc:'Psychometric assessments alongside HR Module.'},
+      {cat:'product', q:'Late', title:'MEET Module (late 2027 / early 2028)', desc:'Video conferencing — internal rooms + external integrations.'},
+      {cat:'people',  q:'Jun–Jul', title:'+2 IT staff (RM2,000 ea.)', desc:'Module dev (OMNI, HR, Portrait) + AI research.'},
+      {cat:'people',  q:'2027', title:'+1 Admin & Management (RM1,900)', desc:'Documentation, IT support.'},
+      {cat:'revenue', q:'H2', title:'HR Module client acquisition', desc:'Target: 5 external customers in first year.'},
+      {cat:'infra',   q:'2027', title:'Data centre migration', desc:'Production server at dedicated DC. Colo decommissioned.', ms:true},
+      {cat:'grant',   q:'2027', title:'MDCG review & application', desc:'Malaysia Digital Catalyst Grant — up to RM1M.'},
+      {cat:'ip',      q:'2027', title:'Trademark completion', desc:'MyIPO registration expected to finalise.'},
+      {cat:'rd',      q:'2027', title:'AI R&D pilot', desc:'GPU testing — qualifying AI activity for MD Status.'},
+    ],
+    endState: ['5 staff employed by QCXIS','6+ modules live','HR Module generating external revenue','DC migration complete','MDCG grant application submitted','Trademark registered','AI R&D activity documented','CEO + DCEO salaries ramping toward RM5,000']
+  },
+  {
+    year: 2028, theme: 'MD Status & Asset Transition',
+    highlights: ['MD Status application', 'ICARUS/RASCI launch', 'RM5k salaries', 'Infra repurchase begins'],
+    items: [
+      {cat:'cert', q:'Q1', title:'MD Readiness Assessment', desc:'Internal review against MD requirements.'},
+      {cat:'cert', q:'Q1–Q2', title:'MDEC pre-consultation', desc:'Confirm eligibility, review checklist.'},
+      {cat:'cert', q:'Q2', title:'Requirements buffer', desc:'Resolve any pending gaps.'},
+      {cat:'cert', q:'Q2–Q3', title:'MD Status application', desc:'All prerequisites met.', ms:true},
+      {cat:'cert', q:'H2', title:'MD Status approval (target)', desc:'Tax incentives, grants, credibility.', ms:true},
+      {cat:'product', q:'2028', title:'ICARUS (RASCI) Module', desc:'Task & project management — RASCI framework.'},
+      {cat:'people',  q:'Early', title:'CEO & DCEO hit RM5,000 base', desc:'MD knowledge worker requirement satisfied.', ms:true},
+      {cat:'people',  q:'2028', title:'Milestone & Capacity Review', desc:'Assess if 6th hire justified.'},
+      {cat:'infra',   q:'2028', title:'Infra asset repurchase begins', desc:'QCXIS buying assets from QC Group.', ms:true},
+    ],
+    endState: ['MD Status obtained (or final review)','5 staff (capacity review conducted)','ICARUS (RASCI) module live','Infra repurchase underway','HR Module: 15 customers','Both founders at RM5,000+ base']
+  },
+  {
+    year: 2029, theme: 'Scaling Operations',
+    highlights: ['Finance+ module', '6th hire (if approved)', '35 HR customers', 'ISO 27001 scoping'],
+    items: [
+      {cat:'product', q:'2029', title:'Finance Module expansion', desc:'Full accounting: CoA, journals, banking, tax.'},
+      {cat:'people',  q:'2029', title:'6th hire (if approved)', desc:'Based on 2028 capacity review. Staff ceiling: 6.'},
+      {cat:'revenue', q:'2029', title:'HR Module at 35 customers', desc:'Product-market fit validated.'},
+      {cat:'ops',     q:'2029', title:'ISO 27001 / SOC 2 exploration', desc:'Scoping security certification.'},
+    ],
+    endState: ['Up to 6 staff (ceiling)','Finance Module expansion live','HR Module at PMF (35+ customers)','ISO 27001 / SOC 2 scoping underway']
+  },
+  {
+    year: 2030, theme: 'Market Expansion',
+    highlights: ['ISO certification', '65 HR customers', '~500 outlets', 'Salary review'],
+    items: [
+      {cat:'people',  q:'2030', title:'Team at 6 (ceiling)', desc:'Lean, cross-functional team.'},
+      {cat:'people',  q:'2030', title:'Salary review & adjustment', desc:'Competitive salaries to retain talent.'},
+      {cat:'revenue', q:'2030', title:'HR Module at 65 customers', desc:'Growing recurring revenue.'},
+      {cat:'revenue', q:'2030', title:'500 outlets approaching', desc:"Chief's directive on track."},
+      {cat:'ops',     q:'2030', title:'ISO 27001 / SOC 2 certification', desc:'Opens gov & enterprise contracts.', ms:true},
+    ],
+    endState: ['6 staff, lean cross-functional','HR Module at 65 customers','Outlet network approaching 500','ISO 27001 / SOC 2 in hand','Salary review completed']
+  },
+  {
+    year: 2031, theme: 'Maturity & Independence',
+    highlights: ['500 outlets achieved', '105 HR customers', 'Full module suite', 'Infra fully owned'],
+    items: [
+      {cat:'product',    q:'2031', title:'Full module suite live', desc:'All core modules operational.', ms:true},
+      {cat:'product',    q:'2031', title:'Platform v2 architecture', desc:'Technical debt addressed. Scalability for multi-thousand tenants.'},
+      {cat:'revenue',    q:'2031', title:'500 outlets achieved', desc:"~52,000+ active clients. Peak fee revenue.", ms:true},
+      {cat:'revenue',    q:'2031', title:'HR Module at 105 customers', desc:'Recurring SaaS revenue >RM75k/yr.'},
+      {cat:'people',     q:'2031', title:'Team at 6, competitive compensation', desc:'Market-rate salaries, KL-competitive benefits.'},
+      {cat:'strategic',  q:'2031', title:'Infra fully owned by QCXIS', desc:'All assets repurchased. Full independence.', ms:true},
+      {cat:'strategic',  q:'2031', title:'Regional expansion evaluation', desc:'Assess SEA market entry (SG, ID, TH).'},
+    ],
+    endState: ['Fully independent, self-sustaining','6 staff, lean professional team','500 outlets, 105+ HR customers','Full module suite live, Platform v2','All infra owned, all agreements in place','MD Status active, security-certified','Positioned for regional expansion evaluation']
+  }
+];
+
+const CAT_META = {
+  product:    {label:'Product',    cls:'cat-product'},
+  revenue:    {label:'Revenue',    cls:'cat-revenue'},
+  people:     {label:'People',     cls:'cat-people'},
+  infra:      {label:'Infra',      cls:'cat-infra'},
+  governance: {label:'Governance', cls:'cat-governance'},
+  ip:         {label:'IP & Legal', cls:'cat-ip'},
+  cert:       {label:'MD Status',  cls:'cat-cert'},
+  grant:      {label:'Grant',      cls:'cat-grant'},
+  rd:         {label:'R&D',        cls:'cat-rd'},
+  ops:        {label:'Operations', cls:'cat-ops'},
+  strategic:  {label:'Strategic',  cls:'cat-strategic'},
+};
+
+
+// ═══════════════════════════════════════
+// RENDER ENGINE
+// ═══════════════════════════════════════
+let cur = 'optimum';
+let revFilter = 'all'; // 'all' | 'fee' | 'saas'
+let plChartInstance, sfChartInstance;
+const f = n => Math.round(n).toLocaleString();
+const fR = n => 'RM ' + f(n);
+const ic = (y, m) => y > 2026 || (y === 2026 && m >= 5);
+const s = () => cur;
+
+function setS(v) {
+  cur = v;
+  document.querySelectorAll('.s-btn').forEach(b => b.classList.toggle('active', b.dataset.s === v));
+  renderFinancials();
+}
+function setR(v) {
+  revFilter = v;
+  document.querySelectorAll('.r-btn').forEach(b => b.classList.toggle('active', b.dataset.r === v));
+  renderPLChart();
+}
+
+function tgl(b) {
+  const o = b.classList.toggle('open');
+  const bd = b.nextElementSibling;
+  if (o) { bd.classList.remove('collapsed'); bd.style.maxHeight = bd.scrollHeight + 'px'; }
+  else { bd.classList.add('collapsed'); bd.style.maxHeight = '0'; }
+}
+
+// ───────────────────────────────────────
+// ① P&L HERO
+// ───────────────────────────────────────
+function renderFinancials() {
+  renderPLChart();
+  renderKPIs();
+  renderSummaryTable();
+  renderFeeTable();
+  renderHRTable();
+  renderPortTable();
+  renderCostTable();
+  renderMonthlyAcc();
+}
+
+function renderPLChart() {
+  if (plChartInstance) plChartInstance.destroy();
+  const d = D[s()], S = SC[s()];
+  // Revenue based on toggle
+  let rev, revLabel, subText;
+  if (revFilter === 'fee') {
+    rev = YRS.map(y => d.as[y].fee);
+    revLabel = 'Fee Revenue';
+    subText = 'Fee Collection only (RM1 × active clients) against total OPEX. Timeline starts Jun 2026.';
+  } else if (revFilter === 'saas') {
+    rev = YRS.map(y => d.as[y].hr + d.as[y].port);
+    revLabel = 'SaaS Revenue';
+    subText = 'HR Module + Portrait Module revenue against total OPEX. Timeline starts Jun 2026.';
+  } else {
+    rev = YRS.map(y => d.as[y].totRev);
+    revLabel = 'Revenue';
+    subText = 'All streams (Fee + HR + Portrait) against total OPEX. Timeline starts Jun 2026.';
+  }
+  const cost = YRS.map(y => d.as[y].cost);
+  const net = YRS.map((_, i) => rev[i] - cost[i]);
+  document.getElementById('plChartSub').textContent = subText;
+
+  plChartInstance = new Chart(document.getElementById('plChart').getContext('2d'), {
+    type: 'bar',
+    data: {
+      labels: YRS.map(String),
+      datasets: [
+        {type:'bar', label:revLabel, data:rev, backgroundColor:S.cl + '77', borderColor:S.cl, borderWidth:1, borderRadius:3, order:2},
+        {type:'bar', label:'OPEX', data:cost, backgroundColor:'rgba(153,27,27,.45)', borderColor:'#991b1b', borderWidth:1, borderRadius:3, order:3},
+        {type:'line', label:'Net', data:net, borderColor:'#065f46', backgroundColor:'rgba(5,150,105,.04)', borderWidth:2.5, pointRadius:4, pointBackgroundColor:'#fff', pointBorderColor:'#065f46', pointBorderWidth:2, tension:.35, fill:true, order:1}
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      interaction: {mode:'index', intersect:false},
+      plugins: {
+        legend: {display:false},
+        tooltip: {backgroundColor:'#fff', borderColor:'#dfe2e8', borderWidth:1, titleColor:'#161b2e', bodyColor:'#3b4460', padding:7, callbacks:{label:c => ` ${c.dataset.label}: RM ${c.parsed.y?.toLocaleString() ?? '—'}`}}
+      },
+      scales: {
+        x: {ticks:{color:'#8590a6', font:{size:9.5}}, grid:{color:'rgba(223,226,232,.5)'}},
+        y: {ticks:{color:'#8590a6', font:{size:8}, callback:v => 'RM ' + v.toLocaleString()}, grid:{color:'rgba(223,226,232,.4)'}}
+      }
+    }
+  });
+  document.getElementById('plLeg').innerHTML = `<div class="cl-item"><div class="cl-bar" style="background:${S.cl}77"></div>${revLabel}</div><div class="cl-item"><div class="cl-bar" style="background:rgba(153,27,27,.45)"></div>OPEX</div><div class="cl-item"><div class="cl-line" style="background:#065f46"></div>Net</div>`;
+}
+
+function renderKPIs() {
+  const d = D[s()];
+  const margin = ((d.gNet / d.gTotRev) * 100).toFixed(1);
+  document.getElementById('kpiStrip').innerHTML = [
+    {l:'5yr Total Revenue', v:fR(d.gTotRev), c:'var(--warn)', n:`Fee ${fR(d.gFee)} + SaaS ${fR(d.gSaaS)}`},
+    {l:'5yr Total Cost', v:fR(d.gCost), c:'var(--cost-text)', n:'Payroll + Mgmt Fee + Corp + Contingency'},
+    {l:'5yr Net', v:fR(d.gNet), c:d.gNet >= 0 ? 'var(--net-text)' : 'var(--cost-text)', n:`Margin: ${margin}%`},
+    {l:'Outlets by 2031', v:SC[s()].p2, c:'var(--accent)', n:"Chief's directive"},
+    {l:'HR Customers \'31', v:'105', c:'var(--hr)', n:'External SaaS clients'},
+    {l:'Staff Ceiling', v:'6', c:'var(--staff)', n:'Lean team from 2029'},
+  ].map(k => `<div class="kpi kpi-top"><div class="kpi-label">${k.l}</div><div class="kpi-value" style="color:${k.c}">${k.v}</div>${k.n ? `<div class="kpi-note">${k.n}</div>` : ''}</div>`).join('');
+}
+
+function renderSummaryTable() {
+  const d = D[s()];
+  const totRev = YRS.map(y => d.as[y].totRev), totCost = YRS.map(y => d.as[y].cost), net = YRS.map(y => d.as[y].net);
+  let h = `<thead><tr><th style="text-align:left"></th>${YRS.map(y => `<th>${y}</th>`).join('')}<th>5yr Total</th></tr></thead><tbody>`;
+  h += `<tr class="pl-rev"><td>Total Revenue</td>${totRev.map(v => `<td>${fR(v)}</td>`).join('')}<td>${fR(totRev.reduce((a,b)=>a+b,0))}</td></tr>`;
+  h += `<tr class="pl-cost-total"><td>Total OPEX</td>${totCost.map(v => `<td>${fR(v)}</td>`).join('')}<td>${fR(totCost.reduce((a,b)=>a+b,0))}</td></tr>`;
+  const nt = net.reduce((a,b) => a+b, 0);
+  h += `<tr class="${nt >= 0 ? 'pl-net' : 'pl-net-neg'}"><td>Net Contribution</td>${net.map(v => `<td>${fR(v)}</td>`).join('')}<td>${fR(nt)}</td></tr>`;
+  h += `<tr class="pl-growth"><td>YoY Net Growth</td><td>—</td>${YRS.slice(1).map((y,i) => { if (net[i] <= 0) return '<td>—</td>'; const g = ((net[i+1] - net[i]) / Math.abs(net[i]) * 100).toFixed(0); return `<td>${g > 0 ? '+' : ''}${g}%</td>`; }).join('')}<td></td></tr></tbody>`;
+  document.getElementById('summaryTable').innerHTML = h;
+}
+
+function renderFeeTable() {
+  const d = D[s()];
+  let h = `<thead><tr><th style="text-align:left">Fee Collection</th>${YRS.map(y => `<th>${y}</th>`).join('')}<th>Total</th></tr></thead><tbody>`;
+  const v = YRS.map(y => d.as[y].fee);
+  h += `<tr class="pl-rev"><td>RM1 × active clients</td>${v.map(x => `<td>${fR(x)}</td>`).join('')}<td>${fR(v.reduce((a,b) => a+b, 0))}</td></tr></tbody>`;
+  document.getElementById('feeTable').innerHTML = h;
+}
+
+function renderHRTable() {
+  let h = `<thead><tr><th style="text-align:left">HR Module</th>${YRS.map(y => `<th>${y}</th>`).join('')}<th>Total</th></tr></thead><tbody>`;
+  const cust = YRS.map(y => HR_REV[y]?.cust || 0);
+  h += `<tr><td>Customers (cumul.)</td>${cust.map(c => `<td>${c || '—'}</td>`).join('')}<td></td></tr>`;
+  h += `<tr class="pl-sub"><td>Rate/customer/mo</td>${YRS.map(y => `<td>${(HR_CUST[y]||0) ? y<=2028 ? 'RM'+HR_MO_P+' <span style="font-size:7px;color:var(--accent)">(promo)</span>' : 'RM'+HR_MO_N : '—'}</td>`).join('')}<td></td></tr>`;
+  const tot = YRS.map(y => HR_REV[y]?.total || 0);
+  h += `<tr class="hr-rev"><td>HR Module Total</td>${tot.map(v => `<td>${v ? fR(v) : '—'}</td>`).join('')}<td>${fR(tot.reduce((a,b) => a+b, 0))}</td></tr></tbody>`;
+  document.getElementById('hrTable').innerHTML = h;
+}
+
+function renderPortTable() {
+  let h = `<thead><tr><th style="text-align:left">Portrait Module</th>${YRS.map(y => `<th>${y}</th>`).join('')}<th>Total</th></tr></thead><tbody>`;
+  const cust = YRS.map(y => PORT_REV[y]?.cust || 0);
+  h += `<tr><td>Customers (30% of HR)</td>${cust.map(c => `<td>${c || '—'}</td>`).join('')}<td></td></tr>`;
+  const tot = YRS.map(y => PORT_REV[y]?.total || 0);
+  h += `<tr class="hr-rev"><td>Portrait Total (RM${PORT_MO}/mo)</td>${tot.map(v => `<td>${v ? fR(v) : '—'}</td>`).join('')}<td>${fR(tot.reduce((a,b) => a+b, 0))}</td></tr></tbody>`;
+  document.getElementById('portTable').innerHTML = h;
+}
+
+function renderCostTable() {
+  const d = D[s()];
+  const rows = [
+    {k:'payroll',     l:'Payroll (5 staff, ramped)', cls:'pl-sub', n:'Jun 2026 start · ramp to RM5k by Nov 2027 · 5% p.a.'},
+    {k:'mgmtFee',    l:'Management Fee → QC Group', cls:'pl-sub', n:'RM4,000/mo — all infra'},
+    {k:'corp',        l:'Corporate One-offs', cls:'pl-sub'},
+    {k:'contingency', l:'Contingency (5%)', cls:'pl-sub'},
+    {k:'cost',        l:'Total OPEX', cls:'pl-cost-total'},
+  ];
+  let h = `<thead><tr><th style="text-align:left"></th>${YRS.map(y => `<th>${y}</th>`).join('')}<th>Total</th></tr></thead><tbody>`;
+  for (const r of rows) {
+    const v = YRS.map(y => d.as[y][r.k]);
+    h += `<tr class="${r.cls || ''}"><td>${r.l}${r.n ? ` <span style="font-size:8px;color:var(--muted)">${r.n}</span>` : ''}</td>${v.map(x => `<td>${fR(x)}</td>`).join('')}<td>${fR(v.reduce((a,b) => a+b, 0))}</td></tr>`;
+  }
+  h += `</tbody>`;
+  document.getElementById('costTable').innerHTML = h;
+}
+
+// ───────────────────────────────────────
+// ② JOURNEY TIMELINE
+// ───────────────────────────────────────
+let activeYear = null;
+
+function renderJourney() {
+  const nodesContainer = document.getElementById('journeyNodes');
+  const detailsContainer = document.getElementById('journeyDetails');
+
+  // Build nodes
+  nodesContainer.innerHTML = '';
+  nodesContainer.style.cssText = 'display:flex;justify-content:space-between;width:100%;position:relative;z-index:1;';
+
+  TIMELINE.forEach((yr, i) => {
+    const c = YR_COLORS[yr.year];
+    const isActive = activeYear === yr.year;
+    const node = document.createElement('div');
+    node.className = 'journey-node' + (isActive ? ' active' : '');
+    node.onclick = () => toggleDetail(yr.year);
+    node.innerHTML = `
+      <div class="jn-dot" style="background:${c}">${String(yr.year).slice(2)}</div>
+      <div class="jn-year">${yr.year}</div>
+      <div class="jn-theme">${yr.theme}</div>
+      <ul class="jn-items">
+        ${yr.highlights.map((h, j) => `<li${j < 2 ? ' class="milestone"' : ''}>${h}</li>`).join('')}
+      </ul>
+    `;
+    nodesContainer.appendChild(node);
+  });
+
+  // Build detail panels
+  detailsContainer.innerHTML = '';
+  TIMELINE.forEach(yr => {
+    const c = YR_COLORS[yr.year];
+    const isActive = activeYear === yr.year;
+    const catOrder = ['product','cert','revenue','people','governance','ip','infra','grant','rd','ops','strategic'];
+
+    // Group items by category
+    const groups = {};
+    yr.items.forEach(item => {
+      if (!groups[item.cat]) groups[item.cat] = [];
+      groups[item.cat].push(item);
+    });
+
+    const groupsHtml = catOrder.filter(cat => groups[cat]).map(cat => {
+      const catM = CAT_META[cat] || {label: cat, cls: ''};
+      const itemsHtml = groups[cat].map(item => `
+        <div class="jd-item${item.ms ? ' ms' : ''}">
+          <div class="jd-item-dot"></div>
+          <div>
+            <div class="jd-item-q">${item.q}</div>
+            <div class="jd-item-title">${item.title}</div>
+            <div class="jd-item-desc">${item.desc}</div>
+          </div>
+        </div>
+      `).join('');
+      return `<div><div class="jd-group-label ${catM.cls}">${catM.label}</div>${itemsHtml}</div>`;
+    }).join('');
+
+    const endStateHtml = yr.endState ? `
+      <div class="jd-endstate">
+        <div class="jd-endstate-label">${yr.year} End State</div>
+        <div class="jd-endstate-list">${yr.endState.map(s => `<div class="jd-endstate-item">${s}</div>`).join('')}</div>
+      </div>` : '';
+
+    const itemCount = yr.items.length;
+    const msCount = yr.items.filter(it => it.ms).length;
+
+    const panel = document.createElement('div');
+    panel.className = 'journey-detail' + (isActive ? ' active' : '');
+    panel.id = 'jd-' + yr.year;
+    panel.innerHTML = `
+      <div class="jd-head">
+        <div class="jd-dot" style="background:${c}">${String(yr.year).slice(2)}</div>
+        <div>
+          <div class="jd-title">${yr.year} — ${yr.theme}</div>
+          <div class="jd-theme">Detailed quarterly planning</div>
+        </div>
+        <div class="jd-badge">${itemCount} items · ${msCount} milestones</div>
+      </div>
+      <div class="jd-groups">${groupsHtml}</div>
+      ${endStateHtml}
+    `;
+    detailsContainer.appendChild(panel);
+  });
+}
+
+function toggleDetail(year) {
+  if (activeYear === year) { activeYear = null; } else { activeYear = year; }
+  renderJourney();
+}
+
+// ───────────────────────────────────────
+// ③ MODULES
+// ───────────────────────────────────────
+function renderModuleGrid() {
+  document.getElementById('moduleGrid').innerHTML = `<div class="mod-grid">${MODULES.map(m => {
+    const c = YR_COLORS[m.yr];
+    return `<div class="mod-card" style="border-top:3px solid ${c}"><div class="mod-yr" style="color:${c}">${m.yr}</div><div class="mod-name">${m.name}</div><div class="mod-desc">${m.desc}</div></div>`;
+  }).join('')}</div>`;
+}
+
+function renderGanttChart() {
+  const labels = MODULES.map(m => m.name).reverse();
+  const data = MODULES.map(m => {
+    return [m.yr - 2026, 2031 - m.yr + 1];
+  }).reverse();
+
+  new Chart(document.getElementById('ganttChart').getContext('2d'), {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [
+        {label:'_spacer', data:data.map(d => d[0]), backgroundColor:'transparent', borderWidth:0, barPercentage:.6, categoryPercentage:.8},
+        {label:'Active', data:data.map(d => d[1]), backgroundColor:MODULES.map(m => YR_COLORS[m.yr] + '88').reverse(), borderColor:MODULES.map(m => YR_COLORS[m.yr]).reverse(), borderWidth:1, borderRadius:3, barPercentage:.6, categoryPercentage:.8}
+      ]
+    },
+    options: {
+      responsive:true, maintainAspectRatio:false, indexAxis:'y',
+      plugins: {
+        legend: {display:false},
+        tooltip: {
+          filter: item => item.datasetIndex === 1,
+          backgroundColor:'#fff', borderColor:'#dfe2e8', borderWidth:1, titleColor:'#161b2e', bodyColor:'#3b4460', padding:7,
+          callbacks: {label: c => { const m = MODULES[MODULES.length - 1 - c.dataIndex]; return ' Launched ' + m.yr + ' — ' + m.desc; }}
+        }
+      },
+      scales: {
+        x: {stacked:true, min:0, max:6, ticks:{color:'#8590a6', font:{size:9}, callback:v => v < 6 ? String(2026 + v) : ''}, grid:{color:'rgba(223,226,232,.4)'}},
+        y: {stacked:true, ticks:{color:'#161b2e', font:{size:9.5, weight:'500'}}, grid:{display:false}}
+      }
+    }
+  });
+}
+
+// ───────────────────────────────────────
+// ④ STAFFING
+// ───────────────────────────────────────
+function renderStaff() {
+  const d = D.optimum;
+  const baseNet = YRS.map(y => d.as[y].net);
+  let h = `<thead><tr><th style="text-align:left"></th>${YRS.map(y => `<th>${y}</th>`).join('')}<th>Total</th></tr></thead><tbody>`;
+  h += `<tr style="background:var(--net-bg)"><td style="font-weight:700;color:var(--net-text)">Baseline Net (5 staff + SaaS)</td>${baseNet.map(v => `<td style="font-weight:700;color:${v >= 0 ? 'var(--net-text)' : 'var(--cost-text)'}">${fR(v)}</td>`).join('')}<td style="font-weight:700;color:var(--net-text)">${fR(baseNet.reduce((a,b) => a+b, 0))}</td></tr>`;
+  h += `<tr class="pl-cat"><td colspan="${YRS.length+2}">6th Hire Scenarios (from 2029)</td></tr>`;
+  for (const [pk, pl] of Object.entries(STAFF)) {
+    const cs = YRS.map(y => pl.c[y] || 0), tc = cs.reduce((a,b) => a+b, 0);
+    h += `<tr><td style="color:${pl.cl};font-weight:600">${pl.l}<br><span style="font-size:8.5px;color:var(--muted);font-weight:400">${pl.d}</span></td>${cs.map(c => `<td>${c ? fR(c) : '—'}</td>`).join('')}<td style="font-weight:600">${fR(tc)}</td></tr>`;
+    const na = YRS.map((y, i) => baseNet[i] - cs[i]), tn = na.reduce((a,b) => a+b, 0);
+    h += `<tr class="st-net ${tn >= 0 ? 'pos' : 'neg'}"><td style="padding-left:14px">→ Net after ${pl.l.split(' (')[0]}</td>${na.map(v => `<td style="color:${v >= 0 ? 'var(--net-text)' : 'var(--cost-text)'}">${fR(v)}</td>`).join('')}<td>${fR(tn)}</td></tr>`;
+  }
+  h += `</tbody>`;
+  document.getElementById('staffTable').innerHTML = h;
+
+  // Chart
+  if (sfChartInstance) sfChartInstance.destroy();
+  const ds = [{label:'Baseline', data:baseNet, borderColor:'#065f46', backgroundColor:'rgba(5,150,105,.06)', borderWidth:2.5, pointRadius:3.5, pointBackgroundColor:'#fff', pointBorderColor:'#065f46', pointBorderWidth:2, tension:.3, fill:true}];
+  for (const [pk, pl] of Object.entries(STAFF)) {
+    ds.push({label:pl.l.split(' (')[0], data:YRS.map((y,i) => baseNet[i] - (pl.c[y] || 0)), borderColor:pl.cl, borderWidth:1.5, borderDash:[4,3], pointRadius:2.5, pointBackgroundColor:'#fff', pointBorderColor:pl.cl, pointBorderWidth:1.5, tension:.3, fill:false});
+  }
+  sfChartInstance = new Chart(document.getElementById('sfChart').getContext('2d'), {
+    type: 'line',
+    data: {labels: YRS.map(String), datasets: ds},
+    options: {
+      responsive:true, maintainAspectRatio:false,
+      interaction: {mode:'index', intersect:false},
+      plugins: {legend:{display:false}, tooltip:{backgroundColor:'#fff', borderColor:'#dfe2e8', borderWidth:1, titleColor:'#161b2e', bodyColor:'#3b4460', padding:7, callbacks:{label:c => ` ${c.dataset.label}: RM ${c.parsed.y?.toLocaleString() ?? '—'}`}}},
+      scales: {
+        x: {ticks:{color:'#8590a6', font:{size:9.5}}, grid:{color:'rgba(223,226,232,.5)'}},
+        y: {ticks:{color:'#8590a6', font:{size:8}, callback:v => 'RM ' + v.toLocaleString()}, grid:{color:'rgba(223,226,232,.4)'}}
+      }
+    }
+  });
+  document.getElementById('sfLeg').innerHTML = `<div class="cl-item"><div class="cl-line" style="background:#065f46"></div>Baseline (5 staff)</div>` + Object.values(STAFF).map(p => `<div class="cl-item"><div class="cl-line" style="background:${p.cl}"></div>${p.l}</div>`).join('');
+}
+
+// ───────────────────────────────────────
+// ⑥ DEPENDENCIES
+// ───────────────────────────────────────
+function renderDeps() {
+  const tbody = document.querySelector('#depTable tbody');
+  tbody.innerHTML = DEPENDENCIES.map(d => {
+    const rCls = d.risk === 'Low' ? 'dep-low' : d.risk === 'Medium' ? 'dep-med' : 'dep-high';
+    return `<tr><td style="font-weight:600">${d.dep}</td><td style="text-align:left">${d.blocks}</td><td style="text-align:left"><span class="dep-risk ${rCls}">${d.risk}</span></td><td style="text-align:left;font-size:9.5px">${d.mit}</td></tr>`;
+  }).join('');
+}
+
+// ───────────────────────────────────────
+// ⑦ APPENDIX
+// ───────────────────────────────────────
+function renderMonthlyAcc() {
+  const d = D[s()]; const acc = document.getElementById('monthAcc'); acc.innerHTML = '';
+  for (let y = 2026; y <= 2031; y++) {
+    const rows = d.proj.filter(m => m.y === y), st = d.as[y], isO = y === 2026;
+    const w = document.createElement('div'); w.className = 'acc-item';
+    const b = document.createElement('button'); b.className = 'acc-btn' + (isO ? ' open' : '');
+    b.innerHTML = `<div class="acc-btn-left"><span class="acc-year">${y}</span><span class="acc-m" style="background:var(--warn-l);color:var(--warn)">${fR(st.totRev)}</span><span class="acc-m" style="background:var(--cost-bg);color:var(--cost-text)">${fR(st.cost)}</span><span class="acc-m" style="background:var(--net-bg);color:var(--net-text)">Net ${fR(st.net)}</span></div><span class="acc-arrow">▶</span>`;
+    const p = document.createElement('div'); p.className = 'acc-panel' + (isO ? ' open' : '');
+    let tH = `<div class="tw"><table class="dt"><thead><tr><th>Month</th><th>Outlets</th><th>Clients</th><th>Fee</th><th></th></tr></thead><tbody>`;
+    rows.forEach(m => {
+      const col = ic(m.y, m.mi);
+      const note = !col ? '<span style="color:var(--muted);font-size:8px">Pre-coll.</span>' : m.mi === 11 ? '<span class="note-pill np-red">↓</span>' : m.mi === 0 ? '<span class="note-pill np-green">↑</span>' : '';
+      tH += `<tr class="${!col ? 'tr-dim' : ''}"><td style="font-weight:500">${m.mo}</td><td>${m.o}</td><td>${f(m.c)}</td><td>${col ? fR(m.c) : '—'}</td><td>${note}</td></tr>`;
+    });
+    tH += `<tr class="tr-total"><td colspan="3">Year</td><td>${fR(st.fee)}</td><td></td></tr></tbody></table></div>`;
+    p.innerHTML = tH;
+    b.addEventListener('click', () => { const o = p.classList.toggle('open'); b.classList.toggle('open', o); });
+    w.appendChild(b); w.appendChild(p); acc.appendChild(w);
+  }
+}
+
+function renderAssumptions() {
+  const items = [
+    ['Outlets','500 by 2031 (Chief directive)'], ['Scenarios','Cons 400 / Opt 500 / Aggr 600'],
+    ['Realisation','80% / 88% / 93%'], ['Fee','RM1/client/mo (agreed)'],
+    ['HR Module','RM40/mo sub + RM5/head (normal) or RM2/head (promo \'27–\'28). 20% churn.'],
+    ['Portrait','RM40/mo sub + RM15/profile (Basic). 30% HR adoption, 3 profiles/mo avg.'],
+    ['Bundle','RM65/mo sub + RM4/head + RM12/profile. Promo: RM50/mo + RM2/head + RM10/profile.'],
+    ['HR Market','~307k small enterprises (DOSM 2024)'],
+    ['Exec Tier','RM5k base + RM450 allow + 14.95% stat + RM150 ins = ~RM6,415/mo'],
+    ['IT Tier','RM2k base + RM450 allow + 14.95% stat + RM150 ins = ~RM2,966/mo'],
+    ['Admin Tier','RM1.9k base + RM450 allow + 14.95% stat + RM150 ins = ~RM2,851/mo'],
+    ['Statutory','EPF 13% + SOCSO 1.75% + EIS 0.2% = 14.95% employer'],
+    ['Mgmt Fee','RM4,000/mo to QC Group (covers all infra)'],
+    ['Corporate','TM RM3.5k (2026), GPU RM5k (2027), MDEC RM1,080 (2028)'],
+    ['Contingency','5% of OPEX'], ['USD/MYR','4.40']
+  ];
+  document.getElementById('aB').innerHTML = `<div class="asum-grid">${items.map(([k,v]) => `<div><div class="ak">${k}</div><div class="av">${v}</div></div>`).join('')}</div>`;
+}
+
+function tglA() {
+  const b = document.getElementById('aB'), a = document.getElementById('aA');
+  const o = b.classList.toggle('open');
+  a.textContent = o ? '▼' : '▶';
+  a.nextSibling.textContent = o ? ' Hide' : ' Show assumptions';
+}
+
+// ═══════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════
+renderFinancials();
+renderJourney();
+renderModuleGrid();
+renderGanttChart();
+renderStaff();
+renderDeps();
+renderAssumptions();
+</script>
+</body>
+</html>
