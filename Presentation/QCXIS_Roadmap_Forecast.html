@@ -316,9 +316,9 @@ table.dt tr:last-child td { border-bottom: none; }
       <div class="cs-body collapsed" style="max-height:0">
         <div class="callout callout-warn"><strong>Stream 1 — Fee Collection:</strong> RM1/client/month invoiced to franchisee outlets. Verified via platform data. 30-day terms. Starts Jun 2026.</div>
         <div class="tw"><table class="dt" id="feeTable"></table></div>
-        <div class="callout callout-info"><strong>Stream 2 — HR Module:</strong> RM40/mo sub + RM5/emp/mo (normal) · RM2/emp/mo (promo '27–'28). Avg 15 emp. 20% annual churn. 5 customers Y1 → 105 by 2031.</div>
+        <div class="callout callout-info"><strong>Stream 2 — HR Module:</strong> RM40/mo sub + RM5/emp/mo (normal) · RM2/emp/mo (promo '27–'28). Avg 25 emp. 15% annual churn. 5 customers Y1 → 105 by 2031.</div>
         <div class="tw"><table class="dt" id="hrTable"></table></div>
-        <div class="callout callout-info"><strong>Stream 3 — Portrait Module:</strong> RM40/mo sub + RM15/profile. 30% of HR customers adopt. Avg 3 profiles/mo = RM85/customer/mo.</div>
+        <div class="callout callout-info"><strong>Stream 3 — Portrait Module:</strong> Seat-quota subscription — Starter RM299 / Pro RM699 / Enterprise RM1,199 per org/mo. Bundled HR customers (30%) get 15% off (RM377 WA). Standalone market grows independently. 10% churn.</div>
         <div class="tw"><table class="dt" id="portTable"></table></div>
       </div>
     </div>
@@ -327,8 +327,8 @@ table.dt tr:last-child td { border-bottom: none; }
     <div class="cs" style="margin-bottom:10px">
       <button class="cs-toggle" onclick="tgl(this)"><span class="cs-arrow">▶</span><span class="cs-label">Cost Breakdown — Where does the money go?</span></button>
       <div class="cs-body collapsed" style="max-height:0">
-        <div class="callout callout-staff"><strong>Payroll:</strong> 2 exec RM5k + 2 IT RM2k + 1 admin RM1.9k base. All include RM450/mo allowances + 14.95% statutory + RM150 insurance.</div>
-        <div class="callout callout-info"><strong>Management Fee:</strong> RM4,000/mo to QC Group — covers all infrastructure (servers, DC, networking, hosting).</div>
+        <div class="callout callout-staff"><strong>Payroll:</strong> CEO &amp; DCEO RM3,000 (2026) → RM3,900 (2027) → RM5,000 (2028); IT Transfer RM2,200 &amp; IT New RM2,000 from Jun 2027; Admin RM1,900 from Jun 2027. All 5% p.a. from 2028. Includes RM450/mo allowances + 14.95% statutory + RM150 insurance.</div>
+        <div class="callout callout-info"><strong>Management Fee:</strong> RM3,000/mo to QC Group — covers all infrastructure (servers, DC, networking, hosting).</div>
         <div class="tw"><table class="dt" id="costTable"></table></div>
       </div>
     </div>
@@ -371,14 +371,16 @@ table.dt tr:last-child td { border-bottom: none; }
   <div class="cs">
     <button class="cs-toggle open" onclick="tgl(this)"><span class="cs-arrow">▶</span><span class="cs-label">④ Staffing — Team Scaling & Cost Impact</span></button>
     <div class="cs-body" style="max-height:6000px">
-      <div class="callout callout-staff"><strong>Baseline:</strong> 5 staff from mid-2027 (2 exec RM5k + 2 IT RM2k + 1 admin RM1.9k). All include RM450/mo allowances + 14.95% statutory + RM150 insurance. Optional <strong>6th hire from 2029</strong> modelled at three pay tiers.</div>
-      <div class="tw" style="margin-bottom:10px"><table class="dt" id="staffTable"></table></div>
-      <div class="chart-card">
-        <div class="chart-title">Net After 6th Hire — Baseline vs Scenarios</div>
-        <div class="chart-sub">Green = baseline (5 staff). Coloured lines = impact of adding a 6th hire from 2029.</div>
-        <div class="chart-wrap"><canvas id="sfChart"></canvas></div>
-        <div class="chart-legend" id="sfLeg"></div>
+      <div class="callout callout-staff">
+        <strong>Team Structure &amp; Salary Plan</strong> &mdash; 5 core staff, with annual increments every January. All salaries include RM450/mo allowances + 14.95% employer statutory contributions + RM150 medical insurance per person.<br>
+        <span style="font-size:9.5px;color:var(--muted)">
+          CEO &amp; DCEO: RM3,000 (Jun 2026) &rarr; RM3,900 (Jan 2027, +30%) &rarr; RM5,000 (Jan 2028, +28%) &rarr; 5% p.a. &nbsp;&bull;&nbsp;
+          IT Transfer: RM2,200 (Jun 2027) &rarr; 5% p.a. &nbsp;&bull;&nbsp;
+          IT New Hire: RM2,000 (Jun 2027) &rarr; 5% p.a. &nbsp;&bull;&nbsp;
+          Admin: RM1,900 (Jun 2027) &rarr; 5% p.a.
+        </span>
       </div>
+      <div class="tw" style="margin-bottom:10px"><table class="dt" id="staffTable"></table></div>
     </div>
   </div>
 
@@ -496,47 +498,50 @@ const EPF_R = 0.13, SOCSO_R = 0.0175, EIS_R = 0.002;
 const EMPLOYER_STAT = EPF_R + SOCSO_R + EIS_R; // 14.95%
 const ALLOW_TOTAL = 50 + 200 + 200; // parking + travel + housing
 const INS = 150; // medical card per person/mo
-const TIER_EXEC = 5000, TIER_IT = 2000, TIER_ADMIN = 1900;
-const CEO_2026 = 2500, DCEO_2026 = 2300;
-const ANNUAL_INC = 0.05; // 5 % annual increment from 2028
+const TIER_EXEC = 5000, TIER_ADMIN = 1900;
+const ANNUAL_INC = 0.05;
+
+// ── Exec salary: discrete annual steps (matches real MY payroll practice) ──
+// CEO & DCEO both start RM3,000. Annual review every January.
+// 2026: RM3,000 → 2027: RM3,900 (+30%) → 2028: RM5,000 (+28.2%) → 5% p.a. after
+const CEO_START  = 3000, DCEO_START  = 3000;
+const CEO_2027   = 3900, DCEO_2027   = 3900;
+
+// ── IT hires: both join Jun 2027 ──
+// IT1 = transferred staff (RM2,200), IT2 = new hire (RM2,000). 5% p.a. from 2028.
+const IT_TRANSFER = 2200, IT_NEW = 2000;
+const TIER_IT = 2000; // baseline for 6th hire IT scenario
 
 function ctcMo(b) { return Math.round((b + ALLOW_TOTAL) * (1 + EMPLOYER_STAT) + INS); }
 
-/* Month-aware payroll calculation
-   2026 (Jun–Dec): CEO RM2,500 + DCEO RM2,300 — 7 months only
-   2027: Exec salaries ramp linearly to RM5,000 by Nov 2027
-         +2 IT (RM2,000) & +1 Admin (RM1,900) join mid-year (6 mo)
-   2028+: Full year, 5 % annual increment on all roles              */
-function execBaseMo(role, year, month) {
-  const start = role === 'ceo' ? CEO_2026 : DCEO_2026;
-  // Before hire month (Jun 2026 = month index 5)
-  if (year === 2026 && month < 5) return 0;
-  if (year === 2026) return start;
-  // Linear ramp Jan–Nov 2027 → TIER_EXEC
-  if (year === 2027) {
-    const t = Math.min(month, 10) / 10; // 0 @ Jan, 1 @ Nov
-    return Math.round(start + (TIER_EXEC - start) * t);
-  }
-  // 2028+: 5 % annual increment from RM5,000
-  return Math.round(TIER_EXEC * Math.pow(1 + ANNUAL_INC, year - 2027));
+function execBase(role, y) {
+  if (y === 2026) return role === 'ceo' ? CEO_START : DCEO_START;
+  if (y === 2027) return role === 'ceo' ? CEO_2027  : DCEO_2027;
+  return Math.round(TIER_EXEC * Math.pow(1 + ANNUAL_INC, y - 2028)); // RM5k base × 5% p.a.
+}
+
+function itSal(startSal, y) {
+  if (y < 2027) return 0;
+  if (y === 2027) return startSal;
+  return Math.round(startSal * Math.pow(1 + ANNUAL_INC, y - 2027));
 }
 
 function payrollYr(y) {
-  // -- Exec (CEO + DCEO) --
-  let execTotal = 0;
-  for (let m = 0; m < 12; m++) {
-    execTotal += ctcMo(execBaseMo('ceo', y, m)) + ctcMo(execBaseMo('dceo', y, m));
-  }
-  // -- Support hires (2 IT + 1 Admin), join Jun 2027 --
+  // Exec: CEO + DCEO. Jun–Dec 2026 = 7 months; full year from 2027.
+  const moExec = y === 2026 ? 7 : 12;
+  const execTotal = (ctcMo(execBase('ceo', y)) + ctcMo(execBase('dceo', y))) * moExec;
   if (y < 2027) return Math.round(execTotal);
-  const itBase  = y === 2027 ? TIER_IT    : Math.round(TIER_IT    * Math.pow(1 + ANNUAL_INC, y - 2027));
+  // Support hires join Jun 2027 (7 months); full year from 2028.
+  const moSup  = y === 2027 ? 7 : 12;
   const admBase = y === 2027 ? TIER_ADMIN : Math.round(TIER_ADMIN * Math.pow(1 + ANNUAL_INC, y - 2027));
-  const moO = y === 2027 ? 7 : 12; // Jun–Dec = 7 months in hire year
-  return Math.round(execTotal + 2 * ctcMo(itBase) * moO + ctcMo(admBase) * moO);
+  return Math.round(execTotal
+    + ctcMo(itSal(IT_TRANSFER, y)) * moSup
+    + ctcMo(itSal(IT_NEW,      y)) * moSup
+    + ctcMo(admBase)               * moSup);
 }
 
 // ── Management Fee & Corporate ──
-const MGMT_MO = 4000;
+const MGMT_MO = 3000;
 const TM = 3500, GPU = 5000, MDF = 1080;
 function corpYr(y) { return y === 2026 ? TM : y === 2027 ? GPU : y === 2028 ? MDF : 0; }
 const CONTINGENCY = 0.05;
@@ -548,11 +553,11 @@ function yrCost(y) {
 }
 
 // ── HR Module Revenue ──
-const HR_SUB = 40, HR_HEAD_N = 5, HR_HEAD_P = 2, HR_AVG_EMP = 15;
-const HR_MO_N = HR_SUB + HR_HEAD_N * HR_AVG_EMP; // RM115/mo
-const HR_MO_P = HR_SUB + HR_HEAD_P * HR_AVG_EMP; // RM70/mo
+const HR_SUB = 40, HR_HEAD_N = 5, HR_HEAD_P = 2, HR_AVG_EMP = 25;
+const HR_MO_N = HR_SUB + HR_HEAD_N * HR_AVG_EMP; // RM165/mo (25 emp × RM5 + RM40 sub)
+const HR_MO_P = HR_SUB + HR_HEAD_P * HR_AVG_EMP; // RM90/mo  (25 emp × RM2 + RM40 sub, promo)
 const HR_CUST = {2027:5, 2028:15, 2029:35, 2030:65, 2031:105};
-const HR_CHURN = 0.20;
+const HR_CHURN = 0.15;
 
 function hrRevByYear() {
   const r = {}; let active = 0;
@@ -568,18 +573,48 @@ function hrRevByYear() {
 const HR_REV = hrRevByYear();
 
 // ── Portrait Module Revenue ──
-const PORT_SUB = 40, PORT_PROF = 15, PORT_AVG = 3, PORT_ADOPT = 0.30;
-const PORT_MO = PORT_SUB + PORT_PROF * PORT_AVG; // RM85/mo
+// Tiers: Starter RM299 (50 seats) / Pro RM699 (150 seats) / Enterprise RM1,199 (300 seats)
+// Active-seat quota model — org manages who fills their seats
+const PORT_TIERS = {
+  starter:    {price: 299,  seats:  50, wt: 0.70},
+  pro:        {price: 699,  seats: 150, wt: 0.25},
+  enterprise: {price: 1199, seats: 300, wt: 0.05},
+};
+const PORT_BUNDLE_DISC = 0.15;  // 15% off Portrait sub when bundled with HR
+const PORT_ADOPT       = 0.30;  // 30% of HR customers also take Portrait (bundled)
+const PORT_STANDALONE  = {2027:5, 2028:10, 2029:20, 2030:30, 2031:40}; // independent market
+const PORT_CHURN       = 0.10;  // active-seat model is sticky
+
+// Weighted-average monthly sub price across tier mix
+const PORT_WA_MO     = Math.round(Object.values(PORT_TIERS).reduce((s,t) => s + t.price * t.wt, 0)); // ~RM444
+const PORT_WA_BUNDLE = Math.round(PORT_WA_MO * (1 - PORT_BUNDLE_DISC));                              // ~RM377
+
 function portRevByYear() {
   const r = {};
+  let activeBundle = 0, activeSA = 0;
   for (let y = 2027; y <= 2031; y++) {
-    const pc = Math.round((HR_CUST[y] || 0) * PORT_ADOPT);
-    if (!pc) { r[y] = {cust:0, recur:0, total:0}; continue; }
-    const mo = y === 2027 ? 6 : 12;
-    const rev = Math.round(pc * PORT_MO * mo);
-    r[y] = {cust: pc, recur: rev, total: rev};
+    // Bundled customers (30% of HR volume)
+    const targetBundle = Math.round((HR_CUST[y] || 0) * PORT_ADOPT);
+    const churnedBundle = Math.round(activeBundle * PORT_CHURN);
+    activeBundle = Math.max(0, activeBundle - churnedBundle);
+    const newBundle = Math.max(0, targetBundle - activeBundle);
+    const bundleRev = Math.round(activeBundle * PORT_WA_BUNDLE * 12 + newBundle * PORT_WA_BUNDLE * 6);
+    activeBundle = targetBundle;
+
+    // Standalone customers
+    const targetSA = PORT_STANDALONE[y] || 0;
+    const churnedSA = Math.round(activeSA * PORT_CHURN);
+    activeSA = Math.max(0, activeSA - churnedSA);
+    const newSA = Math.max(0, targetSA - activeSA);
+    const saRev = Math.round(activeSA * PORT_WA_MO * 12 + newSA * PORT_WA_MO * 6);
+    activeSA = targetSA;
+
+    const total = bundleRev + saRev;
+    r[y] = {cust: targetBundle + targetSA, custBundle: targetBundle, custSA: targetSA,
+            bundleRev, saRev, recur: total, total};
   }
-  r[2026] = {cust:0, recur:0, total:0}; return r;
+  r[2026] = {cust:0, custBundle:0, custSA:0, bundleRev:0, saRev:0, recur:0, total:0};
+  return r;
 }
 const PORT_REV = portRevByYear();
 
@@ -617,21 +652,6 @@ function buildProj(k) {
   return {proj, as, gFee:gF, gHR, gPort, gSaaS:gHR + gPort, gTotRev:gF + gHR + gPort, gCost:gC, gNet:gF + gHR + gPort - gC};
 }
 const D = {}; for (const k of Object.keys(SC)) D[k] = buildProj(k);
-
-// ── 6th hire scenarios ──
-// 6th hire with 5 % annual increments from year 2
-function hire6thCosts(base) {
-  return {
-    2029: ctcMo(base) * 12,
-    2030: ctcMo(Math.round(base * (1 + ANNUAL_INC))) * 12,
-    2031: ctcMo(Math.round(base * Math.pow(1 + ANNUAL_INC, 2))) * 12
-  };
-}
-const STAFF = {
-  hire_it:     {l:'6th — IT Tier (RM2,000)',  d:'IT developer or DevOps, from 2029',  cl:'#7c3aed', c: hire6thCosts(TIER_IT)},
-  hire_mid:    {l:'6th — Mid Tier (RM3,000)', d:'Experienced dev or BD, from 2029',    cl:'#d97706', c: hire6thCosts(3000)},
-  hire_senior: {l:'6th — Senior (RM4,000)',   d:'Senior dev or specialist, from 2029', cl:'#dc2626', c: hire6thCosts(4000)},
-};
 
 // ── Modules ──
 const MODULES = [
@@ -772,7 +792,7 @@ const CAT_META = {
 // ═══════════════════════════════════════
 let cur = 'optimum';
 let revFilter = 'all'; // 'all' | 'fee' | 'saas'
-let plChartInstance, sfChartInstance;
+let plChartInstance;
 const f = n => Math.round(n).toLocaleString();
 const fR = n => 'RM ' + f(n);
 const ic = (y, m) => y > 2026 || (y === 2026 && m >= 5);
@@ -813,49 +833,78 @@ function renderFinancials() {
 function renderPLChart() {
   if (plChartInstance) plChartInstance.destroy();
   const d = D[s()], S = SC[s()];
-  // Revenue based on toggle
-  let rev, revLabel, subText;
-  if (revFilter === 'fee') {
-    rev = YRS.map(y => d.as[y].fee);
-    revLabel = 'Fee Revenue';
-    subText = 'Fee Collection only (RM1 × active clients) against total OPEX. Timeline starts Jun 2026.';
-  } else if (revFilter === 'saas') {
-    rev = YRS.map(y => d.as[y].hr + d.as[y].port);
-    revLabel = 'SaaS Revenue';
-    subText = 'HR Module + Portrait Module revenue against total OPEX. Timeline starts Jun 2026.';
-  } else {
-    rev = YRS.map(y => d.as[y].totRev);
-    revLabel = 'Revenue';
-    subText = 'All streams (Fee + HR + Portrait) against total OPEX. Timeline starts Jun 2026.';
-  }
+  const fee  = YRS.map(y => d.as[y].fee);
+  const hr   = YRS.map(y => d.as[y].hr);
+  const port = YRS.map(y => d.as[y].port);
   const cost = YRS.map(y => d.as[y].cost);
-  const net = YRS.map((_, i) => rev[i] - cost[i]);
+
+  // Build datasets and net line based on active revenue filter
+  let datasets, subText, legHTML;
+  const opexDs = {type:'bar', label:'OPEX', data:cost, stack:'cost',
+    backgroundColor:'rgba(153,27,27,.35)', borderColor:'#991b1b', borderWidth:1, borderRadius:2, order:3};
+  const netLine = (revArr) => ({
+    type:'line', label:'Net',
+    data: revArr.map((v,i) => v - cost[i]),
+    borderColor:'#065f46', backgroundColor:'rgba(5,150,105,.04)',
+    borderWidth:2.5, pointRadius:4, pointBackgroundColor:'#fff', pointBorderColor:'#065f46',
+    pointBorderWidth:2, tension:.35, fill:true, order:1
+  });
+
+  if (revFilter === 'fee') {
+    subText = 'Fee Collection only (RM1 × active clients) against total OPEX. Timeline starts Jun 2026.';
+    datasets = [
+      {type:'bar', label:'Fee Collection', data:fee, stack:'rev',
+        backgroundColor:S.cl+'99', borderColor:S.cl, borderWidth:1, borderRadius:2, order:2},
+      opexDs, netLine(fee)
+    ];
+    legHTML = `<div class="cl-item"><div class="cl-bar" style="background:${S.cl}99"></div>Fee Collection</div>`;
+  } else if (revFilter === 'saas') {
+    subText = 'HR Module + Portrait Module revenue against total OPEX. Timeline starts Jun 2026.';
+    const saas = hr.map((v,i) => v + port[i]);
+    datasets = [
+      {type:'bar', label:'HR Module',  data:hr,   stack:'rev',
+        backgroundColor:'#7c3aed99', borderColor:'#7c3aed', borderWidth:1, borderRadius:2, order:2},
+      {type:'bar', label:'Portrait',   data:port, stack:'rev',
+        backgroundColor:'#d9770699', borderColor:'#d97706', borderWidth:1, borderRadius:2, order:2},
+      opexDs, netLine(saas)
+    ];
+    legHTML = `<div class="cl-item"><div class="cl-bar" style="background:#7c3aed99"></div>HR Module</div><div class="cl-item"><div class="cl-bar" style="background:#d9770699"></div>Portrait</div>`;
+  } else {
+    subText = 'Stacked: Fee + HR Module + Portrait against total OPEX. Timeline starts Jun 2026.';
+    const totRev = fee.map((v,i) => v + hr[i] + port[i]);
+    datasets = [
+      {type:'bar', label:'Fee Collection', data:fee,  stack:'rev',
+        backgroundColor:S.cl+'99', borderColor:S.cl, borderWidth:1, borderRadius:2, order:4},
+      {type:'bar', label:'HR Module',      data:hr,   stack:'rev',
+        backgroundColor:'#7c3aed99', borderColor:'#7c3aed', borderWidth:1, borderRadius:2, order:4},
+      {type:'bar', label:'Portrait',       data:port, stack:'rev',
+        backgroundColor:'#d9770699', borderColor:'#d97706', borderWidth:1, borderRadius:2, order:4},
+      opexDs, netLine(totRev)
+    ];
+    legHTML = `<div class="cl-item"><div class="cl-bar" style="background:${S.cl}99"></div>Fee Collection</div><div class="cl-item"><div class="cl-bar" style="background:#7c3aed99"></div>HR Module</div><div class="cl-item"><div class="cl-bar" style="background:#d9770699"></div>Portrait</div>`;
+  }
+  legHTML += `<div class="cl-item"><div class="cl-bar" style="background:rgba(153,27,27,.45)"></div>OPEX</div><div class="cl-item"><div class="cl-line" style="background:#065f46"></div>Net</div>`;
   document.getElementById('plChartSub').textContent = subText;
 
   plChartInstance = new Chart(document.getElementById('plChart').getContext('2d'), {
     type: 'bar',
-    data: {
-      labels: YRS.map(String),
-      datasets: [
-        {type:'bar', label:revLabel, data:rev, backgroundColor:S.cl + '77', borderColor:S.cl, borderWidth:1, borderRadius:3, order:2},
-        {type:'bar', label:'OPEX', data:cost, backgroundColor:'rgba(153,27,27,.45)', borderColor:'#991b1b', borderWidth:1, borderRadius:3, order:3},
-        {type:'line', label:'Net', data:net, borderColor:'#065f46', backgroundColor:'rgba(5,150,105,.04)', borderWidth:2.5, pointRadius:4, pointBackgroundColor:'#fff', pointBorderColor:'#065f46', pointBorderWidth:2, tension:.35, fill:true, order:1}
-      ]
-    },
+    data: { labels: YRS.map(String), datasets },
     options: {
       responsive: true, maintainAspectRatio: false,
       interaction: {mode:'index', intersect:false},
       plugins: {
         legend: {display:false},
-        tooltip: {backgroundColor:'#fff', borderColor:'#dfe2e8', borderWidth:1, titleColor:'#161b2e', bodyColor:'#3b4460', padding:7, callbacks:{label:c => ` ${c.dataset.label}: RM ${c.parsed.y?.toLocaleString() ?? '—'}`}}
+        tooltip: {backgroundColor:'#fff', borderColor:'#dfe2e8', borderWidth:1, titleColor:'#161b2e',
+          bodyColor:'#3b4460', padding:7,
+          callbacks:{label:c => ` ${c.dataset.label}: RM ${c.parsed.y?.toLocaleString() ?? '—'}`}}
       },
       scales: {
-        x: {ticks:{color:'#8590a6', font:{size:9.5}}, grid:{color:'rgba(223,226,232,.5)'}},
-        y: {ticks:{color:'#8590a6', font:{size:8}, callback:v => 'RM ' + v.toLocaleString()}, grid:{color:'rgba(223,226,232,.4)'}}
+        x: {stacked:true, ticks:{color:'#8590a6', font:{size:9.5}}, grid:{color:'rgba(223,226,232,.5)'}},
+        y: {stacked:true, ticks:{color:'#8590a6', font:{size:8}, callback:v => 'RM ' + v.toLocaleString()}, grid:{color:'rgba(223,226,232,.4)'}}
       }
     }
   });
-  document.getElementById('plLeg').innerHTML = `<div class="cl-item"><div class="cl-bar" style="background:${S.cl}77"></div>${revLabel}</div><div class="cl-item"><div class="cl-bar" style="background:rgba(153,27,27,.45)"></div>OPEX</div><div class="cl-item"><div class="cl-line" style="background:#065f46"></div>Net</div>`;
+  document.getElementById('plLeg').innerHTML = legHTML;
 }
 
 function renderKPIs() {
@@ -902,19 +951,31 @@ function renderHRTable() {
 }
 
 function renderPortTable() {
+  const tStr = `Starter RM299 · Pro RM699 · Enterprise RM1,199/mo — active-seat quota model`;
+  const bStr = `Bundled w/ HR: 15% off (wtd avg RM${PORT_WA_BUNDLE}/mo) · Standalone: wtd avg RM${PORT_WA_MO}/mo`;
   let h = `<thead><tr><th style="text-align:left">Portrait Module</th>${YRS.map(y => `<th>${y}</th>`).join('')}<th>Total</th></tr></thead><tbody>`;
-  const cust = YRS.map(y => PORT_REV[y]?.cust || 0);
-  h += `<tr><td>Customers (30% of HR)</td>${cust.map(c => `<td>${c || '—'}</td>`).join('')}<td></td></tr>`;
-  const tot = YRS.map(y => PORT_REV[y]?.total || 0);
-  h += `<tr class="hr-rev"><td>Portrait Total (RM${PORT_MO}/mo)</td>${tot.map(v => `<td>${v ? fR(v) : '—'}</td>`).join('')}<td>${fR(tot.reduce((a,b) => a+b, 0))}</td></tr></tbody>`;
+  h += `<tr class="pl-cat"><td colspan="${YRS.length+2}" style="font-size:8px;color:var(--muted);font-weight:400">${tStr}</td></tr>`;
+  h += `<tr class="pl-cat"><td colspan="${YRS.length+2}" style="font-size:8px;color:var(--muted);font-weight:400">${bStr}</td></tr>`;
+
+  const bundleCust = YRS.map(y => PORT_REV[y]?.custBundle || 0);
+  const saCust     = YRS.map(y => PORT_REV[y]?.custSA     || 0);
+  const bundleRev  = YRS.map(y => PORT_REV[y]?.bundleRev  || 0);
+  const saRev      = YRS.map(y => PORT_REV[y]?.saRev      || 0);
+  const tot        = YRS.map(y => PORT_REV[y]?.total       || 0);
+
+  h += `<tr><td>Bundled customers (30% of HR)</td>${bundleCust.map(c => `<td>${c || '—'}</td>`).join('')}<td></td></tr>`;
+  h += `<tr class="pl-sub"><td>→ Bundled revenue (RM${PORT_WA_BUNDLE} wtd avg)</td>${bundleRev.map(v => `<td>${v ? fR(v) : '—'}</td>`).join('')}<td>${fR(bundleRev.reduce((a,b)=>a+b,0))}</td></tr>`;
+  h += `<tr><td>Standalone customers</td>${saCust.map(c => `<td>${c || '—'}</td>`).join('')}<td></td></tr>`;
+  h += `<tr class="pl-sub"><td>→ Standalone revenue (RM${PORT_WA_MO} wtd avg)</td>${saRev.map(v => `<td>${v ? fR(v) : '—'}</td>`).join('')}<td>${fR(saRev.reduce((a,b)=>a+b,0))}</td></tr>`;
+  h += `<tr class="hr-rev"><td>Portrait Total</td>${tot.map(v => `<td>${v ? fR(v) : '—'}</td>`).join('')}<td>${fR(tot.reduce((a,b)=>a+b,0))}</td></tr></tbody>`;
   document.getElementById('portTable').innerHTML = h;
 }
 
 function renderCostTable() {
   const d = D[s()];
   const rows = [
-    {k:'payroll',     l:'Payroll (5 staff, ramped)', cls:'pl-sub', n:'Jun 2026 start · ramp to RM5k by Nov 2027 · 5% p.a.'},
-    {k:'mgmtFee',    l:'Management Fee → QC Group', cls:'pl-sub', n:'RM4,000/mo — all infra'},
+    {k:'payroll',     l:'Payroll (5 staff)', cls:'pl-sub', n:'Jun 2026 start · RM3k→RM3.9k→RM5k steps · 5% p.a.'},
+    {k:'mgmtFee',    l:'Management Fee → QC Group', cls:'pl-sub', n:'RM3,000/mo — all infra'},
     {k:'corp',        l:'Corporate One-offs', cls:'pl-sub'},
     {k:'contingency', l:'Contingency (5%)', cls:'pl-sub'},
     {k:'cost',        l:'Total OPEX', cls:'pl-cost-total'},
@@ -1067,40 +1128,31 @@ function renderGanttChart() {
 // ④ STAFFING
 // ───────────────────────────────────────
 function renderStaff() {
-  const d = D.optimum;
-  const baseNet = YRS.map(y => d.as[y].net);
-  let h = `<thead><tr><th style="text-align:left"></th>${YRS.map(y => `<th>${y}</th>`).join('')}<th>Total</th></tr></thead><tbody>`;
-  h += `<tr style="background:var(--net-bg)"><td style="font-weight:700;color:var(--net-text)">Baseline Net (5 staff + SaaS)</td>${baseNet.map(v => `<td style="font-weight:700;color:${v >= 0 ? 'var(--net-text)' : 'var(--cost-text)'}">${fR(v)}</td>`).join('')}<td style="font-weight:700;color:var(--net-text)">${fR(baseNet.reduce((a,b) => a+b, 0))}</td></tr>`;
-  h += `<tr class="pl-cat"><td colspan="${YRS.length+2}">6th Hire Scenarios (from 2029)</td></tr>`;
-  for (const [pk, pl] of Object.entries(STAFF)) {
-    const cs = YRS.map(y => pl.c[y] || 0), tc = cs.reduce((a,b) => a+b, 0);
-    h += `<tr><td style="color:${pl.cl};font-weight:600">${pl.l}<br><span style="font-size:8.5px;color:var(--muted);font-weight:400">${pl.d}</span></td>${cs.map(c => `<td>${c ? fR(c) : '—'}</td>`).join('')}<td style="font-weight:600">${fR(tc)}</td></tr>`;
-    const na = YRS.map((y, i) => baseNet[i] - cs[i]), tn = na.reduce((a,b) => a+b, 0);
-    h += `<tr class="st-net ${tn >= 0 ? 'pos' : 'neg'}"><td style="padding-left:14px">→ Net after ${pl.l.split(' (')[0]}</td>${na.map(v => `<td style="color:${v >= 0 ? 'var(--net-text)' : 'var(--cost-text)'}">${fR(v)}</td>`).join('')}<td>${fR(tn)}</td></tr>`;
+  const admSal = y => y < 2027 ? 0 : y === 2027 ? TIER_ADMIN : Math.round(TIER_ADMIN * Math.pow(1 + ANNUAL_INC, y - 2027));
+  const ROLES = [
+    {label:'CEO',            note:'Jun 2026 • Annual increment Jan',  sal: y => execBase('ceo', y)},
+    {label:'DCEO',           note:'Jun 2026 • Annual increment Jan',  sal: y => execBase('dceo', y)},
+    {label:'IT (Transfer)',  note:'Jun 2027 • 5% p.a. from 2028',     sal: y => itSal(IT_TRANSFER, y)},
+    {label:'IT (New Hire)',  note:'Jun 2027 • 5% p.a. from 2028',     sal: y => itSal(IT_NEW, y)},
+    {label:'Admin',          note:'Jun 2027 • 5% p.a. from 2028',     sal: y => admSal(y)},
+  ];
+
+  let h = `<thead><tr><th style="text-align:left">Role</th><th style="text-align:left;font-size:9px;color:var(--muted)">Notes</th>${YRS.map(y => `<th>${y}</th>`).join('')}</tr></thead><tbody>`;
+  h += `<tr class="pl-cat"><td colspan="${YRS.length+2}">Base Salary by Year (RM/mo) — Annual increments every January</td></tr>`;
+  for (const r of ROLES) {
+    const cols = YRS.map(y => {
+      const sal = r.sal(y);
+      if (!sal) return `<td style="color:var(--muted)">not hired</td>`;
+      const prev = y > 2026 ? r.sal(y - 1) : null;
+      const changed = prev && sal !== prev;
+      const arrow = changed ? ` <span style="font-size:8px;color:#059669">↑${Math.round((sal-prev)/prev*100)}%</span>` : '';
+      return `<td style="font-weight:${changed?'700':'400'}">${sal.toLocaleString()}${arrow}</td>`;
+    });
+    h += `<tr><td style="font-weight:600">${r.label}</td><td style="font-size:8.5px;color:var(--muted);text-align:left">${r.note}</td>${cols.join('')}</tr>`;
   }
+  h += `<tr class="pl-cost-total"><td colspan="2">Total Payroll</td>${YRS.map(y => `<td>${fR(payrollYr(y))}</td>`).join('')}</tr>`;
   h += `</tbody>`;
   document.getElementById('staffTable').innerHTML = h;
-
-  // Chart
-  if (sfChartInstance) sfChartInstance.destroy();
-  const ds = [{label:'Baseline', data:baseNet, borderColor:'#065f46', backgroundColor:'rgba(5,150,105,.06)', borderWidth:2.5, pointRadius:3.5, pointBackgroundColor:'#fff', pointBorderColor:'#065f46', pointBorderWidth:2, tension:.3, fill:true}];
-  for (const [pk, pl] of Object.entries(STAFF)) {
-    ds.push({label:pl.l.split(' (')[0], data:YRS.map((y,i) => baseNet[i] - (pl.c[y] || 0)), borderColor:pl.cl, borderWidth:1.5, borderDash:[4,3], pointRadius:2.5, pointBackgroundColor:'#fff', pointBorderColor:pl.cl, pointBorderWidth:1.5, tension:.3, fill:false});
-  }
-  sfChartInstance = new Chart(document.getElementById('sfChart').getContext('2d'), {
-    type: 'line',
-    data: {labels: YRS.map(String), datasets: ds},
-    options: {
-      responsive:true, maintainAspectRatio:false,
-      interaction: {mode:'index', intersect:false},
-      plugins: {legend:{display:false}, tooltip:{backgroundColor:'#fff', borderColor:'#dfe2e8', borderWidth:1, titleColor:'#161b2e', bodyColor:'#3b4460', padding:7, callbacks:{label:c => ` ${c.dataset.label}: RM ${c.parsed.y?.toLocaleString() ?? '—'}`}}},
-      scales: {
-        x: {ticks:{color:'#8590a6', font:{size:9.5}}, grid:{color:'rgba(223,226,232,.5)'}},
-        y: {ticks:{color:'#8590a6', font:{size:8}, callback:v => 'RM ' + v.toLocaleString()}, grid:{color:'rgba(223,226,232,.4)'}}
-      }
-    }
-  });
-  document.getElementById('sfLeg').innerHTML = `<div class="cl-item"><div class="cl-line" style="background:#065f46"></div>Baseline (5 staff)</div>` + Object.values(STAFF).map(p => `<div class="cl-item"><div class="cl-line" style="background:${p.cl}"></div>${p.l}</div>`).join('');
 }
 
 // ───────────────────────────────────────
@@ -1142,15 +1194,18 @@ function renderAssumptions() {
   const items = [
     ['Outlets','500 by 2031 (Chief directive)'], ['Scenarios','Cons 400 / Opt 500 / Aggr 600'],
     ['Realisation','80% / 88% / 93%'], ['Fee','RM1/client/mo (agreed)'],
-    ['HR Module','RM40/mo sub + RM5/head (normal) or RM2/head (promo \'27–\'28). 20% churn.'],
-    ['Portrait','RM40/mo sub + RM15/profile (Basic). 30% HR adoption, 3 profiles/mo avg.'],
-    ['Bundle','RM65/mo sub + RM4/head + RM12/profile. Promo: RM50/mo + RM2/head + RM10/profile.'],
+    ['HR Module','RM40/mo sub + RM5/head (normal) or RM2/head (promo \'27–\'28). 25 avg emp. 15% churn.'],
+    ['Portrait','Starter RM299 / Pro RM699 / Enterprise RM1,199/mo per org. WA RM444, bundled RM377 (15% off).'],
+    ['Bundle','15% off Portrait sub when taken with HR. HR pricing unchanged.'],
     ['HR Market','~307k small enterprises (DOSM 2024)'],
-    ['Exec Tier','RM5k base + RM450 allow + 14.95% stat + RM150 ins = ~RM6,415/mo'],
-    ['IT Tier','RM2k base + RM450 allow + 14.95% stat + RM150 ins = ~RM2,966/mo'],
-    ['Admin Tier','RM1.9k base + RM450 allow + 14.95% stat + RM150 ins = ~RM2,851/mo'],
+    ['Exec (2026)','RM3k base → ~RM4,116/mo CTC'],
+    ['Exec (2027)','RM3.9k base → ~RM5,150/mo CTC'],
+    ['Exec (2028+)','RM5k base → ~RM6,415/mo CTC'],
+    ['IT Transfer','RM2.2k base → ~RM3,196/mo CTC'],
+    ['IT New Hire','RM2k base → ~RM2,966/mo CTC'],
+    ['Admin','RM1.9k base → ~RM2,851/mo CTC'],
     ['Statutory','EPF 13% + SOCSO 1.75% + EIS 0.2% = 14.95% employer'],
-    ['Mgmt Fee','RM4,000/mo to QC Group (covers all infra)'],
+    ['Mgmt Fee','RM3,000/mo to QC Group (covers all infra)'],
     ['Corporate','TM RM3.5k (2026), GPU RM5k (2027), MDEC RM1,080 (2028)'],
     ['Contingency','5% of OPEX'], ['USD/MYR','4.40']
   ];

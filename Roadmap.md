@@ -23,7 +23,7 @@ Build QCXIS Sdn Bhd into a credible, self-sustaining SaaS company — starting a
 Two major cost components, structured around QC Group intermediation:
 
 ### 1. Infrastructure (QC Group-fronted)
-QC Group purchases and owns all major infrastructure (servers, networking, server room, DC hosting). QCXIS pays a **fixed monthly management fee** (TBD) based on what it can afford. As QCXIS builds stable revenue, it begins **repurchasing infra assets** from QC Group (starting 2028), transferring ownership to QCXIS' balance sheet.
+QC Group purchases and owns all major infrastructure (servers, networking, server room, DC hosting). QCXIS pays a **fixed monthly management fee of RM3,000/mo** (RM36,000/yr). As QCXIS builds stable revenue, it begins **repurchasing infra assets** from QC Group (starting 2028), transferring ownership to QCXIS' balance sheet.
 
 > Minor equipment and operational CAPEX (peripherals, tools) may be purchased directly by QCXIS.
 
@@ -41,7 +41,7 @@ Target: **Application Q1–Q2 2028**
 3. ≥RM50,000/year OPEX on MD-qualifying activities
 4. ≥RM1,000 paid-up capital (RM250,000 for future Expansion Incentive eligibility)
 
-> Salary ramp: CEO and DCEO start at RM2,500 / RM2,300, must reach RM5,000 each by early 2028 to satisfy requirement #2.
+> Salary ramp: CEO and DCEO both start at RM3,000, step to RM3,900 (Jan 2027), then RM5,000 (Jan 2028) to satisfy requirement #2.
 
 ---
 
@@ -67,9 +67,9 @@ Target: **Application Q1–Q2 2028**
 
 | Quarter | Milestone | Details |
 |---------|-----------|---------|
-| 2026 | **2 staff transferred from QC Group** | Employment transferred to QCXIS. CEO (RM2,500 base) and DCEO (RM2,300 base). Positions are placeholders — final titles TBD. Benefits not included in base. |
+| 2026 | **2 staff transferred from QC Group** | Employment transferred to QCXIS. CEO (RM3,000 base) and DCEO (RM3,000 base). Positions are placeholders — final titles TBD. Benefits not included in base. |
 
-> Salaries will increase gradually based on performance, targeting RM5,000 each by early 2028 (MD requirement).
+> Salaries step to RM3,900 in Jan 2027, then RM5,000 in Jan 2028 (MD requirement). 5% p.a. increments thereafter.
 
 ### Governance & Agreements
 
@@ -362,7 +362,7 @@ Target: **Application Q1–Q2 2028**
 | Outlets grow to 500 | Fee revenue projections | **Medium** — execution risk | Chief's directive; not in QCXIS' direct control |
 | HR Module finds market fit | Revenue stream #2, staffing viability | **High** — product + market risk | Start small (5 customers), validate before scaling |
 | QC Group fronts infra costs | All infrastructure availability | **Low** — aligned interests | Formalised in inter-company Service Agreement |
-| Salaries reach RM5,000 by 2028 | MD Status knowledge worker requirement | **Medium** — revenue-dependent | Performance-based ramp with clear milestones |
+| CEO & DCEO hit RM5,000 base | MD Status knowledge worker requirement | **Medium** — revenue-dependent | Performance-based ramp: RM3k (2026) → RM3.9k (2027) → RM5k (2028) |
 | MDEC approves MD Status | Tax benefits, grants, credibility | **Medium** — regulatory | Pre-consultation in 2028, buffer period built in |
 | Trademark completes before 2028 | MD application (IP requirement) | **Low** — filed 2026, 12–18mo processing | Timeline allows buffer |
 | MDCG grant approved | Infra + AI module funding | **Medium** — competitive process | Exploratory; not a dependency for core operations |

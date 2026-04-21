@@ -1,6 +1,6 @@
 # QCXIS Sdn Bhd — Financial Forecast (2026–2031)
 
-> Extracted from `QCXIS_Business_Forecast_v6.html`. Optimum scenario baseline.
+> Extracted from `QCXIS_Roadmap_Forecast.html`. Optimum scenario baseline.
 > All amounts in RM unless stated otherwise. USD/MYR = 4.40.
 
 ---
@@ -28,23 +28,23 @@ Each franchisee outlet pays RM1 per active client per month. Invoiced monthly, v
 A payroll/HR management product for Malaysian SMEs. Franchise network gets it bundled; external customers pay separately.
 
 - **Pricing:** RM40/mo subscription + RM5/employee/month (normal) · RM2/employee/month (promo, 2027–2028 closed events)
-- **Avg customer profile:** 15 employees → RM115/mo normal, RM70/mo promo
+- **Avg customer profile:** 25 employees → RM165/mo normal, RM90/mo promo
 - **No setup fee**
 - **Market:** ~307,000 small enterprises in Malaysia (DOSM 2024)
 - **Acquisition target:** Conservative — starting with 5 customers in 2027
-- **Annual churn:** 20%
+- **Annual churn:** 15%
 
 **HR Module Revenue Projection:**
 
-| Year | Customers | New | Churned | Rate/mo | Recurring | Total |
-|------|-----------|-----|---------|---------|-----------|-------|
-| 2026 | — | — | — | — | — | — |
-| 2027 | 5 | 5 | 0 | RM 70 (promo) | RM 2,100 | **RM 2,100** |
-| 2028 | 15 | 11 | 1 | RM 70 (promo) | RM 7,980 | **RM 7,980** |
-| 2029 | 35 | 23 | 3 | RM 115 (normal) | RM 32,430 | **RM 32,430** |
-| 2030 | 65 | 37 | 7 | RM 115 (normal) | RM 64,170 | **RM 64,170** |
-| 2031 | 105 | 53 | 13 | RM 115 (normal) | RM 108,330 | **RM 108,330** |
-| **Total** | | | | | | **RM 215,010** |
+| Year | Customers | New | Churned | Rate/mo | Annual Rev |
+|------|-----------|-----|---------|---------|------------|
+| 2026 | — | — | — | — | — |
+| 2027 | 5 | 5 | 0 | RM 90/mo (promo) | **RM 2,700** |
+| 2028 | 15 | 11 | 1 | RM 90/mo (promo) | **RM 10,260** |
+| 2029 | 35 | 22 | 2 | RM 165/mo (normal) | **RM 47,520** |
+| 2030 | 65 | 35 | 5 | RM 165/mo (normal) | **RM 94,050** |
+| 2031 | 105 | 50 | 10 | RM 165/mo (normal) | **RM 158,400** |
+| **Total** | | | | | **RM 312,930** |
 
 > New customers contribute 6 months in their first year; existing customers contribute 12 months.
 
@@ -52,46 +52,51 @@ A payroll/HR management product for Malaysian SMEs. Franchise network gets it bu
 
 **Starts:** 2027 (same as HR Module — see Roadmap → 2027)
 
-Psychometric assessment tool offered as an add-on to HR customers. All profiles within one organisation use the same tier.
+Psychometric assessment tool for HR customers (bundled) and the open market (standalone). Uses an active-seat quota model — an organisation subscribes to a tier and manages who fills their allocated seats.
 
-- **Pricing:** RM40/mo subscription + RM15/profile (Basic tier — per organisation)
-- **Avg profiles/mo:** 3 → RM85/customer/mo
-- **Adoption rate:** 30% of HR Module customers
-- **Additional tiers (future):** Comprehensive RM20/profile, Professional RM30/profile
+**Tiers (per organisation/month):**
+
+| Tier | Price/mo | Seat Quota | Market Mix |
+|------|----------|------------|------------|
+| Starter | RM 299 | 50 seats | 70% |
+| Pro | RM 699 | 150 seats | 25% |
+| Enterprise | RM 1,199 | 300 seats | 5% |
+
+- **Weighted avg price:** RM 444/mo (standalone) · RM 377/mo (bundled with HR — 15% off)
+- **Bundle adoption:** 30% of HR customers also take Portrait (bundled price)
+- **Standalone market:** independent customers beyond HR base
+- **Annual churn:** 10% (seat-quota model is sticky)
 
 **Portrait Module Revenue Projection:**
 
-| Year | HR Customers | Portrait Customers (30%) | Monthly Rev | Annual Rev |
-|------|-------------|--------------------------|-------------|------------|
-| 2026 | — | — | — | — |
-| 2027 | 5 | 2 | RM 170 | **RM 1,020** |
-| 2028 | 15 | 5 | RM 425 | **RM 5,100** |
-| 2029 | 35 | 11 | RM 935 | **RM 11,220** |
-| 2030 | 65 | 20 | RM 1,700 | **RM 20,400** |
-| 2031 | 105 | 32 | RM 2,720 | **RM 32,640** |
-| **Total** | | | | **RM 70,380** |
+| Year | Bundle Cust | Standalone Cust | Bundle Rev | Standalone Rev | Annual Rev |
+|------|-------------|-----------------|------------|----------------|------------|
+| 2026 | — | — | — | — | — |
+| 2027 | 2 | 5 | RM 4,524 | RM 13,320 | **RM 17,844** |
+| 2028 | 4 | 10 | RM 13,572 | RM 39,960 | **RM 53,532** |
+| 2029 | 10 | 20 | RM 31,668 | RM 77,256 | **RM 108,924** |
+| 2030 | 20 | 30 | RM 65,598 | RM 127,872 | **RM 193,470** |
+| 2031 | 32 | 40 | RM 113,100 | RM 178,488 | **RM 291,588** |
+| **Total** | | | | | **RM 665,358** |
 
-> 2027 revenue based on 6 operational months only; 2028 onward = full 12 months.
+> New customers contribute 6 months in their first year; existing customers contribute 12 months.
 
-### Bundle Pricing Reference (HR + Portrait)
+### Bundle Pricing (HR + Portrait)
 
-For customers taking both HR and Portrait:
+Customers taking both modules receive **15% off** the Portrait subscription. HR pricing is unchanged.
 
-| | Subscription | Per Employee | Per Profile |
-|--|-------------|-------------|-------------|
-| **Normal** | RM 65/mo | RM 4/head | RM 12/profile |
-| **Promo (1st yr, closed events)** | RM 50/mo | RM 2/head | RM 10/profile |
-
-> Saves ~19% on subscription, ~20% on per-unit fees vs standalone.
-> **Forecast uses standalone pricing (conservative).**
+| | Portrait Subscription |
+|--|----------------------|
+| **Standalone** | RM 444/mo (weighted avg across tiers) |
+| **Bundled with HR** | RM 377/mo (15% off) |
 
 ### SaaS Revenue Summary
 
 | Source | 5-Year Total |
 |--------|-------------|
-| HR Module | RM 215,010 |
-| Portrait Module | RM 70,380 |
-| **Total SaaS** | **RM 285,390** |
+| HR Module | RM 312,930 |
+| Portrait Module | RM 665,358 |
+| **Total SaaS** | **RM 978,288** |
 
 ---
 
@@ -108,38 +113,37 @@ Staff cost-to-company (CTC) = base salary + RM450 allowances + 14.95% statutory 
 
 | Tier | Base | Allowances | Statutory (14.95%) | Insurance | CTC/mo | CTC/yr |
 |------|------|------------|-------------------|-----------|--------|--------|
-| Executive (CEO, CTO) | RM 5,000 | RM 450 | RM 815 | RM 150 | **RM 6,415** | RM 76,980 |
-| IT Developer | RM 2,000 | RM 450 | RM 366 | RM 150 | **RM 2,966** | RM 35,592 |
+| Executive (mature, from 2028) | RM 5,000 | RM 450 | RM 815 | RM 150 | **RM 6,415** | RM 76,980 |
+| IT (Transfer) | RM 2,200 | RM 450 | RM 386 | RM 150 | **RM 3,196** | RM 38,352 |
+| IT (New Hire) | RM 2,000 | RM 450 | RM 366 | RM 150 | **RM 2,966** | RM 35,592 |
 | Admin | RM 1,900 | RM 450 | RM 351 | RM 150 | **RM 2,851** | RM 34,212 |
 
-**2026 setup phase (CEO RM2,500 + DCEO RM2,300):**
+**Salary plan — discrete annual increments every January:**
 
-| Role | Base | CTC/mo |
-|------|------|--------|
-| CEO | RM 2,500 | RM 3,541 |
-| DCEO | RM 2,300 | RM 3,311 |
-| **2026 annual payroll** | | **RM 82,224** |
+| Role | 2026 (Jun) | 2027 (Jan) | 2028 (Jan) | 2029+ |
+|------|-----------|-----------|-----------|-------|
+| CEO | RM 3,000 | RM 3,900 (+30%) | RM 5,000 (+28%) | 5% p.a. |
+| DCEO | RM 3,000 | RM 3,900 (+30%) | RM 5,000 (+28%) | 5% p.a. |
+| IT (Transfer) | — | RM 2,200 (Jun 2027) | — | 5% p.a. |
+| IT (New Hire) | — | RM 2,000 (Jun 2027) | — | 5% p.a. |
+| Admin | — | RM 1,900 (Jun 2027) | — | 5% p.a. |
 
-**From 2027 — full team of 5:**
+> Both CEO & DCEO step to RM5,000 in Jan 2028 — satisfies MD Status knowledge worker requirement (≥2 staff at ≥RM5k).
 
-| Role | Headcount | CTC/mo each | Starts |
-|------|-----------|-------------|--------|
-| Executive (CEO + CTO) | 2 | RM 6,415 | Jan 2027 (full year) |
-| IT Developer | 2 | RM 2,966 | Jul 2027 (6 months in 2027) |
-| Admin | 1 | RM 2,851 | Jul 2027 (6 months in 2027) |
+**Payroll by year (verified):**
 
-**Payroll by year:**
-
-| Year | Payroll |
-|------|---------|
-| 2026 | RM 82,224 |
-| 2027 | RM 206,658 |
-| 2028 | RM 259,356 |
-| 2029–2031 | RM 259,356/yr |
+| Year | Payroll | Notes |
+|------|---------|-------|
+| 2026 | RM 57,624 | CEO + DCEO × 7 months (Jun–Dec) |
+| 2027 | RM 186,691 | CEO/DCEO full year @ RM3,900 + IT×2 + Admin × 7 months |
+| 2028 | RM 266,340 | All 5 full year; CEO/DCEO @ RM5,000 |
+| 2029 | RM 277,644 | All 5 full year; 5% increment |
+| 2030 | RM 289,512 | All 5 full year; 5% increment |
+| 2031 | RM 301,992 | All 5 full year; 5% increment |
 
 ### Management Fee
 
-**RM 4,000/mo → RM 48,000/yr** paid to QC Group.
+**RM 3,000/mo → RM 36,000/yr** paid to QC Group.
 
 Covers all infrastructure: hosting (colo/DC), server room, AWS, Cloudflare, domains, utilities, server ops, equipment, and debt repayment. Flat fee — QCXIS does not manage individual infra line items.
 
@@ -160,13 +164,13 @@ Covers all infrastructure: hosting (colo/DC), server room, AWS, Cloudflare, doma
 
 | Cost Item | 2026 | 2027 | 2028 | 2029 | 2030 | 2031 |
 |-----------|------|------|------|------|------|------|
-| Payroll | 82,224 | 206,658 | 259,356 | 259,356 | 259,356 | 259,356 |
-| Management Fee | 48,000 | 48,000 | 48,000 | 48,000 | 48,000 | 48,000 |
+| Payroll | 57,624 | 186,691 | 266,340 | 277,644 | 289,512 | 301,992 |
+| Management Fee | 36,000 | 36,000 | 36,000 | 36,000 | 36,000 | 36,000 |
 | Corporate One-offs | 3,500 | 5,000 | 1,080 | — | — | — |
-| Contingency (5%) | 6,686 | 12,983 | 15,422 | 15,368 | 15,368 | 15,368 |
-| **Total OPEX** | **140,410** | **272,641** | **323,858** | **322,724** | **322,724** | **322,724** |
+| Contingency (5%) | 4,856 | 11,385 | 15,171 | 15,682 | 16,276 | 16,900 |
+| **Total OPEX** | **101,980** | **239,076** | **318,591** | **329,326** | **341,788** | **354,892** |
 
-**6-Year Total OPEX: RM 1,705,081**
+**6-Year Total OPEX: RM 1,685,653**
 
 ---
 
@@ -195,14 +199,17 @@ The baseline model includes 5 staff from mid-2027. The optional **6th hire from 
 | Fee rate | RM1/client/month |
 | USD/MYR | 4.40 (fixed) |
 | Collection rate | 100% (no bad debt modelled) |
-| HR Module | RM40/mo sub + RM5/head (normal) or RM2/head (promo 2027–28). 20% churn. |
-| Portrait Module | RM40/mo sub + RM15/profile (Basic). 30% HR adoption, 3 profiles/mo avg. |
-| Bundle | RM65/mo sub + RM4/head + RM12/profile. Promo: RM50/mo + RM2/head + RM10/profile. |
+| HR Module | RM40/mo sub + RM5/head (normal) or RM2/head (promo 2027–28). 25 avg emp. 15% churn. |
+| Portrait Module | Starter RM299 / Pro RM699 / Enterprise RM1,199 per org/mo. WA RM444, bundled RM377. |
+| Bundle | 15% off Portrait sub when taken with HR. HR pricing unchanged. |
 | HR Market | ~307k small enterprises (DOSM 2024) |
-| Exec Tier CTC | RM5k base + RM450 allow + 14.95% stat + RM150 ins = ~RM6,415/mo |
-| IT Tier CTC | RM2k base + RM450 allow + 14.95% stat + RM150 ins = ~RM2,966/mo |
+| Exec CTC (2026) | RM3k base + RM450 allow + 14.95% stat + RM150 ins = ~RM4,116/mo |
+| Exec CTC (2027) | RM3.9k base + RM450 allow + 14.95% stat + RM150 ins = ~RM5,150/mo |
+| Exec CTC (2028+) | RM5k base + RM450 allow + 14.95% stat + RM150 ins = ~RM6,415/mo |
+| IT Transfer CTC | RM2.2k base + RM450 allow + 14.95% stat + RM150 ins = ~RM3,196/mo |
+| IT New Hire CTC | RM2k base + RM450 allow + 14.95% stat + RM150 ins = ~RM2,966/mo |
 | Admin Tier CTC | RM1.9k base + RM450 allow + 14.95% stat + RM150 ins = ~RM2,851/mo |
 | Statutory | EPF 13% + SOCSO 1.75% + EIS 0.2% = 14.95% employer |
-| Management Fee | RM4,000/mo to QC Group (covers all infra) |
+| Management Fee | RM3,000/mo to QC Group (covers all infra) |
 | Corporate | TM RM3.5k (2026), GPU RM5k (2027), MDEC RM1,080 (2028) |
 | Contingency | 5% of OPEX |
