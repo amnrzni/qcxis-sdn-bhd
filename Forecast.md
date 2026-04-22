@@ -1,6 +1,6 @@
 # QCXIS Sdn Bhd — Financial Forecast (2026–2031)
 
-> Extracted from `QCXIS_Roadmap_Forecast.html`. Optimum scenario baseline.
+> Source of truth: `QCXIS_Forecast_Optimum.csv`. HTML presentation and this document reflect that data. Optimum scenario baseline.
 > All amounts in RM unless stated otherwise. USD/MYR = 4.40.
 
 ---
@@ -124,9 +124,9 @@ Staff cost-to-company (CTC) = base salary + RM450 allowances + 14.95% statutory 
 |------|-----------|-----------|-----------|-------|
 | CEO | RM 3,000 | RM 3,900 (+30%) | RM 5,000 (+28%) | 5% p.a. |
 | DCEO | RM 3,000 | RM 3,900 (+30%) | RM 5,000 (+28%) | 5% p.a. |
-| IT (Transfer) | — | RM 2,200 (Jun 2027) | — | 5% p.a. |
-| IT (New Hire) | — | RM 2,000 (Jun 2027) | — | 5% p.a. |
-| Admin | — | RM 1,900 (Jun 2027) | — | 5% p.a. |
+| IT (Transfer) | — | RM 2,200 (Jan 2027) | RM 2,310 (+5%) | 5% p.a. |
+| IT (New Hire) | — | RM 2,000 (Jan 2027) | RM 2,100 (+5%) | 5% p.a. |
+| Admin | — | RM 1,900 (Jun 2027) | RM 1,995 (+5%) | 5% p.a. |
 
 > Both CEO & DCEO step to RM5,000 in Jan 2028 — satisfies MD Status knowledge worker requirement (≥2 staff at ≥RM5k).
 
@@ -134,29 +134,29 @@ Staff cost-to-company (CTC) = base salary + RM450 allowances + 14.95% statutory 
 
 | Year | Payroll | Notes |
 |------|---------|-------|
-| 2026 | RM 57,624 | CEO + DCEO × 7 months (Jun–Dec) |
-| 2027 | RM 186,691 | CEO/DCEO full year @ RM3,900 + IT×2 + Admin × 7 months |
-| 2028 | RM 266,340 | All 5 full year; CEO/DCEO @ RM5,000 |
-| 2029 | RM 277,644 | All 5 full year; 5% increment |
-| 2030 | RM 289,512 | All 5 full year; 5% increment |
-| 2031 | RM 301,992 | All 5 full year; 5% increment |
+| 2026 | RM 57,621 | CEO + DCEO × 7 months (Jun–Dec) |
+| 2027 | RM 217,516 | CEO/DCEO full year @ RM3,900 + IT×2 × 12 months + Admin × 7 months (Jun–Dec) |
+| 2028 | RM 266,327 | All 5 full year; CEO/DCEO @ RM5,000; IT/Admin first 5% increment (Jan 2028) |
+| 2029 | RM 277,642 | All 5 full year; 5% increment |
+| 2030 | RM 289,522 | All 5 full year; 5% increment |
+| 2031 | RM 301,996 | All 5 full year; 5% increment |
 
 ### Management Fee
 
-**RM 3,000/mo → RM 36,000/yr** paid to QC Group.
+**RM 1,000/mo (RM 12,000/yr)** inter-company service fee paid to QC Group. Covers server and hosting services.
 
-Covers all infrastructure: hosting (colo/DC), server room, AWS, Cloudflare, domains, utilities, server ops, equipment, and debt repayment. Flat fee — QCXIS does not manage individual infra line items.
+**Hardware Repayment (separate):** RM 14,499.99 hardware cost repaid at RM1,000/mo from Jan 2027–Feb 2028 (14 months) + RM 499.99 final payment (Mar 2028), per the inter-company Service Agreement.
 
 ### Corporate One-offs
 
 | Item | Amount | Year | Roadmap Link |
 |------|--------|------|--------------|
-| Trademark (design, search, MyIPO) | RM 3,500 | 2026 | 2026 Q3 |
+| Trademark (design, search, MyIPO) | RM 3,500 | 2026 | 2026 Q4 |
 | GPU test (AI R&D pilot) | RM 5,000 | 2027 | 2027 Q4 |
 | MDEC application fee | RM 1,080 | 2028 | 2028 Q1–Q2 |
 
 ### Contingency
-- 5% applied on (payroll + management fee + corporate one-offs), every year.
+- 5% applied on (payroll + management fee + corporate one-offs) monthly. Infra repayment is tracked separately and excluded from the contingency base.
 
 ---
 
@@ -164,13 +164,14 @@ Covers all infrastructure: hosting (colo/DC), server room, AWS, Cloudflare, doma
 
 | Cost Item | 2026 | 2027 | 2028 | 2029 | 2030 | 2031 |
 |-----------|------|------|------|------|------|------|
-| Payroll | 57,624 | 186,691 | 266,340 | 277,644 | 289,512 | 301,992 |
-| Management Fee | 36,000 | 36,000 | 36,000 | 36,000 | 36,000 | 36,000 |
+| Payroll | 57,621 | 217,516 | 266,327 | 277,642 | 289,522 | 301,996 |
+| Management Fee | 7,000 | 12,000 | 12,000 | 12,000 | 12,000 | 12,000 |
+| Infra Repayment | — | 12,000 | 2,500 | — | — | — |
 | Corporate One-offs | 3,500 | 5,000 | 1,080 | — | — | — |
-| Contingency (5%) | 4,856 | 11,385 | 15,171 | 15,682 | 16,276 | 16,900 |
-| **Total OPEX** | **101,980** | **239,076** | **318,591** | **329,326** | **341,788** | **354,892** |
+| Contingency (5%) | 3,406 | 11,726 | 13,970 | 14,482 | 15,076 | 15,700 |
+| **Total OPEX** | **71,527** | **258,242** | **295,877** | **304,124** | **316,598** | **329,696** |
 
-**6-Year Total OPEX: RM 1,685,653**
+**6-Year Total OPEX: RM 1,576,064**
 
 ---
 
@@ -210,6 +211,7 @@ The baseline model includes 5 staff from mid-2027. The optional **6th hire from 
 | IT New Hire CTC | RM2k base + RM450 allow + 14.95% stat + RM150 ins = ~RM2,966/mo |
 | Admin Tier CTC | RM1.9k base + RM450 allow + 14.95% stat + RM150 ins = ~RM2,851/mo |
 | Statutory | EPF 13% + SOCSO 1.75% + EIS 0.2% = 14.95% employer |
-| Management Fee | RM3,000/mo to QC Group (covers all infra) |
+| Management Fee | RM1,000/mo inter-company fee (server & hosting) |
+| Infra Repayment | RM1,000/mo Jan 2027–Feb 2028 + RM499.99 (Mar 2028); total hardware RM14,499.99 |
 | Corporate | TM RM3.5k (2026), GPU RM5k (2027), MDEC RM1,080 (2028) |
 | Contingency | 5% of OPEX |

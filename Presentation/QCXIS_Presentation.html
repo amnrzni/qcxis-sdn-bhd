@@ -1,0 +1,1416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QCXIS Sdn Bhd — Board Presentation 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,600&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+/* ══════════════════════════════════════════════════════════════
+   DESIGN TOKENS
+   ══════════════════════════════════════════════════════════════ */
+:root {
+  --bg: #f5f6f8; --white: #fff; --border: #dfe2e8; --border2: #cdd2db;
+  --text: #161b2e; --body: #3b4460; --muted: #8590a6;
+  --accent: #0a7b6c; --accent-l: #e6f4f2;
+  --accent2: #1d4ed8; --accent2-l: #eff4ff;
+  --warn: #b45309; --warn-l: #fef3e2;
+  --cost-text: #991b1b; --cost-bg: #fef2f2;
+  --net-text: #065f46; --net-bg: #ecfdf5;
+  --rule: #dfe2e8;
+  --staff: #7c3aed; --staff-l: #f5f3ff;
+  --hr: #0891b2; --hr-l: #ecfeff;
+  --y26: #1d4ed8; --y27: #b45309; --y28: #0a7b6c;
+  --y29: #7c3aed; --y30: #dc2626; --y31: #0891b2;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   RESET
+   ══════════════════════════════════════════════════════════════ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg); font-family: 'DM Sans', sans-serif; color: var(--text); }
+
+/* ══════════════════════════════════════════════════════════════
+   DECK SHELL
+   ══════════════════════════════════════════════════════════════ */
+.deck {
+  position: relative;
+  width: 100%; height: 100%;
+  overflow: hidden;
+}
+
+/* ── Slide base ────────────────────────────────────────────── */
+.slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(40px);
+  transition: opacity .35s ease, transform .35s ease;
+  overflow-y: auto;
+  padding: 48px 40px 100px;
+}
+.slide.active {
+  opacity: 1;
+  pointer-events: all;
+  transform: translateX(0);
+}
+.slide.exit-left {
+  opacity: 0;
+  transform: translateX(-40px);
+}
+
+/* Slide inner content wrapper */
+.s-inner {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   NAV BAR (bottom)
+   ══════════════════════════════════════════════════════════════ */
+.nav-bar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  height: 64px;
+  background: var(--white);
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+  z-index: 100;
+}
+.nav-btn {
+  display: flex; align-items: center; gap: 6px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: .06em; text-transform: uppercase;
+  color: var(--text); background: none; border: 1px solid var(--border);
+  border-radius: 4px; padding: 8px 16px; cursor: pointer;
+  transition: all .18s;
+}
+.nav-btn:hover { background: var(--text); color: #fff; border-color: var(--text); }
+.nav-btn:disabled { opacity: .25; cursor: not-allowed; }
+.nav-btn:disabled:hover { background: none; color: var(--text); }
+
+.nav-mid {
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+}
+.nav-counter {
+  font-size: 10px; font-weight: 700; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--muted);
+}
+.dots {
+  display: flex; gap: 6px; align-items: center;
+}
+.dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--border2); cursor: pointer; transition: all .2s;
+}
+.dot.active {
+  background: var(--text); width: 18px; border-radius: 3px;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   SHARED SLIDE COMPONENTS
+   ══════════════════════════════════════════════════════════════ */
+.eyebrow {
+  font-size: 9.5px; font-weight: 700; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 6px;
+}
+.slide-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(24px, 3.8vw, 36px); line-height: 1.15; margin-bottom: 6px;
+}
+.slide-title em { font-style: italic; color: var(--accent); }
+.slide-sub {
+  font-size: 11px; color: var(--muted); margin-bottom: 28px;
+}
+.section-rule {
+  border: none; border-top: 2px solid var(--text);
+  margin-bottom: 28px;
+}
+.tag {
+  display: inline-block; font-size: 9px; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+  padding: 3px 9px; border-radius: 3px;
+}
+.tag-accent { background: var(--accent-l); color: var(--accent); }
+.tag-blue   { background: var(--accent2-l); color: var(--accent2); }
+.tag-warn   { background: var(--warn-l); color: var(--warn); }
+.tag-staff  { background: var(--staff-l); color: var(--staff); }
+.tag-muted  { background: var(--bg); color: var(--muted); border: 1px solid var(--border); }
+
+/* Card */
+.card {
+  background: var(--white); border: 1px solid var(--border); border-radius: 7px;
+  padding: 20px 22px;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   SLIDE 1 — COVER
+   ══════════════════════════════════════════════════════════════ */
+#slide-1 { background: var(--text); }
+#slide-1 .eyebrow { color: rgba(255,255,255,.45); }
+#slide-1 .slide-title { color: #fff; font-size: clamp(32px, 5vw, 52px); }
+#slide-1 .slide-title em { color: #5de8d6; }
+#slide-1 .slide-sub { color: rgba(255,255,255,.55); font-size: 13px; margin-bottom: 36px; }
+#slide-1 .s-inner { text-align: center; }
+
+.cover-brand {
+  width: 80px; height: 80px; border-radius: 50%;
+  background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.15);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 28px;
+}
+.cover-initials {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px; font-weight: 600; color: #5de8d6;
+  letter-spacing: .04em;
+}
+.cover-divider {
+  width: 60px; height: 2px; background: rgba(255,255,255,.18);
+  margin: 24px auto;
+}
+.cover-meta {
+  display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-top: 12px;
+}
+.cover-pill {
+  font-size: 9.5px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+  padding: 5px 12px; border-radius: 3px; color: rgba(255,255,255,.7);
+  border: 1px solid rgba(255,255,255,.15);
+}
+#slide-1 .nav-bar { background: #0e1322; border-color: rgba(255,255,255,.08); }
+#slide-1 .nav-btn { color: rgba(255,255,255,.7); border-color: rgba(255,255,255,.15); }
+#slide-1 .nav-btn:hover { background: #fff; color: var(--text); }
+#slide-1 .nav-counter { color: rgba(255,255,255,.4); }
+#slide-1 .dot { background: rgba(255,255,255,.2); }
+#slide-1 .dot.active { background: #fff; }
+
+/* ══════════════════════════════════════════════════════════════
+   SLIDE 2 — VISION & MISSION + ORG CHART
+   ══════════════════════════════════════════════════════════════ */
+.vm-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 28px;
+}
+.vm-card {
+  background: var(--white); border: 1px solid var(--border); border-radius: 7px;
+  padding: 20px 22px;
+}
+.vm-card-head {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 12px;
+  padding-bottom: 10px; border-bottom: 1px solid var(--border);
+}
+.vm-icon { font-size: 16px; }
+.vm-label {
+  font-size: 9px; font-weight: 700; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--muted);
+}
+.vm-text {
+  font-size: 14.5px; color: var(--body); line-height: 1.8; font-weight: 300;
+}
+.vm-quote {
+  font-family: 'Playfair Display', serif;
+  font-size: 52px; line-height: 1; color: var(--border2);
+  margin-bottom: -8px; display: block;
+}
+.vm-card.vision { border-top: 3px solid var(--accent); }
+.vm-card.mission { border-top: 3px solid var(--accent2); }
+
+/* Org chart */
+.org-wrap {
+  background: var(--white); border: 1px solid var(--border); border-radius: 7px;
+  padding: 22px 24px;
+}
+.org-label {
+  font-size: 9px; font-weight: 700; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--muted);
+  margin-bottom: 18px;
+}
+.org-tree {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 0;
+}
+.org-row {
+  display: flex; justify-content: center; align-items: flex-start;
+  position: relative; width: 100%;
+}
+.org-node {
+  display: flex; flex-direction: column; align-items: center;
+  position: relative;
+}
+/* Vertical connector lines */
+.org-node::before {
+  content: '';
+  display: block;
+  width: 2px; height: 20px;
+  background: var(--border2);
+  margin: 0 auto;
+}
+.org-node.root::before { display: none; }
+.org-children {
+  display: flex; justify-content: center; align-items: flex-start;
+  gap: 16px; position: relative; padding-top: 0;
+}
+/* Horizontal line spanning children */
+.org-children::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 50%; right: 50%;
+  height: 2px; background: var(--border2);
+}
+.org-children-wrap {
+  position: relative; display: flex; justify-content: center;
+}
+.org-children-line {
+  position: absolute;
+  top: 20px;
+  height: 2px; background: var(--border2);
+  left: calc(50% - 180px); right: calc(50% - 180px);
+}
+.org-box {
+  background: var(--white); border: 1px solid var(--border); border-radius: 5px;
+  padding: 10px 14px; text-align: center; min-width: 110px;
+}
+.org-box.exec { border-top: 3px solid var(--accent); }
+.org-box.it   { border-top: 3px solid var(--accent2); }
+.org-box.adm  { border-top: 3px solid var(--warn); }
+.org-box-role {
+  font-size: 9px; font-weight: 700; letter-spacing: .06em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 2px;
+}
+.org-box-name {
+  font-size: 11.5px; font-weight: 700; color: var(--text);
+}
+.org-box-note {
+  font-size: 8.5px; color: var(--muted); margin-top: 2px;
+}
+.org-vline {
+  width: 2px; height: 20px; background: var(--border2); margin: 0 auto;
+}
+.org-hline-wrap {
+  display: flex; align-items: flex-start; position: relative;
+}
+.org-child-col {
+  display: flex; flex-direction: column; align-items: center;
+}
+.org-hline {
+  position: absolute;
+  top: 0; height: 2px; background: var(--border2);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   SLIDE 3 — SERVICES
+   ══════════════════════════════════════════════════════════════ */
+.svc-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+}
+.svc-card {
+  background: var(--white); border: 1px solid var(--border); border-radius: 7px;
+  padding: 18px 20px;
+}
+.svc-card.s1 { border-left: 4px solid var(--accent2); }
+.svc-card.s2 { border-left: 4px solid var(--accent); }
+.svc-card.s3 { border-left: 4px solid var(--warn); }
+.svc-card.s4 { border-left: 4px solid var(--staff); }
+
+.svc-pillar {
+  font-size: 9px; font-weight: 700; letter-spacing: .1em;
+  text-transform: uppercase; margin-bottom: 6px;
+}
+.s1 .svc-pillar { color: var(--accent2); }
+.s2 .svc-pillar { color: var(--accent); }
+.s3 .svc-pillar { color: var(--warn); }
+.s4 .svc-pillar { color: var(--staff); }
+
+.svc-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 16px; font-weight: 600; color: var(--text);
+  margin-bottom: 10px;
+}
+.svc-items { list-style: none; }
+.svc-items li {
+  font-size: 11px; color: var(--body); padding: 5px 0;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 8px;
+  line-height: 1.45;
+}
+.svc-items li:last-child { border-bottom: none; }
+.svc-items li::before {
+  content: ''; display: block; flex-shrink: 0;
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--border2);
+}
+.s1 .svc-items li::before { background: var(--accent2); }
+.s2 .svc-items li::before { background: var(--accent); }
+.s3 .svc-items li::before { background: var(--warn); }
+.s4 .svc-items li::before { background: var(--staff); }
+
+/* ══════════════════════════════════════════════════════════════
+   SLIDE 4 — ROADMAP GOALS
+   ══════════════════════════════════════════════════════════════ */
+.goal-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
+}
+.goal-card {
+  background: var(--white); border: 1px solid var(--border); border-radius: 7px;
+  padding: 22px 20px; display: flex; flex-direction: column; gap: 8px;
+}
+.goal-card.g1 { border-top: 3px solid var(--accent); }
+.goal-card.g2 { border-top: 3px solid var(--accent2); }
+.goal-card.g3 { border-top: 3px solid var(--warn); }
+
+.goal-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 36px; font-weight: 600; line-height: 1;
+  opacity: .12; margin-bottom: -6px; align-self: flex-end;
+}
+.g1 .goal-num { color: var(--accent); opacity: .18; }
+.g2 .goal-num { color: var(--accent2); opacity: .18; }
+.g3 .goal-num { color: var(--warn); opacity: .18; }
+
+.goal-icon { font-size: 22px; }
+.goal-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 17px; color: var(--text); line-height: 1.25;
+}
+.goal-subtitle {
+  font-size: 9.5px; font-weight: 700; letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.g1 .goal-subtitle { color: var(--accent); }
+.g2 .goal-subtitle { color: var(--accent2); }
+.g3 .goal-subtitle { color: var(--warn); }
+
+.goal-desc {
+  font-size: 11px; color: var(--body); line-height: 1.6; margin-top: 4px;
+}
+.goal-items { list-style: none; margin-top: 6px; }
+.goal-items li {
+  font-size: 10.5px; color: var(--body); padding: 3px 0;
+  display: flex; align-items: flex-start; gap: 7px; line-height: 1.45;
+}
+.goal-items li::before {
+  content: '▸'; font-size: 8px; margin-top: 3px; flex-shrink: 0;
+}
+.g1 .goal-items li::before { color: var(--accent); }
+.g2 .goal-items li::before { color: var(--accent2); }
+.g3 .goal-items li::before { color: var(--warn); }
+
+/* ══════════════════════════════════════════════════════════════
+   SLIDES 5 & 6 — ROADMAP YEARS
+   ══════════════════════════════════════════════════════════════ */
+.yr-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+}
+.yr-card {
+  background: var(--white); border: 1px solid var(--border); border-radius: 7px;
+  padding: 18px 18px; display: flex; flex-direction: column; gap: 0;
+}
+.yr-badge {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 40px; height: 40px; border-radius: 50%;
+  font-family: 'Playfair Display', serif; font-size: 13px; font-weight: 600;
+  color: #fff; margin-bottom: 10px; flex-shrink: 0;
+}
+.yr-theme {
+  font-size: 8.5px; font-weight: 700; letter-spacing: .09em;
+  text-transform: uppercase; margin-bottom: 10px; padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+.yr-section-label {
+  font-size: 7.5px; font-weight: 700; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--muted);
+  margin-top: 10px; margin-bottom: 4px;
+}
+.yr-items { list-style: none; }
+.yr-items li {
+  font-size: 10px; color: var(--body); padding: 3px 0;
+  display: flex; align-items: flex-start; gap: 6px; line-height: 1.4;
+}
+.yr-items li::before { content: '▸'; font-size: 7px; margin-top: 3px; color: var(--muted); flex-shrink: 0; }
+.yr-items li.ms { font-weight: 600; }
+.yr-items li.ms::before { content: '●'; color: var(--accent); }
+
+/* Year color theming for cards */
+.yr-y26 { border-top: 3px solid var(--y26); }
+.yr-y27 { border-top: 3px solid var(--y27); }
+.yr-y28 { border-top: 3px solid var(--y28); }
+.yr-y29 { border-top: 3px solid var(--y29); }
+.yr-y30 { border-top: 3px solid var(--y30); }
+.yr-y31 { border-top: 3px solid var(--y31); }
+.yr-y26 .yr-badge { background: var(--y26); }
+.yr-y27 .yr-badge { background: var(--y27); }
+.yr-y28 .yr-badge { background: var(--y28); }
+.yr-y29 .yr-badge { background: var(--y29); }
+.yr-y30 .yr-badge { background: var(--y30); }
+.yr-y31 .yr-badge { background: var(--y31); }
+.yr-y26 .yr-theme { color: var(--y26); }
+.yr-y27 .yr-theme { color: var(--y27); }
+.yr-y28 .yr-theme { color: var(--y28); }
+.yr-y29 .yr-theme { color: var(--y29); }
+.yr-y30 .yr-theme { color: var(--y30); }
+.yr-y31 .yr-theme { color: var(--y31); }
+.yr-y26 .yr-items li.ms::before { color: var(--y26); }
+.yr-y27 .yr-items li.ms::before { color: var(--y27); }
+.yr-y28 .yr-items li.ms::before { color: var(--y28); }
+.yr-y29 .yr-items li.ms::before { color: var(--y29); }
+.yr-y30 .yr-items li.ms::before { color: var(--y30); }
+.yr-y31 .yr-items li.ms::before { color: var(--y31); }
+
+/* ══════════════════════════════════════════════════════════════
+   SLIDE 7 — FORECAST
+   ══════════════════════════════════════════════════════════════ */
+.kpi-row {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 16px;
+}
+.kpi {
+  background: var(--white); border: 1px solid var(--border); border-radius: 5px;
+  padding: 12px 14px; border-top: 3px solid var(--border2);
+}
+.kpi.kpi-rev  { border-top-color: var(--accent2); }
+.kpi.kpi-opex { border-top-color: var(--cost-text); }
+.kpi.kpi-net  { border-top-color: var(--accent); }
+.kpi.kpi-cum  { border-top-color: var(--staff); }
+.kpi-label { font-size: 8.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.kpi-value { font-family: 'Playfair Display', serif; font-size: 19px; line-height: 1; color: var(--text); }
+.kpi-note  { font-size: 9px; color: var(--muted); margin-top: 3px; }
+
+.chart-card {
+  background: var(--white); border: 1px solid var(--border); border-radius: 7px;
+  padding: 18px 20px;
+}
+.chart-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px; }
+.chart-title { font-family: 'Playfair Display', serif; font-size: 15px; color: var(--text); }
+.chart-sub   { font-size: 9.5px; color: var(--muted); margin-top: 2px; }
+.chart-wrap  { position: relative; height: 280px; }
+.chart-legend { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 10px; }
+.cl-item { display: flex; align-items: center; gap: 5px; font-size: 9.5px; color: var(--body); }
+.cl-line { width: 14px; height: 2px; border-radius: 2px; }
+
+/* ══════════════════════════════════════════════════════════════
+   SLIDE 8 — WHAT NEEDS APPROVAL
+   ══════════════════════════════════════════════════════════════ */
+.approval-intro {
+  font-size: 12px; color: var(--body); margin-bottom: 22px; line-height: 1.6;
+}
+.approval-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 24px;
+}
+.appr-card {
+  background: var(--white); border: 1px solid var(--border); border-radius: 7px;
+  padding: 22px 20px; position: relative; overflow: hidden;
+}
+.appr-card.a1 { border-top: 3px solid var(--accent); }
+.appr-card.a2 { border-top: 3px solid var(--accent2); }
+.appr-card.a3 { border-top: 3px solid var(--staff); }
+
+.appr-num {
+  font-family: 'Playfair Display', serif; font-size: 48px; font-weight: 600;
+  position: absolute; top: 10px; right: 16px; line-height: 1; opacity: .07;
+}
+.a1 .appr-num { color: var(--accent); opacity: .1; }
+.a2 .appr-num { color: var(--accent2); opacity: .1; }
+.a3 .appr-num { color: var(--staff); opacity: .1; }
+
+.appr-icon { font-size: 24px; margin-bottom: 10px; }
+.appr-title {
+  font-family: 'Playfair Display', serif; font-size: 17px;
+  color: var(--text); margin-bottom: 8px;
+}
+.appr-desc {
+  font-size: 11px; color: var(--body); line-height: 1.6; margin-bottom: 12px;
+}
+.appr-items { list-style: none; }
+.appr-items li {
+  font-size: 10px; color: var(--body); padding: 4px 0;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: flex-start; gap: 7px; line-height: 1.4;
+}
+.appr-items li:last-child { border-bottom: none; }
+.appr-items li::before { content: '→'; font-size: 9px; color: var(--muted); margin-top: 1px; flex-shrink: 0; }
+
+.approval-footer {
+  background: var(--white); border: 1px solid var(--border); border-radius: 7px;
+  padding: 14px 20px; display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 10px;
+}
+.apf-label {
+  font-size: 9px; font-weight: 700; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--muted);
+}
+.apf-note {
+  font-size: 11px; color: var(--body); margin-top: 2px;
+}
+.apf-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+
+/* ══════════════════════════════════════════════════════════════
+   RESPONSIVE GUARD
+   ══════════════════════════════════════════════════════════════ */
+@media (max-width: 680px) {
+  .vm-grid, .svc-grid, .goal-grid, .yr-grid, .approval-grid, .kpi-row {
+    grid-template-columns: 1fr;
+  }
+  .slide { padding: 32px 20px 90px; }
+}
+@media (max-width: 800px) {
+  .goal-grid, .yr-grid, .approval-grid { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="deck" id="deck">
+
+  <!-- ══════════════════════════════════════════════════════════
+       SLIDE 1 — COVER
+       ══════════════════════════════════════════════════════════ -->
+  <div class="slide active" id="slide-1" data-slide="1">
+    <div class="s-inner">
+      <div class="cover-brand">
+        <span class="cover-initials">QX</span>
+      </div>
+      <div class="eyebrow">April 2026</div>
+      <h1 class="slide-title" style="font-size: clamp(32px, 5vw, 52px); margin-bottom: 10px;">
+        QCXIS <em>Sdn Bhd</em>
+      </h1>
+      <p class="slide-sub">Company Overview, Roadmap & Forecast 2026–2031</p>
+      <div class="cover-divider"></div>
+      <div class="cover-meta">
+        <span class="cover-pill">April 2026</span>
+        <span class="cover-pill">Optimum Scenario</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════
+       SLIDE 2 — VISION & MISSION + ORG CHART
+       ══════════════════════════════════════════════════════════ -->
+  <div class="slide" id="slide-2" data-slide="2">
+    <div class="s-inner">
+      <div class="eyebrow">Who We Are</div>
+      <h2 class="slide-title">Vision &amp; <em>Mission</em></h2>
+      <hr class="section-rule">
+
+      <div class="vm-grid">
+        <div class="vm-card vision">
+          <div class="vm-card-head">
+            <span class="vm-icon">🌐</span>
+            <span class="vm-label">Vision</span>
+          </div>
+          <span class="vm-quote">&ldquo;</span>
+          <p class="vm-text">
+            To be the ecosystem where organizations — from single teams to multi-location networks — manage their workforce, operations, and everyday work life in <em style="font-style:italic; color:var(--accent);">one connected space.</em>
+          </p>
+        </div>
+        <div class="vm-card mission">
+          <div class="vm-card-head">
+            <span class="vm-icon">🎯</span>
+            <span class="vm-label">Mission</span>
+          </div>
+          <span class="vm-quote">&ldquo;</span>
+          <p class="vm-text">
+            To build a <em style="font-style:italic; color:var(--accent2);">secure, modular SaaS ecosystem</em> designed for organizations that operate across multiple locations, teams, or entities — centralizing workforce management, operations, and collaboration to drive efficiency and sustainable growth.
+          </p>
+        </div>
+      </div>
+
+      <!-- Org Chart -->
+      <div class="org-wrap">
+        <div class="org-label">Team Structure · 2026 → 2027+</div>
+        <!-- Tier 1: CEO & DCEO (Jun 2026) -->
+        <div style="display:flex; flex-direction:column; align-items:center; gap:0;">
+
+          <!-- Root row: CEO & DCEO -->
+          <div style="display:flex; gap:16px; justify-content:center; align-items:flex-start;">
+            <div style="display:flex; flex-direction:column; align-items:center;">
+              <div class="org-box exec">
+                <div class="org-box-role">Chief Executive</div>
+                <div class="org-box-name">CEO</div>
+              </div>
+            </div>
+            <div style="display:flex; align-items:center; padding-top:10px; color:var(--muted); font-size:11px; gap:4px; font-weight:600;">⇄</div>
+            <div style="display:flex; flex-direction:column; align-items:center;">
+              <div class="org-box exec">
+                <div class="org-box-role">Deputy CEO</div>
+                <div class="org-box-name">DCEO</div>
+              </div>
+            </div>
+          </div>
+          <div style="font-size:9px; color:var(--accent); font-weight:700; letter-spacing:.07em; text-transform:uppercase; margin-top:6px; margin-bottom:2px;">↑ Positions are rotational between both founders</div>
+
+          <!-- Vertical drop from executives to children -->
+          <div style="width:2px; height:22px; background:var(--border2);"></div>
+
+          <!-- Horizontal rail -->
+          <div style="position:relative; width:100%; max-width:560px; height:2px; background:var(--border2);"></div>
+
+          <!-- 3 children -->
+          <div style="display:flex; gap:16px; justify-content:center; align-items:flex-start; width:100%; max-width:560px;">
+            <div style="display:flex; flex-direction:column; align-items:center; flex:1;">
+              <div style="width:2px; height:20px; background:var(--border2);"></div>
+              <div class="org-box it">
+                <div class="org-box-role">IT Staff (Transfer)</div>
+                <div class="org-box-name">IT Developer</div>
+                <div class="org-box-note">Joining Jan 2027</div>
+              </div>
+            </div>
+            <div style="display:flex; flex-direction:column; align-items:center; flex:1;">
+              <div style="width:2px; height:20px; background:var(--border2);"></div>
+              <div class="org-box it">
+                <div class="org-box-role">IT Staff (New Hire)</div>
+                <div class="org-box-name">IT Developer</div>
+                <div class="org-box-note">Joining Jan 2027</div>
+              </div>
+            </div>
+            <div style="display:flex; flex-direction:column; align-items:center; flex:1;">
+              <div style="width:2px; height:20px; background:var(--border2);"></div>
+              <div class="org-box adm">
+                <div class="org-box-role">Administration</div>
+                <div class="org-box-name">Admin</div>
+                <div class="org-box-note">Joining Jun 2027</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <!-- Legend -->
+        <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:16px; padding-top:12px; border-top:1px solid var(--border);">
+          <span style="font-size:9.5px; color:var(--muted);">
+            <span style="display:inline-block; width:10px; height:3px; background:var(--accent); border-radius:2px; vertical-align:middle; margin-right:4px;"></span>Executive (2 staff)
+          </span>
+          <span style="font-size:9.5px; color:var(--muted);">
+            <span style="display:inline-block; width:10px; height:3px; background:var(--accent2); border-radius:2px; vertical-align:middle; margin-right:4px;"></span>IT Developer (2 staff · from Jan 2027)
+          </span>
+          <span style="font-size:9.5px; color:var(--muted);">
+            <span style="display:inline-block; width:10px; height:3px; background:var(--warn); border-radius:2px; vertical-align:middle; margin-right:4px;"></span>Admin (1 staff · from Jun 2027)
+          </span>
+          <span style="font-size:9.5px; color:var(--muted); margin-left:auto;">Total: 2 now → 5 by mid-2027</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════
+       SLIDE 3 — SERVICES TO QC GROUP
+       ══════════════════════════════════════════════════════════ -->
+  <div class="slide" id="slide-3" data-slide="3">
+    <div class="s-inner">
+      <div class="eyebrow">What We Do</div>
+      <h2 class="slide-title">Services to <em>QC Group</em></h2>
+      <hr class="section-rule">
+
+      <div class="svc-grid">
+        <!-- Pillar 1 -->
+        <div class="svc-card s1">
+          <div class="svc-pillar">Pillar 1</div>
+          <div class="svc-name">Software &amp; SaaS Provider</div>
+          <ul class="svc-items">
+            <li>
+              <div>
+                <strong style="display:block; margin-bottom:1px;">QCXIS Integrated System</strong>
+                <span style="font-size:9.5px; color:var(--muted);">Franchise · Finance · HR · OMNI · MEET · ICARUS · Helpdesk · Portrait</span>
+              </div>
+            </li>
+            <li>
+              <div>
+                <strong style="display:block; margin-bottom:1px;">Bespoke Service (Custom)</strong>
+                <span style="font-size:9.5px; color:var(--muted);">Tailored development and system customisation for QC Group entities</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Pillar 2 -->
+        <div class="svc-card s2">
+          <div class="svc-pillar">Pillar 2</div>
+          <div class="svc-name">Infra &amp; Cloud Services</div>
+          <ul class="svc-items">
+            <li>
+              <div>
+                <strong style="display:block; margin-bottom:1px;">Hosting</strong>
+                <span style="font-size:9.5px; color:var(--muted);">Server management, cloud infrastructure, data centre colocation, domains &amp; DNS</span>
+              </div>
+            </li>
+            <li>
+              <div>
+                <strong style="display:block; margin-bottom:1px;">Infrastructure Review &amp; Upgrade</strong>
+                <span style="font-size:9.5px; color:var(--muted);">Periodic assessment and strategic upgrade planning (targeted 2028)</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Pillar 3 -->
+        <div class="svc-card s3">
+          <div class="svc-pillar">Pillar 3</div>
+          <div class="svc-name">IT Advisory &amp; Support</div>
+          <ul class="svc-items">
+            <li>
+              <div>
+                <strong style="display:block; margin-bottom:1px;">Helpdesk Support</strong>
+                <span style="font-size:9.5px; color:var(--muted);">Internal ticketing, SLA-backed response, workflows and escalation management</span>
+              </div>
+            </li>
+            <li>
+              <div>
+                <strong style="display:block; margin-bottom:1px;">Training</strong>
+                <span style="font-size:9.5px; color:var(--muted);">Staff onboarding and platform adoption training across QC Group network</span>
+              </div>
+            </li>
+            <li>
+              <div>
+                <strong style="display:block; margin-bottom:1px;">IT Advisory</strong>
+                <span style="font-size:9.5px; color:var(--muted);">Technology guidance and strategic IT direction for QC Group</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Pillar 4 -->
+        <div class="svc-card s4">
+          <div class="svc-pillar">Pillar 4</div>
+          <div class="svc-name">Data Protection Compliance</div>
+          <ul class="svc-items">
+            <li>
+              <div>
+                <strong style="display:block; margin-bottom:1px;">Data Protection Officer (DPO)</strong>
+                <span style="font-size:9.5px; color:var(--muted);">QCXIS appointed as DPO for QC Group. Governs PDPA obligations, DPA enforcement, and data audit readiness</span>
+              </div>
+            </li>
+            <li>
+              <div>
+                <strong style="display:block; margin-bottom:1px;">Data Processing Agreement (DPA)</strong>
+                <span style="font-size:9.5px; color:var(--muted);">Inter-company agreement governing handling of franchise network data</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div style="margin-top:14px; background:var(--white); border:1px solid var(--border); border-radius:5px; padding:10px 16px; font-size:10.5px; color:var(--body); border-left:3px solid var(--accent2);">
+        <strong style="color:var(--text);">Inter-company arrangement:</strong> QCXIS provides these services under a formal Inter-company Service Agreement. QC Group pays a management fee of RM 1,000/month for infrastructure services. All IT staff are employed by QCXIS.
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════
+       SLIDE 4 — ROADMAP GOALS
+       ══════════════════════════════════════════════════════════ -->
+  <div class="slide" id="slide-4" data-slide="4">
+    <div class="s-inner">
+      <div class="eyebrow">Strategic Direction</div>
+      <h2 class="slide-title">Roadmap — <em>Main Goals</em></h2>
+      <hr class="section-rule">
+
+      <div class="goal-grid">
+        <!-- Goal 1: Backbone for QC Group -->
+        <div class="goal-card g1">
+          <div class="goal-num">01</div>
+          <div class="goal-icon">🔗</div>
+          <div class="goal-title">Backbone for QC Group</div>
+          <div class="goal-subtitle">IT Subsidiary · Ongoing</div>
+          <p class="goal-desc">
+            Build QCXIS into a credible, self-sustaining IT subsidiary that manages QC Group's entire technology ecosystem — now and at scale.
+          </p>
+          <ul class="goal-items">
+            <li>Franchise Module live and fee-collecting (H2 2026)</li>
+            <li>Full module suite by 2031 (8 modules)</li>
+            <li>500 outlets on the platform by 2031</li>
+            <li>All infra assets owned by QCXIS by 2031</li>
+            <li>Independent payroll, governance, and accountability</li>
+          </ul>
+        </div>
+
+        <!-- Goal 2: External Customers -->
+        <div class="goal-card g2">
+          <div class="goal-num">02</div>
+          <div class="goal-icon">🌍</div>
+          <div class="goal-title">External Customers</div>
+          <div class="goal-subtitle">Open Market SaaS · from 2027</div>
+          <p class="goal-desc">
+            Grow beyond QC Group by offering the HR and Portrait modules as commercial SaaS products to the Malaysian SME market.
+          </p>
+          <ul class="goal-items">
+            <li>HR Module → 5 customers (2027) → 105 (2031)</li>
+            <li>Portrait Module → 7 orgs (2027) → 72 (2031)</li>
+            <li>~307,000 addressable SME target market</li>
+            <li>ISO 27001 certification for enterprise market (2030)</li>
+            <li>Regional expansion evaluation (SEA · 2031)</li>
+          </ul>
+        </div>
+
+        <!-- Goal 3: MD Status -->
+        <div class="goal-card g3">
+          <div class="goal-num">03</div>
+          <div class="goal-icon">🏛️</div>
+          <div class="goal-title">MD Status</div>
+          <div class="goal-subtitle">Target: 2028</div>
+          <p class="goal-desc">
+            Achieve Malaysia Digital (MD) Status recognition from MDEC — unlocking tax incentives, grant eligibility, and enterprise credibility.
+          </p>
+          <ul class="goal-items">
+            <li>SaaS platform with qualifying digital activities</li>
+            <li>≥2 knowledge workers at ≥RM5,000/mo by Jan 2028</li>
+            <li>≥RM50,000/yr OPEX on MD-qualifying activities</li>
+            <li>Trademark registered (MyIPO · Q4 2026)</li>
+            <li>Application targeted Q2–Q3 2028</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════
+       SLIDE 5 — ROADMAP 2026–2028
+       ══════════════════════════════════════════════════════════ -->
+  <div class="slide" id="slide-5" data-slide="5">
+    <div class="s-inner">
+      <div class="eyebrow">Roadmap Detail</div>
+      <h2 class="slide-title">2026 – <em>2028</em></h2>
+      <hr class="section-rule">
+
+      <div class="yr-grid">
+        <!-- 2026 -->
+        <div class="yr-card yr-y26">
+          <div class="yr-badge">26</div>
+          <div class="yr-theme">Foundation &amp; Identity</div>
+
+          <div class="yr-section-label">Product</div>
+          <ul class="yr-items">
+            <li class="ms">Franchise Module launched</li>
+            <li>Cashbook (Finance) features</li>
+            <li>Helpdesk / Support Module</li>
+          </ul>
+
+          <div class="yr-section-label">Revenue</div>
+          <ul class="yr-items">
+            <li class="ms">Fee collection begins (H2 2026)</li>
+            <li>RM 1/client/month · 226 outlets</li>
+          </ul>
+
+          <div class="yr-section-label">People</div>
+          <ul class="yr-items">
+            <li class="ms">2 staff transferred from QC Group</li>
+            <li>CEO &amp; DCEO · RM 3,000 base</li>
+          </ul>
+
+          <div class="yr-section-label">Governance &amp; IP</div>
+          <ul class="yr-items">
+            <li>Inter-company Service Agreement</li>
+            <li>DPO Appointment · DPA signed</li>
+            <li class="ms">Trademark application started (Q4)</li>
+          </ul>
+        </div>
+
+        <!-- 2027 -->
+        <div class="yr-card yr-y27">
+          <div class="yr-badge">27</div>
+          <div class="yr-theme">Growth &amp; Multi-module</div>
+
+          <div class="yr-section-label">Product</div>
+          <ul class="yr-items">
+            <li class="ms">OMNI Module launched (eCommerce / Inventory)</li>
+            <li class="ms">HR Module launched (market)</li>
+            <li class="ms">Portrait Module launched (market)</li>
+            <li>MEET Module in development</li>
+          </ul>
+
+          <div class="yr-section-label">People</div>
+          <ul class="yr-items">
+            <li class="ms">+2 IT Staff (Jan 2027)</li>
+            <li class="ms">+1 Admin Staff (Jun 2027) → 5 total</li>
+            <li>CEO &amp; DCEO → RM 3,900</li>
+          </ul>
+
+          <div class="yr-section-label">Infra &amp; Grants</div>
+          <ul class="yr-items">
+            <li>Hardware repayment begins (RM 1k/mo)</li>
+            <li>DC migration (QC Group-funded)</li>
+            <li>MDCG grant application</li>
+          </ul>
+        </div>
+
+        <!-- 2028 -->
+        <div class="yr-card yr-y28">
+          <div class="yr-badge">28</div>
+          <div class="yr-theme">MD Status &amp; Infra</div>
+
+          <div class="yr-section-label">Certification</div>
+          <ul class="yr-items">
+            <li class="ms">MD Status application (Q2–Q3)</li>
+            <li class="ms">MD Status approval target (H2)</li>
+            <li>MDEC pre-consultation (Q1–Q2)</li>
+          </ul>
+
+          <div class="yr-section-label">Product</div>
+          <ul class="yr-items">
+            <li>MEET Module launched</li>
+            <li>ICARUS (RASCI) Module launched</li>
+          </ul>
+
+          <div class="yr-section-label">People</div>
+          <ul class="yr-items">
+            <li class="ms">CEO &amp; DCEO → RM 5,000 (Jan 2028)</li>
+            <li>Capacity review · 6th hire decision</li>
+          </ul>
+
+          <div class="yr-section-label">Infra</div>
+          <ul class="yr-items">
+            <li class="ms">Hardware repayment completed (Mar 2028)</li>
+            <li>Infra review &amp; ownership transfer begins</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════
+       SLIDE 6 — ROADMAP 2029–2031
+       ══════════════════════════════════════════════════════════ -->
+  <div class="slide" id="slide-6" data-slide="6">
+    <div class="s-inner">
+      <div class="eyebrow">Roadmap Detail</div>
+      <h2 class="slide-title">2029 – <em>2031</em></h2>
+      <hr class="section-rule">
+
+      <div class="yr-grid">
+        <!-- 2029 -->
+        <div class="yr-card yr-y29">
+          <div class="yr-badge">29</div>
+          <div class="yr-theme">Scaling</div>
+
+          <div class="yr-section-label">Product</div>
+          <ul class="yr-items">
+            <li class="ms">Finance Module expansion (full suite)</li>
+            <li>OMNI open market launch</li>
+          </ul>
+
+          <div class="yr-section-label">Revenue</div>
+          <ul class="yr-items">
+            <li>HR Module → 35 customers</li>
+            <li>Portrait Module → 30 organisations</li>
+          </ul>
+
+          <div class="yr-section-label">People</div>
+          <ul class="yr-items">
+            <li>6th hire (if approved post-2028 review)</li>
+            <li>Staff ceiling: 6</li>
+          </ul>
+
+          <div class="yr-section-label">Compliance</div>
+          <ul class="yr-items">
+            <li>ISO 27001 / SOC 2 scoping begins</li>
+            <li>Compliance review</li>
+          </ul>
+        </div>
+
+        <!-- 2030 -->
+        <div class="yr-card yr-y30">
+          <div class="yr-badge">30</div>
+          <div class="yr-theme">Market Expansion</div>
+
+          <div class="yr-section-label">Revenue</div>
+          <ul class="yr-items">
+            <li>HR Module → 65 customers</li>
+            <li>Outlet network approaching 500</li>
+          </ul>
+
+          <div class="yr-section-label">Certification</div>
+          <ul class="yr-items">
+            <li class="ms">ISO 27001 certification (target)</li>
+            <li>Opens enterprise &amp; government contracts</li>
+          </ul>
+
+          <div class="yr-section-label">People</div>
+          <ul class="yr-items">
+            <li>6 staff (ceiling · lean cross-functional team)</li>
+            <li>Salary review &amp; market-rate adjustment</li>
+          </ul>
+
+          <div class="yr-section-label">Compliance</div>
+          <ul class="yr-items">
+            <li>International compliance review (SEA)</li>
+          </ul>
+        </div>
+
+        <!-- 2031 -->
+        <div class="yr-card yr-y31">
+          <div class="yr-badge">31</div>
+          <div class="yr-theme">Maturity</div>
+
+          <div class="yr-section-label">Revenue</div>
+          <ul class="yr-items">
+            <li class="ms">500 outlets achieved (Chief's target)</li>
+            <li>HR Module → 105 customers</li>
+            <li>Full SaaS recurring revenue</li>
+          </ul>
+
+          <div class="yr-section-label">Product</div>
+          <ul class="yr-items">
+            <li>Full 8-module suite live</li>
+            <li>Platform v2 architecture</li>
+          </ul>
+
+          <div class="yr-section-label">Strategic</div>
+          <ul class="yr-items">
+            <li class="ms">All infra fully owned by QCXIS</li>
+            <li>Regional expansion evaluation (SEA)</li>
+            <li>MD Status active · security-certified</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════
+       SLIDE 7 — FORECAST
+       ══════════════════════════════════════════════════════════ -->
+  <div class="slide" id="slide-7" data-slide="7">
+    <div class="s-inner">
+      <div class="eyebrow">Financial Outlook · Optimum Scenario</div>
+      <h2 class="slide-title">Forecast <em>2026–2031</em></h2>
+      <hr class="section-rule">
+
+      <!-- KPI Strip -->
+      <div class="kpi-row">
+        <div class="kpi kpi-rev">
+          <div class="kpi-label">Total Revenue</div>
+          <div class="kpi-value">RM 3.63M</div>
+          <div class="kpi-note">2026–2031 cumulative</div>
+        </div>
+        <div class="kpi kpi-opex">
+          <div class="kpi-label">Total OPEX</div>
+          <div class="kpi-value">RM 1.58M</div>
+          <div class="kpi-note">Payroll + infra + corporate</div>
+        </div>
+        <div class="kpi kpi-net">
+          <div class="kpi-label">Total Net Profit</div>
+          <div class="kpi-value">RM 2.05M</div>
+          <div class="kpi-note">Revenue minus OPEX</div>
+        </div>
+        <div class="kpi kpi-cum">
+          <div class="kpi-label">Cumulative Net</div>
+          <div class="kpi-value">RM 2.06M</div>
+          <div class="kpi-note">By December 2031</div>
+        </div>
+      </div>
+
+      <!-- Chart -->
+      <div class="chart-card">
+        <div class="chart-head">
+          <div>
+            <div class="chart-title">Revenue vs OPEX vs Net Profit (Annual)</div>
+            <div class="chart-sub">Optimum scenario · Fee Collection + HR Module + Portrait Module · 2026–2031</div>
+          </div>
+          <span class="tag tag-blue">Optimum</span>
+        </div>
+        <div class="chart-wrap"><canvas id="forecastChart"></canvas></div>
+        <div class="chart-legend">
+          <div class="cl-item"><div class="cl-line" style="background:#1d4ed8;"></div> Total Revenue</div>
+          <div class="cl-item"><div class="cl-line" style="background:#991b1b;"></div> Total OPEX</div>
+          <div class="cl-item"><div class="cl-line" style="background:#0a7b6c; height:3px;"></div> Net Profit / Loss</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════
+       SLIDE 8 — WHAT NEEDS APPROVAL
+       ══════════════════════════════════════════════════════════ -->
+  <div class="slide" id="slide-8" data-slide="8">
+    <div class="s-inner">
+      <div class="eyebrow">For Board Decision</div>
+      <h2 class="slide-title">What Needs <em>Approval</em></h2>
+      <hr class="section-rule">
+
+      <p class="approval-intro">
+        The following items from this presentation require board and MD-level review and endorsement to proceed. Each item is foundational to QCXIS Sdn Bhd's operations and strategic trajectory.
+      </p>
+
+      <div class="approval-grid">
+        <!-- Item 1 -->
+        <div class="appr-card a1">
+          <div class="appr-num">1</div>
+          <div class="appr-icon">🌐</div>
+          <div class="appr-title">Vision &amp; Mission</div>
+          <p class="appr-desc">
+            Formal endorsement of QCXIS's stated vision and mission as the company's official strategic direction.
+          </p>
+          <ul class="appr-items">
+            <li>Confirm target market definition</li>
+            <li>Approve long-term positioning as a SaaS ecosystem</li>
+            <li>Align with QC Group's broader strategic intent</li>
+          </ul>
+        </div>
+
+        <!-- Item 2 -->
+        <div class="appr-card a2">
+          <div class="appr-num">2</div>
+          <div class="appr-icon">🗺️</div>
+          <div class="appr-title">Roadmap</div>
+          <p class="appr-desc">
+            Approval of the 6-year roadmap (2026–2031) covering product launches, hiring milestones, and MD Status pursuit.
+          </p>
+          <ul class="appr-items">
+            <li>Module launch sequence and timeline</li>
+            <li>MD Status application plan (Q2–Q3 2028)</li>
+            <li>Staffing ramp: 2 → 5 → up to 6 staff</li>
+            <li>Infrastructure ownership transition plan</li>
+          </ul>
+        </div>
+
+        <!-- Item 3 -->
+        <div class="appr-card a3">
+          <div class="appr-num">3</div>
+          <div class="appr-icon">💼</div>
+          <div class="appr-title">Salary &amp; Increment</div>
+          <p class="appr-desc">
+            Approval of the compensation structure and planned salary increments for all QCXIS staff.
+          </p>
+          <ul class="appr-items">
+            <li>CEO &amp; DCEO: RM 3k → RM 3.9k (Jan 2027) → RM 5k (Jan 2028)</li>
+            <li>IT Transfer: RM 2,200 · IT New Hire: RM 2,000 (Jan 2027)</li>
+            <li>Admin: RM 1,900 (Jun 2027)</li>
+            <li>5% annual increment for all roles from 2028</li>
+            <li>Allowances: RM 450/mo · Insurance: RM 150/mo/staff</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="approval-footer">
+        <div>
+          <div class="apf-label">Presented by</div>
+          <div class="apf-note">QCXIS Sdn Bhd</div>
+        </div>
+        <div class="apf-tags">
+          <span class="tag tag-muted">April 2026</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /deck -->
+
+<!-- ══════════════════════════════════════════════════════════════
+     NAV BAR
+     ══════════════════════════════════════════════════════════════ -->
+<div class="nav-bar" id="navBar">
+  <button class="nav-btn" id="btnPrev" onclick="navigate(-1)" disabled>← Prev</button>
+  <div class="nav-mid">
+    <div class="nav-counter" id="navCounter">1 / 8</div>
+    <div class="dots" id="dots"></div>
+  </div>
+  <button class="nav-btn" id="btnNext" onclick="navigate(1)">Next →</button>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════
+     JAVASCRIPT
+     ══════════════════════════════════════════════════════════════ -->
+<script>
+// ══════════════════════════════════════
+// SLIDES STATE
+// ══════════════════════════════════════
+const TOTAL = 8;
+let current = 1;
+
+const slides = [];
+for (let i = 1; i <= TOTAL; i++) slides.push(document.getElementById('slide-' + i));
+
+// Build dots
+const dotsEl = document.getElementById('dots');
+for (let i = 1; i <= TOTAL; i++) {
+  const d = document.createElement('div');
+  d.className = 'dot' + (i === 1 ? ' active' : '');
+  d.onclick = () => goTo(i);
+  dotsEl.appendChild(d);
+}
+const dotEls = dotsEl.querySelectorAll('.dot');
+
+function updateNav() {
+  document.getElementById('navCounter').textContent = current + ' / ' + TOTAL;
+  document.getElementById('btnPrev').disabled = current === 1;
+  document.getElementById('btnNext').disabled = current === TOTAL;
+  dotEls.forEach((d, i) => d.classList.toggle('active', i + 1 === current));
+
+  // Slide 1 dark nav override
+  const nb = document.getElementById('navBar');
+  if (current === 1) {
+    nb.style.background = '#0e1322';
+    nb.style.borderColor = 'rgba(255,255,255,.08)';
+    document.getElementById('navCounter').style.color = 'rgba(255,255,255,.4)';
+    dotEls.forEach(d => {
+      d.style.background = d.classList.contains('active') ? '#fff' : 'rgba(255,255,255,.2)';
+    });
+  } else {
+    nb.style.background = '';
+    nb.style.borderColor = '';
+    document.getElementById('navCounter').style.color = '';
+    dotEls.forEach(d => d.style.background = '');
+  }
+}
+
+function goTo(n, dir) {
+  if (n < 1 || n > TOTAL || n === current) return;
+  const prev = current;
+  const direction = (dir !== undefined) ? dir : (n > current ? 1 : -1);
+  const outgoing = slides[prev - 1];
+  const incoming = slides[n - 1];
+
+  // -- Animate outgoing out --
+  outgoing.classList.remove('active');
+  outgoing.style.transform = direction > 0 ? 'translateX(-40px)' : 'translateX(40px)';
+  outgoing.style.opacity = '0';
+  outgoing.style.pointerEvents = 'none';
+
+  // -- Position incoming off-screen (suppress transition) --
+  incoming.style.transition = 'none';
+  incoming.style.transform = direction > 0 ? 'translateX(40px)' : 'translateX(-40px)';
+  incoming.style.opacity = '0';
+  incoming.style.pointerEvents = 'none';
+
+  // -- Force reflow, then animate incoming in --
+  void incoming.offsetWidth;
+  incoming.style.transition = '';
+  incoming.style.transform = 'translateX(0)';
+  incoming.style.opacity = '1';
+  incoming.style.pointerEvents = 'all';
+
+  // -- After animation: promote to active, clean up inline styles --
+  setTimeout(() => {
+    incoming.classList.add('active');
+    incoming.style.transform = '';
+    incoming.style.opacity = '';
+    incoming.style.pointerEvents = '';
+    incoming.style.transition = '';
+    outgoing.style.transform = '';
+    outgoing.style.opacity = '';
+    outgoing.style.pointerEvents = '';
+  }, 400);
+
+  current = n;
+  updateNav();
+  if (n === 7 && !chartInited) initChart();
+}
+
+function navigate(dir) { goTo(current + dir, dir); }
+
+// Keyboard navigation
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') navigate(1);
+  if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   navigate(-1);
+});
+
+updateNav();
+
+// ══════════════════════════════════════
+// FORECAST CHART
+// ══════════════════════════════════════
+let chartInited = false;
+
+// Annual aggregated data — Optimum scenario
+const YEARS = ['2026', '2027', '2028', '2029', '2030', '2031'];
+const REV   = [146787, 375887, 507243, 661699, 854577, 1078853]; // Total annual revenue (Optimum scenario)
+const OPEX  = [71527,  258242, 295877, 304124, 316598, 329696];  // Total annual OPEX
+const NET   = REV.map((r, i) => Math.round(r - OPEX[i]));
+
+function rm(v) {
+  if (v >= 1000000) return 'RM ' + (v / 1000000).toFixed(2) + 'M';
+  if (v >= 1000)    return 'RM ' + (v / 1000).toFixed(1) + 'k';
+  return 'RM ' + v.toLocaleString();
+}
+
+function initChart() {
+  chartInited = true;
+  const ctx = document.getElementById('forecastChart').getContext('2d');
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: YEARS,
+      datasets: [
+        {
+          type: 'line',
+          label: 'Net Profit / Loss',
+          data: NET,
+          borderColor: '#0a7b6c',
+          backgroundColor: 'rgba(10,123,108,.08)',
+          borderWidth: 2.5,
+          pointRadius: 4,
+          pointBackgroundColor: '#0a7b6c',
+          fill: true,
+          tension: .35,
+          order: 0,
+          yAxisID: 'y',
+        },
+        {
+          type: 'bar',
+          label: 'Total Revenue',
+          data: REV,
+          backgroundColor: 'rgba(29,78,216,.15)',
+          borderColor: '#1d4ed8',
+          borderWidth: 1.5,
+          borderRadius: 3,
+          order: 1,
+          yAxisID: 'y',
+        },
+        {
+          type: 'bar',
+          label: 'Total OPEX',
+          data: OPEX,
+          backgroundColor: 'rgba(153,27,27,.12)',
+          borderColor: '#991b1b',
+          borderWidth: 1.5,
+          borderRadius: 3,
+          order: 2,
+          yAxisID: 'y',
+        },
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: '#fff',
+          borderColor: '#dfe2e8',
+          borderWidth: 1,
+          titleColor: '#161b2e',
+          bodyColor: '#3b4460',
+          titleFont: { family: 'DM Sans', size: 11, weight: '700' },
+          bodyFont:  { family: 'DM Sans', size: 10 },
+          padding: 10,
+          callbacks: {
+            label: ctx => ' ' + ctx.dataset.label + ': ' + rm(ctx.raw)
+          }
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          grid: { color: '#dfe2e8' },
+          ticks: {
+            font: { family: 'DM Sans', size: 9 },
+            color: '#8590a6',
+            callback: v => rm(v)
+          }
+        },
+        x: {
+          grid: { display: false },
+          ticks: { font: { family: 'DM Sans', size: 10, weight: '600' }, color: '#161b2e' }
+        }
+      }
+    }
+  });
+}
+</script>
+</body>
+</html>

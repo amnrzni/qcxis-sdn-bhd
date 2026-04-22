@@ -10,8 +10,8 @@ Build QCXIS Sdn Bhd into a credible, self-sustaining SaaS company — starting a
 
 **Key milestones:**
 - 2026 — Revenue begins, first 2 staff, governance foundations
-- 2027 — Team grows to 5, multi-module product launches, grant exploration
-- 2028 — Malaysia Digital (MD) Status, infra repurchase begins
+- 2027 — Team grows to 5, multi-module product launches, grant exploration, hardware repayment begins
+- 2028 — Malaysia Digital (MD) Status, hardware repayment completes (Mar)
 - 2029 — Product-market fit, scaling operations
 - 2030 — Full operational maturity, external market push
 - 2031 — Self-sustaining, 500 outlets, complete infra ownership
@@ -23,7 +23,7 @@ Build QCXIS Sdn Bhd into a credible, self-sustaining SaaS company — starting a
 Two major cost components, structured around QC Group intermediation:
 
 ### 1. Infrastructure (QC Group-fronted)
-QC Group purchases and owns all major infrastructure (servers, networking, server room, DC hosting). QCXIS pays a **fixed monthly management fee of RM3,000/mo** (RM36,000/yr). As QCXIS builds stable revenue, it begins **repurchasing infra assets** from QC Group (starting 2028), transferring ownership to QCXIS' balance sheet.
+QC Group purchases and owns all major infrastructure (servers, networking, server room, DC hosting). QCXIS pays a **fixed monthly management fee of RM1,000/mo** (RM12,000/yr) for server and hosting services. Hardware (RM14,499.99) is repaid separately at RM1,000/mo beginning Jan 2027, completing Mar 2028. Broader infra asset ownership transfers to QCXIS as revenue stabilises.
 
 > Minor equipment and operational CAPEX (peripherals, tools) may be purchased directly by QCXIS.
 
@@ -94,6 +94,7 @@ Target: **Application Q1–Q2 2028**
 - All foundational agreements signed
 - Trademark application in progress
 - Infra owned by QC Group, QCXIS paying management fee
+- Inter-company hardware repayment schedule agreed; commences Jan 2027
 
 ---
 
@@ -114,7 +115,7 @@ Target: **Application Q1–Q2 2028**
 
 | Quarter | Milestone | Details |
 |---------|-----------|---------|
-| Jun–Jul | **+2 IT staff** | Base salary RM2,000 each. Focus: module development (OMNI, HR, Portrait, MEET) + AI research. |
+| Jan | **+2 IT staff** | IT Transfer RM2,200; IT New Hire RM2,000. Focus: module development (OMNI, HR, Portrait, MEET) + AI research. |
 | 2027 | **+1 Admin & Management staff** | Base salary RM1,900. Focus: management processes, manual documentation, IT support. |
 
 > **End of 2027: 5 staff** — CEO, DCEO, 2 IT developers, 1 Admin.
@@ -129,6 +130,7 @@ Target: **Application Q1–Q2 2028**
 
 | Quarter | Milestone | Details |
 |---------|-----------|---------|
+| Jan 2027 | **Hardware repayment begins** | RM1,000/mo to QC Group × 14 months (Jan 2027–Feb 2028) + RM499.99 final payment (Mar 2028). Total hardware cost: RM14,499.99. |
 | 2027 | **Data centre migration** | Production server at dedicated DC. Colocation decommissioned. (QC Group-funded, QCXIS pays management fee on this asset.) |
 
 ### Grant & Certification
@@ -159,6 +161,7 @@ Target: **Application Q1–Q2 2028**
 - Trademark registered
 - AI R&D activity documented
 - CEO + DCEO salaries ramping toward RM5,000
+- Hardware repayment to QC Group underway
 
 ---
 
@@ -193,14 +196,14 @@ Target: **Application Q1–Q2 2028**
 
 | Quarter | Milestone | Details |
 |---------|-----------|---------|
-| 2028 | **Infra asset repurchase begins** | QCXIS starts buying infrastructure assets from QC Group. Assets move to QCXIS' balance sheet. Schedule and terms per the inter-company Service Agreement. |
+| Mar 2028 | **Hardware repayment completes** | Final payment (RM499.99) to QC Group. Broader asset ownership transfer to QCXIS negotiated per inter-company Service Agreement. |
 
 ### 2028 End State
 - MD Status obtained (or in final review)
 - 5 staff (capacity review conducted — 6th hire decision pending)
 - MEET Module live (if not launched late 2027)
 - ICARUS (RASCI) module live
-- Infra repurchase process underway
+- Hardware repayment complete (Mar 2028); broader infra ownership negotiation in progress
 - HR Module growing (target: 15 customers)
 - Both founders at RM5,000+ base salary
 - MDCG grant outcome known
@@ -346,8 +349,8 @@ Target: **Application Q1–Q2 2028**
   │             │  +1 admin)  │  review)    │  if approved)│            │
   │             │             │             │             │             │
   ├ Agreements  ├ DC migrate  ├ Infra       ├ ISO 27001  ├ ISO 27001  ├ Infra fully
-  │ signed      ├ MDCG grant  │ repurchase  │ scoping     │ /SOC 2     │ owned
-  │             ├ AI pilot    │ begins      │             │ cert       │
+  │ signed      ├ MDCG grant  │ repayment   │ scoping     │ /SOC 2     │ owned
+  │             ├ AI pilot    │ completes   │             │ cert       │
   ├ Trademark   ├ Trademark   │             │             ├ Salary     ├ Regional
   │ filed       │ complete    │             │             │ review     │ evaluation
 ```
