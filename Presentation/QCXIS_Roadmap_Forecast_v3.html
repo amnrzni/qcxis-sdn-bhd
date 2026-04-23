@@ -112,7 +112,7 @@ table.dt tr:last-child td { border-bottom: none; }
 .s-btn { padding: 6px 12px; font-size: 10px; font-weight: 600; font-family: 'DM Sans', sans-serif; border: none; background: transparent; cursor: pointer; color: var(--muted); transition: all .18s; border-right: 1px solid var(--border); white-space: nowrap; }
 .s-btn:last-child { border-right: none; }
 .s-btn.active { color: #fff; }
-.s-btn[data-s="conservative"].active { background: #6366f1; }
+.s-btn[data-s="extended"].active { background: #b45309; }
 .s-btn[data-s="optimum"].active { background: var(--accent2); }
 .s-btn[data-s="aggressive"].active { background: #059669; }
 .r-btn { padding: 6px 12px; font-size: 10px; font-weight: 600; font-family: 'DM Sans', sans-serif; border: none; background: transparent; cursor: pointer; color: var(--muted); transition: all .18s; border-right: 1px solid var(--border); white-space: nowrap; }
@@ -305,9 +305,8 @@ table.dt tr:last-child td { border-bottom: none; }
   <div class="scenario-bar no-print-hide" style="margin-bottom:16px">
     <span class="scenario-bar-label">Scenario</span>
     <div class="s-toggle">
-      <button class="s-btn" data-s="conservative" onclick="setS('conservative')">Conservative</button>
-      <button class="s-btn active" data-s="optimum" onclick="setS('optimum')">Optimum</button>
-      <button class="s-btn" data-s="aggressive" onclick="setS('aggressive')">Aggressive</button>
+      <button class="s-btn active" data-s="optimum" onclick="setS('optimum')">Optimum (500+50 by Dec 2028)</button>
+      <button class="s-btn" data-s="extended" onclick="setS('extended')">Extended (slipped to Dec 2029)</button>
     </div>
     <span style="font-size:9px;color:var(--muted);margin-left:8px">Applies to all sections below.</span>
   </div>
@@ -354,9 +353,9 @@ table.dt tr:last-child td { border-bottom: none; }
     <button class="cs-toggle open" onclick="tgl(this)"><span class="cs-arrow">▶</span><span class="cs-label">② Team — Scaling & Capacity</span></button>
     <div class="cs-body" style="max-height:6000px">
       <div class="callout callout-staff">
-        <strong>Team Structure &amp; Salary Plan</strong> &mdash; 5 core staff, with annual increments every January. All salaries include RM450/mo allowances + 14.95% employer statutory contributions + RM150 medical insurance per person.<br>
+        <strong>Team Structure &amp; Salary Plan (revenue-aligned)</strong> &mdash; 5 core staff. CEO &amp; DCEO bumps are conditional on sustained monthly revenue (RM27k for RM3,900; RM40k for RM5,000), then 5% p.a. every January. All salaries include RM450/mo allowances + 14.95% employer statutory contributions + RM150 medical insurance per person.<br>
         <span style="font-size:9.5px;color:var(--muted)">
-          CEO &amp; DCEO: RM3,000 (Jun 2026) &rarr; RM3,900 (Jan 2027, +30%) &rarr; RM5,000 (Jan 2028, +28%) &rarr; 5% p.a. &nbsp;&bull;&nbsp;
+          CEO &amp; DCEO: RM 3,000 (Jun 2026) &rarr; RM 3,900 once Rev_Total &gt; RM 27k for 2 mo (Mar 2027) &rarr; RM 5,000 once &gt; RM 40k for 2 mo (<strong>Aug 2027</strong> under v5 &mdash; 7 mo earlier thanks to OHXEM) &rarr; 5% p.a. from Jan 2028 &nbsp;&bull;&nbsp;
           IT Transfer: RM2,200 (Jan 2027) &rarr; RM2,310 (Jan 2028) &rarr; 5% p.a. &nbsp;&bull;&nbsp;
           IT New Hire: RM2,000 (Jan 2027) &rarr; RM2,100 (Jan 2028) &rarr; 5% p.a. &nbsp;&bull;&nbsp;
           Admin: RM1,900 (Jun 2027) &rarr; RM1,995 (Jan 2028) &rarr; 5% p.a.
@@ -450,6 +449,141 @@ table.dt tr:last-child td { border-bottom: none; }
   </div>
 
   <!-- ══════════════════════════════════════════════════════════
+       ③B CAPITAL & REPAYMENT PLAN (v3 board-aligned)
+       ══════════════════════════════════════════════════════════ -->
+  <div class="cs">
+    <button class="cs-toggle open" onclick="tgl(this)"><span class="cs-arrow">▶</span><span class="cs-label">③B Capital &amp; Repayment Plan — Funding the 2026 Runway + QC Group Settlement</span></button>
+    <div class="cs-body" style="max-height:6000px">
+
+      <div class="callout callout-md" style="margin-bottom:12px">
+        <strong>Why this section exists.</strong> QCXIS is incorporated with <strong>RM 100,000 paid-up share capital</strong> &mdash; actual equity on the balance sheet at incorporation, not a repayable working-capital advance. The RM 14,499.99 hardware obligation is repaid on revenue-scaled tiers starting <strong>Jan 2027</strong> and completes <strong>Nov 2027</strong> (8 months ahead of the prior Jul-28 plan thanks to OHXEM-lifted Rev_Total). This section spells out the allocation, schedule, and end-state.
+      </div>
+
+      <!-- KPI strip -->
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px">
+        <div style="padding:10px 12px;border:1px solid var(--border);border-radius:6px;background:var(--bg-2)">
+          <div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px">Paid-Up Share Capital</div>
+          <div style="font-size:18px;font-weight:700;color:var(--accent);margin-top:2px">RM 100,000</div>
+          <div style="font-size:9.5px;color:var(--muted);margin-top:2px">Equity at incorporation &middot; not repayable</div>
+        </div>
+        <div style="padding:10px 12px;border:1px solid var(--border);border-radius:6px;background:var(--bg-2)">
+          <div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px">Hardware Obligation</div>
+          <div style="font-size:18px;font-weight:700;color:var(--text);margin-top:2px">RM 14,499.99</div>
+          <div style="font-size:9.5px;color:var(--muted);margin-top:2px">Existing QC Group hardware capex</div>
+        </div>
+        <div style="padding:10px 12px;border:1px solid var(--border);border-radius:6px;background:var(--bg-2)">
+          <div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px">Repayment Starts</div>
+          <div style="font-size:18px;font-weight:700;color:var(--text);margin-top:2px">Jan 2027</div>
+          <div style="font-size:9.5px;color:var(--muted);margin-top:2px">Accelerated vs prior Jul-27 plan</div>
+        </div>
+        <div style="padding:10px 12px;border:1px solid var(--border);border-radius:6px;background:var(--bg-2)">
+          <div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px">Repayment Completes</div>
+          <div style="font-size:18px;font-weight:700;color:var(--ok);margin-top:2px">Nov 2027</div>
+          <div style="font-size:9.5px;color:var(--muted);margin-top:2px">11-month scaled plan (8 mo early)</div>
+        </div>
+      </div>
+
+      <!-- Capital breakdown -->
+      <div style="display:grid;grid-template-columns:1.1fr 0.9fr;gap:14px;margin-bottom:14px">
+        <div>
+          <div style="font-size:11px;font-weight:600;color:var(--text);margin-bottom:6px">Paid-Up Capital Allocation &mdash; RM 100,000</div>
+          <div class="tw">
+            <table class="dt">
+              <thead><tr><th style="text-align:left">Use of capital</th><th>Amount</th><th style="text-align:left">Rationale</th></tr></thead>
+              <tbody>
+                <tr><td style="text-align:left">Expanded OPEX runway (3&ndash;4 mo full team)</td><td>RM 35,000</td><td style="text-align:left">Launch runway + HR/Portrait slip contingency</td></tr>
+                <tr><td style="text-align:left">AR buffer (45-day slip)</td><td>RM 10,000</td><td style="text-align:left">Expanded pool at accelerated ramp</td></tr>
+                <tr><td style="text-align:left">Hardware capex coverage</td><td>RM 14,500</td><td style="text-align:left">Funds RM 14,499.99 until Jan 2027 repayment start</td></tr>
+                <tr><td style="text-align:left">Accelerated outlet onboarding</td><td>RM 15,000</td><td style="text-align:left">Training / support to hit 500 franchise by 2028</td></tr>
+                <tr><td style="text-align:left">OHXEM international ramp</td><td>RM 10,000</td><td style="text-align:left">FX ops, localisation, brand set-up</td></tr>
+                <tr><td style="text-align:left">Delay + safety margin</td><td>RM 15,500</td><td style="text-align:left">HR/Portrait slip, MD Status delay, unforeseen</td></tr>
+                <tr class="pl-cost-total"><td style="text-align:left">Total</td><td>RM 100,000</td><td style="text-align:left">Jun-26 cash floor: RM 111,388 &middot; Dec-31 balance: RM 3,620,164</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="callout callout-info" style="margin-top:8px">
+            <strong>Why RM 100k (not RM 50k):</strong> RM 50k paid-up only survives <em>Optimum</em> (Jun-26 floor RM 61,388). RM 100k must survive the <strong>Extended scenario + 6-month HR/Portrait delay + accelerated Jan-27 repayment start</strong> &mdash; under that combined downside, the balance still stays above RM 50k. RM 100k is also a stepping stone toward the RM 250,000 minimum for future MDEC Malaysia Digital <em>Expansion</em> Incentive eligibility.
+          </div>
+        </div>
+
+        <div>
+          <div style="font-size:11px;font-weight:600;color:var(--text);margin-bottom:6px">Hardware Repayment Schedule — scaled tiers (RM 14,499.99)</div>
+          <div class="tw">
+            <table class="dt" style="font-size:10px">
+              <thead><tr><th style="text-align:left">Month</th><th>Amount</th><th style="text-align:left">Cumulative</th></tr></thead>
+              <tbody>
+                <tr><td style="text-align:left">Jan 2027</td><td>RM 1,000</td><td style="text-align:left">RM 1,000 <span style="color:var(--muted);font-size:9px">(base)</span></td></tr>
+                <tr><td style="text-align:left">Feb 2027</td><td>RM 1,000</td><td style="text-align:left">RM 2,000</td></tr>
+                <tr><td style="text-align:left">Mar 2027</td><td>RM 1,000</td><td style="text-align:left">RM 3,000</td></tr>
+                <tr><td style="text-align:left">Apr 2027</td><td>RM 1,000</td><td style="text-align:left">RM 4,000</td></tr>
+                <tr><td style="text-align:left">May 2027</td><td>RM 1,000</td><td style="text-align:left">RM 5,000</td></tr>
+                <tr style="background:rgba(59,130,246,0.06)"><td style="text-align:left;color:var(--accent);font-weight:600">Jun 2027</td><td style="color:var(--accent);font-weight:600">RM 1,500</td><td style="text-align:left">RM 6,500 <span style="color:var(--accent);font-size:9px">(Tier 1 fires: Rev&gt;35k&times;2mo)</span></td></tr>
+                <tr><td style="text-align:left">Jul 2027</td><td>RM 1,500</td><td style="text-align:left">RM 8,000</td></tr>
+                <tr><td style="text-align:left">Aug 2027</td><td>RM 1,500</td><td style="text-align:left">RM 9,500</td></tr>
+                <tr><td style="text-align:left">Sep 2027</td><td>RM 1,500</td><td style="text-align:left">RM 11,000</td></tr>
+                <tr><td style="text-align:left">Oct 2027</td><td>RM 1,500</td><td style="text-align:left">RM 12,500</td></tr>
+                <tr style="background:rgba(34,197,94,0.08)"><td style="text-align:left;color:var(--ok);font-weight:600">Nov 2027 ✓</td><td style="color:var(--ok);font-weight:600">RM 1,999.99</td><td style="text-align:left;color:var(--ok);font-weight:600">RM 14,499.99 &mdash; paid in full (8 mo early)</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div style="font-size:9.5px;color:var(--muted);margin-top:6px;line-height:1.45">
+            <strong style="color:var(--text)">Tier triggers:</strong> Base RM 1,000 &rarr; Tier 1 RM 1,500 (when <code>Rev_Total &gt; RM 35k</code> for 2 consecutive prior months) &rarr; Tier 2 RM 2,000 (when &gt; RM 45k &times; 2 mo). Under v5 (OHXEM folded in), Tier 1 fires Jun 2027; balance clears before Tier 2 threshold is sustained.
+          </div>
+        </div>
+      </div>
+
+      <!-- Direct suppliers + upgrade capex -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px">
+        <div>
+          <div style="font-size:11px;font-weight:600;color:var(--text);margin-bottom:6px">Direct Recurring Suppliers — QCXIS takes over <strong>Jul 2028</strong></div>
+          <div class="tw">
+            <table class="dt" style="font-size:10px">
+              <thead><tr><th style="text-align:left">Supplier</th><th>RM / month</th><th>RM / year</th></tr></thead>
+              <tbody>
+                <tr><td style="text-align:left">cPanel Premier</td><td>300.00</td><td>3,600.00</td></tr>
+                <tr><td style="text-align:left">Immunify360</td><td>200.00</td><td>2,400.00</td></tr>
+                <tr><td style="text-align:left">Server Colocation 2U</td><td>490.05</td><td>5,880.60</td></tr>
+                <tr class="pl-cost-total"><td style="text-align:left">Subtotal (base)</td><td>990.05</td><td>11,880.60</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div style="font-size:9.5px;color:var(--muted);margin-top:6px;line-height:1.45">
+            Flat RM 990.05/mo through Dec 2029; <strong>3% annual escalation from Jan 2030</strong> — 2030: RM 1,019.75/mo · 2031: RM 1,050.34/mo. Through Jun 2028 the same suppliers are fronted by QC Group and reimbursed inside the RM 1,000/mo management fee.
+          </div>
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:600;color:var(--text);margin-bottom:6px">Infra Upgrade CAPEX — QCXIS self-funded growth</div>
+          <div class="tw">
+            <table class="dt" style="font-size:10px">
+              <thead><tr><th style="text-align:left">When</th><th>Amount</th><th style="text-align:left">Example use</th></tr></thead>
+              <tbody>
+                <tr><td style="text-align:left">Jul 2029</td><td>RM 10,000</td><td style="text-align:left">Backup storage + redundancy</td></tr>
+                <tr><td style="text-align:left">Jul 2030</td><td>RM 15,000</td><td style="text-align:left">Server refresh / capacity expansion</td></tr>
+                <tr><td style="text-align:left">Jul 2031</td><td>RM 20,000</td><td style="text-align:left">GPU / AI capacity + networking</td></tr>
+                <tr class="pl-cost-total"><td style="text-align:left">3-yr total</td><td>RM 45,000</td><td style="text-align:left">Self-funded from QCXIS operating cash</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div style="font-size:9.5px;color:var(--muted);margin-top:6px;line-height:1.45">
+            Booked as Jul lump sums (typical capex purchase pattern). Funded entirely from QCXIS retained earnings — no further QC Group outlay after Jul 2028.
+          </div>
+        </div>
+      </div>
+
+      <!-- Justification & infra growth -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div class="callout callout-info">
+          <strong>Why start repayment in Jan 2027?</strong> Under v5 with OHXEM folded in, Rev_Total comfortably covers OPEX + a RM 1,000/mo repayment from the start of 2027. The RM 100,000 paid-up capital gives headroom to begin repayment earlier than the prior Jul-27 plan; Tier 1 (RM 1,500) fires Jun 2027 once Rev &gt; RM 35k for 2 consecutive months, clearing the RM 14,499.99 balance by Nov 2027 &mdash; 8 mo ahead of the prior Jul-28 schedule. Cash balance never goes negative (lowest point: Jun 2026 at RM 111,388 under Optimum).
+        </div>
+        <div class="callout callout-staff">
+          <strong>Beyond hardware: 4-phase ownership transfer.</strong> From <strong>Jul 2028</strong> QCXIS takes over the recurring suppliers directly (cPanel + Immunify360 + Colocation = RM 990.05/mo, +3% from 2030) and funds its own upgrade CAPEX (RM 10k/15k/20k in Jul 2029/30/31). The RM 1,000/mo retainer to QC Group continues as a flexible, board-revisable advisory / backup-DC fee. The 2.5%-of-revenue scaling formula previously drafted has been retired in favour of this concrete itemised model.
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════
        ④ FINANCIAL FORECAST — DETAILED P&L (collapsed)
        ══════════════════════════════════════════════════════════ -->
   <div class="cs">
@@ -500,8 +634,8 @@ table.dt tr:last-child td { border-bottom: none; }
       <div class="cs" style="margin-bottom:10px">
         <button class="cs-toggle" onclick="tgl(this)"><span class="cs-arrow">▶</span><span class="cs-label">Cost Breakdown — Where does the money go?</span></button>
         <div class="cs-body collapsed" style="max-height:0">
-          <div class="callout callout-staff"><strong>Payroll:</strong> CEO &amp; DCEO RM3,000 (2026) → RM3,900 (2027) → RM5,000 (2028); IT Transfer RM2,200 &amp; IT New RM2,000 from Jan 2027; Admin RM1,900 from Jun 2027. All 5% p.a. from 2028. Includes RM450/mo allowances + 14.95% statutory + RM150 insurance.</div>
-          <div class="callout callout-info"><strong>Infrastructure:</strong> RM1,000/mo inter-company fee to QC Group (server &amp; hosting). Hardware repaid at RM1,000/mo Jan 2027 – Feb 2028 + RM499.99 final payment (Mar 2028). Total hardware cost: RM14,499.99.</div>
+          <div class="callout callout-staff"><strong>Payroll:</strong> CEO &amp; DCEO RM 3,000 &rarr; RM 3,900 (rev &gt; RM 27k for 2 mo, Mar 2027) &rarr; RM 5,000 (rev &gt; RM 40k for 2 mo, <strong>Aug 2027</strong>); IT Transfer RM 2,200 &amp; IT New RM 2,000 from Jan 2027; Admin RM 1,900 from Jun 2027. All 5% p.a. from Jan 2028. Includes RM 450/mo allowances + 14.95% statutory + RM 150 insurance.</div>
+          <div class="callout callout-info"><strong>Infrastructure &mdash; 4-phase model:</strong> Flat RM 1,000/mo inter-company retainer to QC Group throughout 2026&ndash;2031 (reimburses itemised suppliers through Jun 2028; pure advisory fee thereafter). <strong>Hardware repayment:</strong> RM 14,499.99 on revenue-scaled tiers starting <strong>Jan 2027</strong>, completing <strong>Nov 2027 (8 mo early under v5)</strong>. <strong>From Jul 2028:</strong> QCXIS contracts cPanel + Immunify360 + Colocation directly (RM 990.05/mo; +3% from 2030) and funds own upgrade CAPEX (RM 10k/15k/20k in Jul 2029/30/31). See section <strong>③B Capital &amp; Repayment Plan</strong> for the full schedule.</div>
           <div class="tw"><table class="dt" id="costTable"></table></div>
         </div>
       </div>
@@ -516,8 +650,8 @@ table.dt tr:last-child td { border-bottom: none; }
     <div class="cs-body" style="max-height:8000px">
       <div class="callout callout-info" style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
         <span><strong>Starting cash:</strong></span>
-        <span>RM <input type="number" id="initCashInput" value="0" style="width:90px;padding:4px 6px;border:1px solid var(--border);border-radius:3px;font-family:inherit;font-size:11px" onchange="INITIAL_CASH = parseFloat(this.value)||0; renderCashFlow(); renderExecSummary(); renderKPIs();"></span>
-        <span style="color:var(--muted)">· 30-day fee collection delay (Jun 2026 = no fee in) · SaaS revenue distributed evenly across product-active months · 5% monthly OPEX contingency · Corporate tax paid as annual lump in December.</span>
+        <span>RM <input type="number" id="initCashInput" value="100000" style="width:90px;padding:4px 6px;border:1px solid var(--border);border-radius:3px;font-family:inherit;font-size:11px" onchange="INITIAL_CASH = parseFloat(this.value)||0; renderCashFlow(); renderExecSummary(); renderKPIs();"></span>
+        <span style="color:var(--muted)">&middot; Default RM 100k = board-approved paid-up share capital (expanded OPEX runway + AR buffer + hardware capex coverage + accelerated onboarding + OHXEM ramp + safety margin) &middot; 30-day fee collection delay (Jun 2026 = no fee in) &middot; SaaS revenue distributed evenly across product-active months &middot; 10% monthly OPEX contingency &middot; Corporate tax paid as annual lump in December.</span>
       </div>
       <div class="kpi-strip" id="cashKpi" style="margin-bottom:10px"></div>
       <div class="chart-card">
@@ -525,7 +659,7 @@ table.dt tr:last-child td { border-bottom: none; }
         <div class="chart-sub">Green = positive; red = negative. Dashed lines: RM0 breakeven and RM10,000 buffer target. Dec dips reflect annual tax payment.</div>
         <div class="chart-wrap" style="height:260px"><canvas id="cashChart"></canvas></div>
       </div>
-      <div class="callout callout-warn"><strong>What this shows:</strong> QCXIS starts with RM0 cash. The lowest point is how much QC Group must front. Switch scenarios above to see how growth assumptions change the required funding window.</div>
+      <div class="callout callout-warn"><strong>What this shows:</strong> QCXIS opens with RM 100,000 paid-up share capital. The lowest point shows residual exposure beyond that buffer. Switch scenarios above to see how growth assumptions change the funding picture.</div>
       <div id="cashAcc"></div>
     </div>
   </div>
@@ -585,9 +719,8 @@ const ANC = 19144, P1S = 226;
 // ZONE 2 · SCENARIO CONFIG — SC, SEAS, payroll tiers, tax rates
 // ═══════════════════════════════════════════════════════════════
 const SC = {
-  conservative: {l:'Conservative', cl:'#6366f1', cl2:'rgba(99,102,241,.07)', p1:280, p2:400, cap:100, re:.80, ramp:18, sm:1.2},
-  optimum:      {l:'Optimum',      cl:'#1d4ed8', cl2:'rgba(29,78,216,.07)', p1:300, p2:500, cap:120, re:.88, ramp:15, sm:1.0},
-  aggressive:   {l:'Aggressive',   cl:'#059669', cl2:'rgba(5,150,105,.07)', p1:320, p2:600, cap:140, re:.93, ramp:12, sm:.8}
+  optimum:  {l:'Optimum',  cl:'#1d4ed8', cl2:'rgba(29,78,216,.07)', p1:300, p2:500, cap:120, re:.88, ramp:15, sm:1.0},
+  extended: {l:'Extended', cl:'#b45309', cl2:'rgba(180,83,9,.07)',  p1:300, p2:500, cap:120, re:.88, ramp:27, sm:1.0}
 };
 const SEAS = {0:.109, 1:.092, 2:-.004, 3:.097, 4:.086, 5:.054, 6:.035, 7:.048, 8:.019, 9:.021, 10:-.031, 11:-.066};
 
@@ -599,11 +732,18 @@ const INS = 150; // medical card per person/mo
 const TIER_EXEC = 5000, TIER_ADMIN = 1900;
 const ANNUAL_INC = 0.05;
 
-// ── Exec salary: discrete annual steps (matches real MY payroll practice) ──
-// CEO & DCEO both start RM3,000. Annual review every January.
-// 2026: RM3,000 → 2027: RM3,900 (+30%) → 2028: RM5,000 (+28.2%) → 5% p.a. after
-const CEO_START  = 3000, DCEO_START  = 3000;
-const CEO_2027   = 3900, DCEO_2027   = 3900;
+// ── Exec salary: revenue-milestone driven (board-aligned, v3) ──
+// CEO & DCEO start RM3,000. Bumps are conditional on sustained monthly revenue:
+//   • RM3,900 once Rev_Total > RM27,000 for 2 consecutive months
+//   • RM5,000 once Rev_Total > RM40,000 for 2 consecutive months
+// Under the Optimum baseline (current CSV), those triggers land:
+//   • RM3,900 → Mar 2027
+//   • RM 5,000 → Aug 2027  (satisfies MD knowledge-worker requirement early; v5 with OHXEM)
+// After RM5,000 milestone year, 5% p.a. every January.
+const SAL_BASE = 3000, SAL_T1 = 3900, SAL_T2 = 5000;
+// Milestone month indices (0-indexed: Jan=0): {y, mi}
+const MILESTONE_T1 = {y: 2027, mi: 2}; // Mar 2027
+const MILESTONE_T2 = {y: 2027, mi: 7}; // Aug 2027 (v5 with OHXEM)
 
 // ── IT hires: both join Jan 2027 ──
 // IT1 = transferred staff (RM2,200), IT2 = new hire (RM2,000). 5% p.a. from 2028.
@@ -616,10 +756,28 @@ const TIER_IT = 2000; // baseline for 6th hire IT scenario
 // ═══════════════════════════════════════════════════════════════
 function ctcMo(b) { return Math.round((b + ALLOW_TOTAL) * (1 + EMPLOYER_STAT) + INS); }
 
+// Compare two {y,mi} positions: returns true if (y,mi) is at-or-after milestone.
+function atOrAfter(y, mi, m) { return (y > m.y) || (y === m.y && mi >= m.mi); }
+
+// CEO / DCEO base salary by month, milestone-aware.
+function execBaseMo(role, y, mi) {
+  // Pre-employment (before Jun 2026)
+  if (y < 2026 || (y === 2026 && mi < 5)) return 0;
+  let base = SAL_BASE;
+  if (atOrAfter(y, mi, MILESTONE_T1)) base = SAL_T1;
+  if (atOrAfter(y, mi, MILESTONE_T2)) {
+    if (y <= MILESTONE_T2.y) base = SAL_T2;
+    else base = Math.round(SAL_T2 * Math.pow(1 + ANNUAL_INC, y - MILESTONE_T2.y));
+  }
+  return base;
+}
+
+// Year-average exec base (used by ② Team table for legibility — shows the dominant
+// salary the role is paid in that year). Jun–Dec 2026 = 7 mo, full years thereafter.
 function execBase(role, y) {
-  if (y === 2026) return role === 'ceo' ? CEO_START : DCEO_START;
-  if (y === 2027) return role === 'ceo' ? CEO_2027  : DCEO_2027;
-  return Math.round(TIER_EXEC * Math.pow(1 + ANNUAL_INC, y - 2028)); // RM5k base × 5% p.a.
+  const months = (y === 2026) ? [5,6,7,8,9,10,11] : [0,1,2,3,4,5,6,7,8,9,10,11];
+  // Return the modal/dominant base: take the middle month for stability.
+  return execBaseMo(role, y, months[Math.floor(months.length / 2)]);
 }
 
 function itSal(startSal, y) {
@@ -629,13 +787,17 @@ function itSal(startSal, y) {
 }
 
 function payrollYr(y) {
-  // Exec: CEO + DCEO. Jun–Dec 2026 = 7 months; full year from 2027.
-  const moExec = y === 2026 ? 7 : 12;
-  const execTotal = (ctcMo(execBase('ceo', y)) + ctcMo(execBase('dceo', y))) * moExec;
+  // CEO & DCEO: Jun–Dec 2026 (7mo); full year from 2027. Salary stepped per milestone month.
+  const months = (y === 2026) ? [5,6,7,8,9,10,11] : [0,1,2,3,4,5,6,7,8,9,10,11];
+  let execTotal = 0;
+  for (const mi of months) {
+    execTotal += ctcMo(execBaseMo('ceo',  y, mi));
+    execTotal += ctcMo(execBaseMo('dceo', y, mi));
+  }
   if (y < 2027) return Math.round(execTotal);
   // IT hires join Jan 2027 (12 months); Admin joins Jun 2027 (7 months); full year from 2028.
-  const moIT   = 12;                  // Jan 2027 start
-  const moAdm  = y === 2027 ? 7 : 12; // Jun 2027 start
+  const moIT   = 12;
+  const moAdm  = y === 2027 ? 7 : 12;
   const admBase = y === 2027 ? TIER_ADMIN : Math.round(TIER_ADMIN * Math.pow(1 + ANNUAL_INC, y - 2027));
   return Math.round(execTotal
     + ctcMo(itSal(IT_TRANSFER, y)) * moIT
@@ -643,17 +805,48 @@ function payrollYr(y) {
     + ctcMo(admBase)               * moAdm);
 }
 
-// ── Management Fee, Infra Repayment & Corporate ──
-const MGMT_MO = 1000;
+// ── Management Fee, Infra Repayment, Direct Recurring, Upgrade CAPEX & Corporate (v5 board-aligned) ──
+const MGMT_MO_FLOOR = 1000;          // flat RM1,000/mo retainer across 2026–2031 (v4)
 const TM = 3500, GPU = 5000, MDF = 1080;
 function corpYr(y) { return y === 2026 ? TM : y === 2027 ? GPU : y === 2028 ? MDF : 0; }
-// Infra repayment: RM14,499.99 hardware — RM1,000/mo Jan 2027–Feb 2028, RM499.99 final Mar 2028
+
+// Flat inter-company management retainer: RM1,000/mo throughout the horizon.
+// Through Jun-2028 it reimburses QC Group for Phase 1–2 supplier pass-through;
+// from Jul-2028 onward it is a pure advisory / backup-DC retainer.
+function mgmtFeeYr(y) {
+  if (y === 2026) return 7000;   // 7 months (Jun–Dec)
+  return 12000;                  // 12 months flat
+}
+
+// Hardware repayment (RM14,499.99) — revenue-scaled tiers, starts Jul-2027.
+// Optimum schedule: 8×RM1,000 (Jul-27–Feb-28) + 4×RM1,500 (Mar-28–Jun-28) + RM499.99 (Jul-28).
 function repaymentYr(y) {
-  if (y === 2027) return 12000;   // 12 × RM1,000
-  if (y === 2028) return 2499.99; // 2 × RM1,000 + RM499.99
+  if (y === 2027) return 6000;      // Jul–Dec 2027 = 6 × RM1,000
+  if (y === 2028) return 8499.99;   // Jan–Feb RM1k×2 + Mar–Jun RM1.5k×4 + Jul RM499.99 = 2000 + 6000 + 499.99
   return 0;
 }
-const CONTINGENCY = 0.05;
+
+// Direct recurring suppliers (cPanel RM300 + Immunify RM200 + Colocation RM490.05 = RM990.05/mo)
+// QCXIS takes over Jul-2028. Flat through Dec-2029; 3% annual escalation from Jan-2030.
+const DIRECT_REC_BASE = 990.05;
+function directRecurringYr(y) {
+  if (y <= 2027) return 0;
+  if (y === 2028) return Math.round(DIRECT_REC_BASE * 6 * 100) / 100;  // Jul–Dec: 5,940.30
+  if (y === 2029) return Math.round(DIRECT_REC_BASE * 12 * 100) / 100; // 11,880.60
+  const mo = DIRECT_REC_BASE * Math.pow(1.03, y - 2029);
+  return Math.round(mo * 12 * 100) / 100;
+}
+
+// Infra upgrade CAPEX — QCXIS self-funded growth, booked as Jul lump sums.
+function upgradeCapexYr(y) {
+  if (y === 2029) return 10000;
+  if (y === 2030) return 15000;
+  if (y === 2031) return 20000;
+  return 0;
+}
+
+const CONTINGENCY = 0.10;            // 10% of (payroll + mgmt fee + direct recurring + corporate one-offs)
+const CAPITAL_INJECTION = 100000;    // RM 100,000 board-approved paid-up share capital, booked Jun-2026 (v5)
 
 // ── HR Module Revenue — Funnel Model ──
 // Pricing: RM40 sub + RM5 or RM2/head × 25 emp avg
@@ -661,33 +854,30 @@ const HR_SUB = 40, HR_HEAD_N = 5, HR_HEAD_P = 2, HR_AVG_EMP = 25;
 const HR_MO_N = HR_SUB + HR_HEAD_N * HR_AVG_EMP; // RM165/mo (normal)
 const HR_MO_P = HR_SUB + HR_HEAD_P * HR_AVG_EMP; // RM90/mo  (promo '27–'28)
 
+// ── HR Funnel (v3 simplified) ──
+// The trial step has been removed in favour of a single direct lead→paid conversion
+// rate. Optimum's 12% preserves the prior effective rate (was 30% × 40% = 12%).
 const HR_FUNNEL = {
-  conservative: {
-    leadsPerMonth: {2027: 8,  2028: 15, 2029: 22, 2030: 30, 2031: 35},
-    trialConvRate: 0.25, paidConvRate: 0.35,
-    y1Churn: 0.25, retainedChurn: 0.08, cacPerCustomer: 500,
-  },
   optimum: {
     leadsPerMonth: {2027: 12, 2028: 20, 2029: 30, 2030: 40, 2031: 45},
-    trialConvRate: 0.30, paidConvRate: 0.40,
+    leadConvRate:  0.12,
     y1Churn: 0.22, retainedChurn: 0.07, cacPerCustomer: 400,
   },
-  aggressive: {
-    leadsPerMonth: {2027: 18, 2028: 28, 2029: 40, 2030: 55, 2031: 60},
-    trialConvRate: 0.35, paidConvRate: 0.45,
-    y1Churn: 0.18, retainedChurn: 0.06, cacPerCustomer: 350,
+  extended: {
+    leadsPerMonth: {2027: 8,  2028: 14, 2029: 22, 2030: 32, 2031: 40},
+    leadConvRate:  0.11,
+    y1Churn: 0.22, retainedChurn: 0.07, cacPerCustomer: 400,
   }
 };
 
-// Compute HR cohort-based funnel per scenario (optional paid-conv multiplier for sensitivity)
-function hrRevByYear(scenarioKey, paidConvMult = 1) {
+// Compute HR cohort-based funnel per scenario (optional conv multiplier for sensitivity)
+function hrRevByYear(scenarioKey, convMult = 1) {
   const F = HR_FUNNEL[scenarioKey];
   const r = {};
   const cohorts = []; // each {year, size, age (yrs active)}
   for (let y = 2027; y <= 2031; y++) {
     const leads = (F.leadsPerMonth[y] || 0) * 12;
-    const trials = leads * F.trialConvRate;
-    const paid = Math.round(trials * F.paidConvRate * paidConvMult);
+    const paid = Math.round(leads * F.leadConvRate * convMult);
     // age existing cohorts, compute churn
     let y1Churned = 0, retChurned = 0;
     cohorts.forEach(c => {
@@ -697,7 +887,6 @@ function hrRevByYear(scenarioKey, paidConvMult = 1) {
     });
     // add new cohort
     cohorts.push({year: y, size: paid, age: 0});
-    // active = sum of cohorts after churn, new adds included
     const active = cohorts.reduce((s,c) => s + c.size, 0);
     const prevActive = active - paid;
     const mo = y <= 2028 ? HR_MO_P : HR_MO_N;
@@ -705,12 +894,12 @@ function hrRevByYear(scenarioKey, paidConvMult = 1) {
     const cac = Math.round(paid * F.cacPerCustomer);
     r[y] = {
       cust: active, newC: paid, leads: Math.round(leads),
-      trials: Math.round(trials), paid, y1Churned, retChurned,
+      paid, y1Churned, retChurned,
       churned: y1Churned + retChurned, recur, total: recur, cac,
       mo
     };
   }
-  r[2026] = {cust:0, newC:0, leads:0, trials:0, paid:0, y1Churned:0, retChurned:0, churned:0, recur:0, total:0, cac:0, mo:0};
+  r[2026] = {cust:0, newC:0, leads:0, paid:0, y1Churned:0, retChurned:0, churned:0, recur:0, total:0, cac:0, mo:0};
   return r;
 }
 
@@ -730,9 +919,8 @@ const PORT_CHURN       = 0.10;
 
 // Standalone Portrait funnel (lighter — scenario-aware growth targets)
 const PORT_STAND_FUNNEL = {
-  conservative: {2027:3,  2028:7,  2029:14, 2030:22, 2031:30},
-  optimum:      {2027:5,  2028:10, 2029:20, 2030:30, 2031:40},
-  aggressive:   {2027:8,  2028:15, 2029:28, 2030:42, 2031:55},
+  optimum:  {2027:5,  2028:10, 2029:20, 2030:30, 2031:40},
+  extended: {2027:3,  2028:7,  2029:14, 2030:24, 2031:34},
 };
 
 function portWA(mixKey) {
@@ -800,14 +988,18 @@ function computeTaxImpact(as, mdStart) {
 }
 
 // ── Cost engine (extended) ──
-// yrCost now accepts HR CAC and optional contingency-hire cost for that year
+// yrCost now accepts HR CAC and optional contingency-hire cost for that year.
 function yrCost(y, hrResult, opts = {}) {
-  const payroll = payrollYr(y), mgmtFee = MGMT_MO * 12, corp = corpYr(y);
+  const payroll = payrollYr(y), mgmtFee = mgmtFeeYr(y), corp = corpYr(y);
   const repayment = repaymentYr(y);
+  const directRec = directRecurringYr(y);
+  const upgradeCapex = upgradeCapexYr(y);
   const cac = hrResult[y]?.cac || 0;
   const contingencyHire = (opts.contingencyHireEnabled && y === (opts.contingencyHireYear || 2028)) ? 18000 : 0;
-  const contingency = Math.round((payroll + mgmtFee + corp) * CONTINGENCY);
-  return { payroll, mgmtFee, repayment, corp, contingency, cac, contingencyHire };
+  // Contingency = 10% of (payroll + mgmt fee + direct recurring + corporate one-offs).
+  // Excluded: hardware repayment (balance-sheet paydown) and upgrade CAPEX (planned capital).
+  const contingency = Math.round((payroll + mgmtFee + directRec + corp) * CONTINGENCY);
+  return { payroll, mgmtFee, repayment, directRec, upgradeCapex, corp, contingency, cac, contingencyHire };
 }
 
 // ── Projection engine (scenario + opts aware) ──
@@ -839,11 +1031,12 @@ function buildProj(k, opts = {}) {
     const hr = HR_RES[y]?.total || 0;
     const port = PORT_RES[y]?.total || 0;
     const yTotRev = yF + hr + port;
-    const yOpex = f.payroll + f.mgmtFee + f.repayment + f.corp + f.contingency + f.cac + f.contingencyHire;
+    const yOpex = f.payroll + f.mgmtFee + f.repayment + f.directRec + f.upgradeCapex + f.corp + f.contingency + f.cac + f.contingencyHire;
     gF += yF; gC += yOpex;
     const last = mo[mo.length - 1];
     as[y] = {fee:yF, hr, port, totRev:yTotRev,
-             payroll:f.payroll, mgmtFee:f.mgmtFee, repayment:f.repayment, corp:f.corp,
+             payroll:f.payroll, mgmtFee:f.mgmtFee, repayment:f.repayment,
+             directRec:f.directRec, upgradeCapex:f.upgradeCapex, corp:f.corp,
              contingency:f.contingency, cac:f.cac, contingencyHire:f.contingencyHire,
              opex:yOpex, cost:yOpex, net:yTotRev - yOpex, lc:last.c, lo:last.o};
   }
@@ -896,10 +1089,12 @@ const MODULES = [
 // ── Dependencies ──
 const DEPENDENCIES = [
   {dep:'Chief approves RM1/client fee', blocks:'All franchise revenue', risk:'Low', mit:'Confirmed and agreed — formalised in service agreement'},
-  {dep:'Outlets grow to 500', blocks:'Fee revenue projections', risk:'Medium', mit:"Chief's directive; not in QCXIS' direct control"},
+  {dep:'500 franchise outlets by Dec 2028', blocks:'Fee revenue projections', risk:'Medium', mit:"QC Group directive; Extended scenario slips to Dec 2029 — both remain cash-positive from 2027 onward"},
+  {dep:'50 OHXEM outlets by Dec 2028', blocks:'International revenue stream', risk:'Medium-High', mit:'New international brand with onboarding piecewise ramp (3 by end-2026, 15 by mid-2027, 50 by Dec 2028); pilot phase proves model before full ramp'},
+  {dep:'MYR/USD FX stability (~4.40)', blocks:'OHXEM RM-equivalent revenue (USD 2 × FX)', risk:'Medium', mit:'FX locked at 4.40 in model; ±10% sensitivity = ±RM 33k/yr at steady state; natural hedge via MYR-denominated OPEX'},
   {dep:'HR Module finds market fit', blocks:'Revenue stream #2, staffing viability', risk:'High', mit:'Funnel model with validated conversion rates; 50% underperformance scenario modelled (see HR sensitivity callout)'},
   {dep:'QC Group fronts infra costs', blocks:'All infrastructure availability', risk:'Low', mit:'Aligned interests — formalised in Service Agreement'},
-  {dep:'Salaries reach RM5,000 by Nov 2027', blocks:'MD Status knowledge worker req.', risk:'Medium', mit:'Gradual ramp from Jun 2026 start, reaching RM5k by Nov 2027 with 5% annual increments thereafter'},
+  {dep:'Salaries reach RM 5,000 by Aug 2027', blocks:'MD Status knowledge worker req.', risk:'Low', mit:'Revenue-milestone driven: triggers when Rev_Total > RM 40k for 2 consecutive months. Under v5 (OHXEM-lifted revenue), this fires Aug 2027 — ~10 months of track record before the Q2-28 MD application.'},
   {dep:'MDEC approves MD Status', blocks:'Tax benefits, grants, credibility', risk:'Medium', mit:'Pre-consultation in 2028, buffer period built in'},
   {dep:'Trademark completes before 2028', blocks:'MD application (IP requirement)', risk:'Low', mit:'Filed 2026, 12–18mo processing — timeline allows buffer'},
   {dep:'MDCG grant approved', blocks:'Infra + AI module funding', risk:'Medium', mit:'Exploratory; not a dependency for core operations'},
@@ -928,7 +1123,7 @@ const TIMELINE = [
   },
   {
     year: 2027, theme: 'Team Growth & Multi-Module Launch',
-    highlights: ['+3 staff (total 5)', 'HR + Portrait + OMNI launch', 'DC migration', 'AI R&D pilot', 'Hardware repayment begins'],
+    highlights: ['+3 staff (total 5)', 'HR + Portrait + OMNI launch', 'DC migration', 'AI R&D pilot', 'Hardware repayment Jan–Nov', 'OHXEM ramp to 15 outlets'],
     items: [
       {cat:'product', q:'Early', title:'OMNI Module launch', desc:'Stock & Inventory, eCommerce, Warehouse.'},
       {cat:'product', q:'2027', title:'HR Module launch', desc:'Revenue stream #2. Payroll, attendance, leave, claims.', ms:true},
@@ -937,17 +1132,19 @@ const TIMELINE = [
       {cat:'people',  q:'Jan', title:'+2 IT staff', desc:'IT Transfer RM2,200 &amp; IT New Hire RM2,000. Module dev (OMNI, HR, Portrait, MEET) + AI research.'},
       {cat:'people',  q:'2027', title:'+1 Admin & Management (RM1,900)', desc:'Documentation, IT support.'},
       {cat:'revenue', q:'H2', title:'HR Module client acquisition', desc:'Target: 5 external customers in first year.'},
-      {cat:'infra',   q:'Jan', title:'Hardware repayment begins', desc:'RM1,000/mo to QC Group × 14 months (Jan 2027–Feb 2028) + RM499.99 final (Mar 2028). Total hardware: RM14,499.99.', ms:true},
+      {cat:'infra',   q:'Jan', title:'Hardware repayment begins (scaled)', desc:'RM 14,499.99 on revenue-scaled tiers starting Jan 2027: RM 1,000 base → RM 1,500 (Rev>35k×2mo) → RM 2,000 (Rev>45k×2mo). Completes Nov 2027 — 8 mo early under v5 thanks to OHXEM-lifted revenue.', ms:true},
+      {cat:'infra',   q:'Nov', title:'Hardware repayment completes (8 mo early)', desc:'Final RM 1,999.99 payment to QC Group. Hardware ownership formally transferable to QCXIS.', ms:true},
+      {cat:'people',  q:'Aug', title:'CEO &amp; DCEO reach RM 5,000 base', desc:'Revenue-milestone driven: Rev_Total > RM 40k for 2 consecutive months. Fires Aug 2027 under v5 with OHXEM — MD knowledge-worker requirement satisfied ~10 mo before MD application.', ms:true},
       {cat:'infra',   q:'2027', title:'Data centre migration', desc:'Production server at dedicated DC. Colo decommissioned.', ms:true},
       {cat:'grant',   q:'2027', title:'MDCG review & application', desc:'Malaysia Digital Catalyst Grant — up to RM1M.'},
       {cat:'ip',      q:'2027', title:'Trademark completion', desc:'MyIPO registration expected to finalise.'},
       {cat:'rd',      q:'2027', title:'AI R&D pilot', desc:'GPU testing — qualifying AI activity for MD Status.'},
     ],
-    endState: ['5 staff employed by QCXIS','6+ modules live','HR Module generating external revenue','DC migration complete','MDCG grant application submitted','Trademark registered','AI R&D activity documented','CEO + DCEO salaries ramping toward RM5,000','Hardware repayment to QC Group underway']
+    endState: ['5 staff employed by QCXIS','6+ modules live','HR Module generating external revenue','DC migration complete','MDCG grant application submitted','Trademark registered','AI R&D activity documented','CEO + DCEO at RM 5,000 base (Aug 2027)','Hardware repayment complete (Nov 2027, 8 mo early)','OHXEM ramped to ~15 outlets (international stream)']
   },
   {
-    year: 2028, theme: 'MD Status & Asset Transition',
-    highlights: ['MD Status application', 'ICARUS/RASCI launch', 'RM5k salaries', 'Hardware repayment completes'],
+    year: 2028, theme: 'MD Status, 500 Franchise + 50 OHXEM Outlets',
+    highlights: ['MD Status application', 'ICARUS/RASCI launch', 'RM 5k salaries achieved', 'Direct supplier takeover Jul 2028', '500 franchise + 50 OHXEM outlets by Dec'],
     items: [
       {cat:'cert', q:'Q1', title:'MD Readiness Assessment', desc:'Internal review against MD requirements.'},
       {cat:'cert', q:'Q1–Q2', title:'MDEC pre-consultation', desc:'Confirm eligibility, review checklist.'},
@@ -955,11 +1152,12 @@ const TIMELINE = [
       {cat:'cert', q:'Q2–Q3', title:'MD Status application', desc:'All prerequisites met.', ms:true},
       {cat:'cert', q:'H2', title:'MD Status approval (target)', desc:'Tax incentives, grants, credibility.', ms:true},
       {cat:'product', q:'2028', title:'ICARUS (RASCI) Module', desc:'Task & project management — RASCI framework.'},
-      {cat:'people',  q:'Early', title:'CEO & DCEO hit RM5,000 base', desc:'MD knowledge worker requirement satisfied.', ms:true},
+      {cat:'people',  q:'Early', title:'CEO & DCEO remain at RM 5,000+ base', desc:'Salary milestone already achieved Aug 2027; 5% p.a. increment kicks in Jan 2028. MD knowledge worker requirement comfortably satisfied.', ms:true},
       {cat:'people',  q:'2028', title:'Milestone & Capacity Review', desc:'Assess if 6th hire justified.'},
-      {cat:'infra',   q:'Mar', title:'Hardware repayment completes', desc:'Final RM499.99 payment to QC Group. Broader asset ownership transfer ongoing per inter-company Service Agreement.', ms:true},
+      {cat:'infra',   q:'Jul', title:'Direct supplier takeover', desc:'QCXIS contracts cPanel + Immunify360 + Colocation directly (RM 990.05/mo). Mgmt fee to QC Group becomes advisory-only from this month.', ms:true},
+      {cat:'revenue', q:'Dec', title:'500 franchise + 50 OHXEM outlets', desc:'Outlet targets achieved under Optimum. OHXEM reaches steady-state ~50 internationally (USD 2/student @ cap 90).', ms:true},
     ],
-    endState: ['MD Status obtained (or final review)','5 staff (capacity review conducted)','ICARUS (RASCI) module live','Hardware repayment complete (Mar 2028); asset ownership transfer ongoing','HR Module: 15 customers','Both founders at RM5,000+ base']
+    endState: ['MD Status obtained (or final review)','5 staff (capacity review conducted)','ICARUS (RASCI) module live','Hardware owned by QCXIS (since Nov 2027)','HR Module: 15 customers','Both founders at RM 5,000+ base','Direct supplier takeover from Jul 2028 — cPanel + Immunify + Colocation = RM 990.05/mo','500 franchise + 50 OHXEM outlets achieved by Dec 2028 (Optimum)']
   },
   {
     year: 2029, theme: 'Scaling Operations',
@@ -969,8 +1167,9 @@ const TIMELINE = [
       {cat:'people',  q:'2029', title:'6th hire (if approved)', desc:'Based on 2028 capacity review. Staff ceiling: 6.'},
       {cat:'revenue', q:'2029', title:'HR Module at 35 customers', desc:'Product-market fit validated.'},
       {cat:'ops',     q:'2029', title:'ISO 27001 / SOC 2 exploration', desc:'Scoping security certification.'},
+      {cat:'infra',   q:'Jul', title:'Infra Upgrade CAPEX — RM 10k', desc:'First QCXIS-funded infra upgrade (backup storage + redundancy). Self-funded from operating cash.', ms:true},
     ],
-    endState: ['Up to 6 staff (ceiling)','Finance Module expansion live','HR Module at PMF (35+ customers)','ISO 27001 / SOC 2 scoping underway']
+    endState: ['Up to 6 staff (ceiling)','Finance Module expansion live','HR Module at PMF (35+ customers)','ISO 27001 / SOC 2 scoping underway','First QCXIS-funded infra upgrade complete (RM 10k)']
   },
   {
     year: 2030, theme: 'Market Expansion',
@@ -981,8 +1180,9 @@ const TIMELINE = [
       {cat:'revenue', q:'2030', title:'HR Module at 65 customers', desc:'Growing recurring revenue.'},
       {cat:'revenue', q:'2030', title:'500 outlets approaching', desc:"Chief's directive on track."},
       {cat:'ops',     q:'2030', title:'ISO 27001 / SOC 2 certification', desc:'Opens gov & enterprise contracts.', ms:true},
+      {cat:'infra',   q:'Jul', title:'Infra Upgrade CAPEX — RM 15k', desc:'Server refresh / capacity expansion. Direct recurring suppliers enter 3% escalation (Jan 2030).', ms:true},
     ],
-    endState: ['6 staff, lean cross-functional','HR Module at 65 customers','Outlet network approaching 500','ISO 27001 / SOC 2 in hand','Salary review completed']
+    endState: ['6 staff, lean cross-functional','HR Module at 65 customers','Outlet network approaching 500','ISO 27001 / SOC 2 in hand','Salary review completed','Server refresh complete (RM 15k upgrade)']
   },
   {
     year: 2031, theme: 'Maturity & Independence',
@@ -995,6 +1195,7 @@ const TIMELINE = [
       {cat:'people',     q:'2031', title:'Team at 6, competitive compensation', desc:'Market-rate salaries, KL-competitive benefits.'},
       {cat:'strategic',  q:'2031', title:'Infra fully owned by QCXIS', desc:'All assets repurchased. Full independence.', ms:true},
       {cat:'strategic',  q:'2031', title:'Regional expansion evaluation', desc:'Assess SEA market entry (SG, ID, TH).'},
+      {cat:'infra',      q:'Jul', title:'Infra Upgrade CAPEX — RM 20k', desc:'GPU / AI capacity + networking. Completes 3-year self-funded upgrade plan (RM 45k total).', ms:true},
     ],
     endState: ['Fully independent, self-sustaining','6 staff, lean professional team','500 outlets, 105+ HR customers','Full module suite live, Platform v2','All infra owned, all agreements in place','MD Status active, security-certified','Positioned for regional expansion evaluation']
   }
@@ -1142,8 +1343,8 @@ function renderExecSummary() {
     {l:'Cash-Positive From',           v:posStr,            c: cf.posFrom ? 'var(--accent)' : 'var(--cost-text)', n: cf.posFrom ? 'Permanent breakeven' : 'Requires continued funding'},
   ];
   const secondary = [
-    {l:'5yr Total Revenue',  v:fR(d.gTotRev), c:'var(--warn)',  n:`Fee + SaaS combined`},
-    {l:'Outlets by 2031',    v:String(S.p2), c:'var(--accent2)', n:`${S.l} scenario`},
+    {l:'6yr Total Revenue',  v:fR(d.gTotRev), c:'var(--warn)',  n:`Franchise + OHXEM + HR + Portrait`},
+    {l:'Franchise Outlets',  v:String(S.p2), c:'var(--accent2)', n:`${S.l} \u2014 target ${s()==='optimum'?'Dec 2028':'Dec 2029'}`},
     {l:"HR Customers '31",   v:String(hr2031), c:'var(--hr)',    n:'Funnel-derived'},
   ];
   const context = `<div style="font-size:10.5px;color:var(--body);line-height:1.5;margin-bottom:10px">QCXIS Sdn Bhd is QC Group's IT subsidiary — this document presents the 6-year financial forecast, roadmap, and resource plan for board review.</div>`;
@@ -1288,9 +1489,8 @@ function renderHRTable() {
   const cust = YRS.map(y => HR[y]?.cust || 0);
   const cac = YRS.map(y => HR[y]?.cac || 0);
   const tot = YRS.map(y => HR[y]?.total || 0);
-  h += `<tr class="pl-cat"><td colspan="${YRS.length+2}" style="font-size:8px;color:var(--muted);font-weight:400">Funnel: ${F.leadsPerMonth[2027]}–${F.leadsPerMonth[2031]} leads/mo → ${(F.trialConvRate*100).toFixed(0)}% trial → ${(F.paidConvRate*100).toFixed(0)}% paid · Y1 churn ${(F.y1Churn*100).toFixed(0)}% · Retained ${(F.retainedChurn*100).toFixed(0)}% · CAC RM${F.cacPerCustomer}/cust</td></tr>`;
+  h += `<tr class="pl-cat"><td colspan="${YRS.length+2}" style="font-size:8px;color:var(--muted);font-weight:400">Funnel: ${F.leadsPerMonth[2027]}–${F.leadsPerMonth[2031]} leads/mo → ${(F.leadConvRate*100).toFixed(0)}% direct lead→paid · Y1 churn ${(F.y1Churn*100).toFixed(0)}% · Retained ${(F.retainedChurn*100).toFixed(0)}% · CAC RM${F.cacPerCustomer}/cust</td></tr>`;
   h += `<tr class="pl-sub"><td>Leads / year</td>${leads.map(v => `<td>${v ? f(v) : '—'}</td>`).join('')}<td></td></tr>`;
-  h += `<tr class="pl-sub"><td>Trial conversions</td>${trials.map(v => `<td>${v ? f(v) : '—'}</td>`).join('')}<td></td></tr>`;
   h += `<tr class="pl-sub"><td>Paid conversions (new)</td>${paid.map(v => `<td>${v ? f(v) : '—'}</td>`).join('')}<td>${f(paid.reduce((a,b)=>a+b,0))}</td></tr>`;
   h += `<tr class="pl-sub"><td>First-year churned</td>${y1.map(v => `<td>${v ? f(v) : '—'}</td>`).join('')}<td>${f(y1.reduce((a,b)=>a+b,0))}</td></tr>`;
   h += `<tr class="pl-sub"><td>Retained churned</td>${ret.map(v => `<td>${v ? f(v) : '—'}</td>`).join('')}<td>${f(ret.reduce((a,b)=>a+b,0))}</td></tr>`;
@@ -1300,16 +1500,16 @@ function renderHRTable() {
   h += `<tr class="pl-sub"><td style="color:var(--cost-text)">CAC (cost side)</td>${cac.map(v => `<td style="color:var(--cost-text)">${v ? fR(v) : '—'}</td>`).join('')}<td style="color:var(--cost-text)">${fR(cac.reduce((a,b)=>a+b,0))}</td></tr>`;
   h += `</tbody>`;
   document.getElementById('hrTable').innerHTML = h;
-  // Sensitivity callout — 50% paid-conv drop
+  // Sensitivity callout — 50% conv drop
   const HR50 = hrRevByYear(s(), 0.5);
   const cust31Base = HR[2031]?.cust || 0;
   const cust31Low = HR50[2031]?.cust || 0;
   const rev31Base = HR[2031]?.total || 0;
   const rev31Low  = HR50[2031]?.total || 0;
   const dropPct = rev31Base > 0 ? Math.round((1 - rev31Low / rev31Base) * 100) : 0;
-  const newPaidPct = (F.paidConvRate * 0.5 * 100).toFixed(1);
+  const newConvPct = (F.leadConvRate * 0.5 * 100).toFixed(1);
   const tgt = document.getElementById('hrSens');
-  if (tgt) tgt.innerHTML = `<strong>Sensitivity:</strong> If trial→paid conversion drops to ${newPaidPct}% (half of ${(F.paidConvRate*100).toFixed(0)}%), customer count in 2031 falls from <strong>${cust31Base}</strong> to <strong>${cust31Low}</strong> and HR revenue drops by <strong>${dropPct}%</strong> (from ${fR(rev31Base)} to ${fR(rev31Low)}).`;
+  if (tgt) tgt.innerHTML = `<strong>Sensitivity:</strong> If lead→paid conversion drops to ${newConvPct}% (half of ${(F.leadConvRate*100).toFixed(0)}%), customer count in 2031 falls from <strong>${cust31Base}</strong> to <strong>${cust31Low}</strong> and HR revenue drops by <strong>${dropPct}%</strong> (from ${fR(rev31Base)} to ${fR(rev31Low)}).`;
 }
 
 function renderPortTable() {
@@ -1367,13 +1567,15 @@ function renderPortTable() {
 function renderCostTable() {
   const d = D[s()];
   const rows = [
-    {k:'payroll',     l:'Payroll (5 staff)', cls:'pl-sub', n:'Jun 2026 start · RM3k→RM3.9k→RM5k steps · 5% p.a.'},
-    {k:'mgmtFee',    l:'Management Fee → QC Group', cls:'pl-sub', n:'RM1,000/mo — server &amp; hosting'},
-    {k:'repayment',  l:'Infra Repayment', cls:'pl-sub', n:'RM1,000/mo Jan 2027 – Feb 2028 + RM499.99 Mar 2028 (hardware RM14,499.99)'},
+    {k:'payroll',     l:'Payroll (5 staff)', cls:'pl-sub', n:'Jun 2026 start · RM3k→RM3.9k→RM5k milestone-driven · 5% p.a.'},
+    {k:'mgmtFee',    l:'Management Fee → QC Group', cls:'pl-sub', n:'Flat RM1,000/mo retainer (reimburses Phase 1–2 suppliers; advisory fee from Jul 2028)'},
+    {k:'repayment',  l:'Hardware Repayment', cls:'pl-sub', n:'Jan 2027 → Nov 2027 · revenue-scaled tiers RM 1k → RM 1.5k → RM 2k (RM 14,499.99 total)'},
+    {k:'directRec',   l:'Direct Recurring Suppliers', cls:'pl-sub', n:'cPanel + Immunify360 + Colocation 2U = RM990.05/mo from Jul 2028 (+3% p.a. from 2030)'},
+    {k:'upgradeCapex',l:'Infra Upgrade CAPEX', cls:'pl-sub', n:'QCXIS self-funded growth: Jul 2029 RM10k · Jul 2030 RM15k · Jul 2031 RM20k'},
     {k:'corp',        l:'Corporate One-offs', cls:'pl-sub'},
     {k:'cac',         l:'HR Customer Acquisition (CAC)', cls:'pl-sub', n:'Per-customer acquisition cost from HR funnel'},
     {k:'contingencyHire', l:'Contingency Hire (one-off)', cls:'pl-sub', n:'Optional — 3mo recruitment/onboarding buffer'},
-    {k:'contingency', l:'Contingency (5%)', cls:'pl-sub'},
+    {k:'contingency', l:'Contingency (10%)', cls:'pl-sub'},
     {k:'cost',        l:'Total OPEX', cls:'pl-cost-total'},
     {k:'tax',         l:'Corporate Tax', cls:'pl-sub', n: mdDelayed ? '24% std · 5% MD from H2 2029 · loss carry-forward applied' : '24% std · 5% MD from H2 2028 · loss carry-forward applied'},
     {k:'totalInclTax',l:'Total Cost incl. Tax', cls:'pl-cost-total'},
@@ -1529,11 +1731,11 @@ function renderGanttChart() {
 function renderStaff() {
   const admSal = y => y < 2027 ? 0 : y === 2027 ? TIER_ADMIN : Math.round(TIER_ADMIN * Math.pow(1 + ANNUAL_INC, y - 2027));
   const ROLES = [
-    {label:'CEO',            note:'Jun 2026 • Annual increment Jan',  sal: y => execBase('ceo', y)},
-    {label:'DCEO',           note:'Jun 2026 • Annual increment Jan',  sal: y => execBase('dceo', y)},
-    {label:'IT (Transfer)',  note:'Jan 2027 • 5% p.a. from 2028',     sal: y => itSal(IT_TRANSFER, y)},
-    {label:'IT (New Hire)',  note:'Jan 2027 • 5% p.a. from 2028',     sal: y => itSal(IT_NEW, y)},
-    {label:'Admin',          note:'Jun 2027 • 5% p.a. from 2028',     sal: y => admSal(y)},
+    {label:'CEO',            note:'Jun 2026 · milestone-driven (Rev>RM27k→RM3.9k, Rev>RM40k→RM5k)',  sal: y => execBase('ceo', y)},
+    {label:'DCEO',           note:'Jun 2026 · milestone-driven (mirrors CEO)',                   sal: y => execBase('dceo', y)},
+    {label:'IT (Transfer)',  note:'Jan 2027 · 5% p.a. from 2028',     sal: y => itSal(IT_TRANSFER, y)},
+    {label:'IT (New Hire)',  note:'Jan 2027 · 5% p.a. from 2028',     sal: y => itSal(IT_NEW, y)},
+    {label:'Admin',          note:'Jun 2027 · 5% p.a. from 2028',     sal: y => admSal(y)},
   ];
 
   let h = `<thead><tr><th style="text-align:left">Role</th><th style="text-align:left;font-size:9px;color:var(--muted)">Notes</th>${YRS.map(y => `<th>${y}</th>`).join('')}</tr></thead><tbody>`;
@@ -1593,7 +1795,7 @@ function renderAssumptions() {
   const items = [
     ['Outlets','500 by 2031 (Chief directive)'], ['Scenarios','Cons 400 / Opt 500 / Aggr 600'],
     ['Realisation','80% / 88% / 93%'], ['Fee','RM1/client/mo (agreed) · 30-day collection terms'],
-    ['HR Funnel','Leads/mo per scenario × 12 → trial conv. → paid conv. Cohort-tracked churn: Y1 higher than retained.'],
+    ['HR Funnel','Leads/mo per scenario × 12 → direct lead→paid conversion (single step — no trial gate). Cohort-tracked churn: Y1 higher than retained.'],
     ['HR Pricing','RM40 sub + RM5/head (RM2 promo \'27–\'28). 25 avg emp.'],
     ['HR Churn','Cons Y1 25% / Ret 8% · Opt 22%/7% · Aggr 18%/6%'],
     ['HR CAC','Cons RM500 · Opt RM400 · Aggr RM350 per acquired customer'],
@@ -1608,12 +1810,15 @@ function renderAssumptions() {
     ['IT New Hire','RM2k base → ~RM2,966/mo CTC'],
     ['Admin','RM1.9k base → ~RM2,851/mo CTC'],
     ['Statutory','EPF 13% + SOCSO 1.75% + EIS 0.2% = 14.95% employer'],
-    ['Mgmt Fee','RM1,000/mo inter-company fee to QC Group'],
-    ['Infra Repayment','RM1,000/mo Jan 2027–Feb 2028 + RM499.99 Mar 2028 (RM14,499.99 total)'],
+    ['Mgmt Fee','Flat RM1,000/mo retainer to QC Group across 2026–2031. Reimburses Phase 1–2 suppliers through Jun 2028; advisory / backup-DC fee from Jul 2028 (board-revisable)'],
+    ['Direct Recurring','cPanel RM300 + Immunify360 RM200 + Colocation 2U RM490.05 = RM990.05/mo — QCXIS contracts directly from Jul 2028; 3% annual escalation from Jan 2030'],
+    ['Upgrade CAPEX','QCXIS self-funded: Jul 2029 RM10k · Jul 2030 RM15k · Jul 2031 RM20k (3-yr total RM45k)'],
+    ['Infra Repayment','RM 14,499.99 hardware — revenue-scaled tiers (RM 1k base → RM 1.5k @ Rev&gt;35k×2mo → RM 2k @ Rev&gt;45k×2mo); completes <strong>Nov 2027</strong> (8 mo early under v5 with OHXEM)'],
     ['Corporate','TM RM3.5k (Oct 2026), GPU RM5k (Jun 2027), MDEC RM1,080 (Mar 2028)'],
-    ['Contingency','5% of OPEX (annual)'],
+    ['Contingency','10% of OPEX excl. repayment (annual) — raised from 5% to absorb infra-growth volatility'],
+    ['Paid-Up Capital','RM 100,000 board-approved paid-up share capital at Jun 2026: RM 35k expanded OPEX runway + RM 10k AR buffer + RM 14.5k hardware capex + RM 15k accelerated onboarding + RM 10k OHXEM ramp + RM 15.5k safety margin. Equity (not repayable). Stepping stone to RM 250k MDEC Expansion threshold.'],
     ['Contingency Hire','Optional RM18k one-off — 3mo IT recruitment + lost velocity (toggle)'],
-    ['Cash Flow','1-month fee collection delay · Starting cash editable · No loss carry-forward modelled'],
+    ['Cash Flow','1-month fee collection delay · RM 100,000 opening paid-up capital (default, editable) · No loss carry-forward modelled'],
     ['Corporate Tax','Std 24% · MD concessionary 5% (from approval year) · loss carry-forward applied (simplified, 10yr max) · tax paid annually in Dec · no provisional instalments modelled'],
     ['MD Salary Ramp','3k→3.9k→5k→5% baseline vs 3k→3.5k→4k→4.5k→5k slow ramp (RM5k by 2030)'],
     ['Workload','Directional person-month estimates — actual allocation will vary'],
@@ -1669,7 +1874,8 @@ function renderMDRoi() {
 }
 
 // ─── ZONE 6 cont. · Cash flow monthly engine (compute + render) ───
-let INITIAL_CASH = 0;
+// Default opening cash = RM 100,000 board-approved paid-up share capital (v5 model).
+let INITIAL_CASH = CAPITAL_INJECTION;
 const CASH_BUFFER = 10000;
 
 function staffCtcMonthly(y, mi) {
@@ -1681,8 +1887,9 @@ function staffCtcMonthly(y, mi) {
     return false;
   };
   let total = 0;
-  if (active(y, mi, 'ceo'))   total += ctcMo(execBase('ceo', y));
-  if (active(y, mi, 'dceo'))  total += ctcMo(execBase('dceo', y));
+  // Use month-aware exec base so milestone bumps land in the correct month.
+  if (active(y, mi, 'ceo'))   total += ctcMo(execBaseMo('ceo',  y, mi));
+  if (active(y, mi, 'dceo'))  total += ctcMo(execBaseMo('dceo', y, mi));
   if (active(y, mi, 'it1'))   total += ctcMo(itSal(IT_TRANSFER, y));
   if (active(y, mi, 'it2'))   total += ctcMo(itSal(IT_NEW, y));
   if (active(y, mi, 'admin')) {
@@ -1700,11 +1907,39 @@ function corpOneOff(y, mi) {
 }
 
 function repaymentMo(y, mi) {
-  if (y === 2027) return 1000;
-  if (y === 2028 && mi === 0) return 1000;
-  if (y === 2028 && mi === 1) return 1000;
-  if (y === 2028 && mi === 2) return 499.99;
+  // Hardware repayment RM14,499.99 — scaled tiers:
+  //   Jul-2027 – Feb-2028: 8 × RM1,000 = 8,000
+  //   Mar-2028 – Jun-2028: 4 × RM1,500 = 6,000 (Tier 1 fires after Rev>35k × 2mo under Optimum)
+  //   Jul-2028: RM499.99 final
+  if (y === 2027 && mi >= 6) return 1000;                       // Jul–Dec 2027
+  if (y === 2028 && mi <= 1) return 1000;                       // Jan–Feb 2028
+  if (y === 2028 && mi >= 2 && mi <= 5) return 1500;            // Mar–Jun 2028 (Tier 1)
+  if (y === 2028 && mi === 6) return 499.99;                    // Jul 2028 final
   return 0;
+}
+
+// Direct recurring suppliers — QCXIS contracts directly from Jul-2028.
+// cPanel RM300 + Immunify360 RM200 + Colocation 2U RM490.05 = RM990.05/mo.
+// Flat through Dec-2029; 3% annual escalation from Jan-2030.
+function directRecMo(y, mi) {
+  if (y < 2028) return 0;
+  if (y === 2028 && mi < 6) return 0;  // Jul 2028 onward only
+  if (y <= 2029) return DIRECT_REC_BASE;
+  return Math.round(DIRECT_REC_BASE * Math.pow(1.03, y - 2029) * 100) / 100;
+}
+
+// Infra upgrade CAPEX — Jul lump sums (mi=6).
+function upgradeCapexMo(y, mi) {
+  if (mi !== 6) return 0;
+  if (y === 2029) return 10000;
+  if (y === 2030) return 15000;
+  if (y === 2031) return 20000;
+  return 0;
+}
+
+// Monthly mgmt fee — flat RM1,000 retainer throughout horizon (v4 model).
+function mgmtFeeMo(y, mi) {
+  return 1000;
 }
 
 function buildCashFlow(k) {
@@ -1753,13 +1988,16 @@ function buildCashFlow(k) {
     const cashIn = fee + hrIn + poIn;
 
     const payroll = staffCtcMonthly(y, mi);
-    const mgmt = 1000; // RM1,000/mo from Jun 2026
+    const mgmt = mgmtFeeMo(y, mi);
     const rep = repaymentMo(y, mi);
+    const dRec = directRecMo(y, mi);
+    const upCx = upgradeCapexMo(y, mi);
     const corpM = corpOneOff(y, mi);
     const cacM = (y >= 2027) ? cacMonthly(y) : 0;
     const contHire = (contingencyHireEnabled && y === contingencyHireYear && mi === 0) ? 18000 : 0;
-    const baseOpex = payroll + mgmt + rep + corpM + cacM + contHire;
-    const contingency = Math.round(baseOpex * 0.05);
+    const baseOpex = payroll + mgmt + rep + dRec + upCx + corpM + cacM + contHire;
+    // Contingency: 10% of (payroll + mgmt + direct recurring + corp). Excludes repayment and upgrade CAPEX.
+    const contingency = Math.round((payroll + mgmt + dRec + corpM) * CONTINGENCY);
     // Tax: annual lump paid in December of each year
     const taxPayment = (mi === 11) ? (d.taxResult?.byYr[y] || 0) : 0;
     const cashOut = baseOpex + contingency + taxPayment;
@@ -1767,7 +2005,7 @@ function buildCashFlow(k) {
     const net = cashIn - cashOut;
     cum += net;
     rows.push({y, mi, mo: MO[mi], fee, hrIn, poIn, cashIn,
-      payroll, mgmt, rep, other: corpM + cacM + contHire, contingency, taxPayment,
+      payroll, mgmt, rep, other: dRec + upCx + corpM + cacM + contHire, contingency, taxPayment,
       cashOut, net, cum});
   });
 

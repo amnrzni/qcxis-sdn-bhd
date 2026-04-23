@@ -122,7 +122,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
    SHARED SLIDE COMPONENTS
    ══════════════════════════════════════════════════════════════ */
 .eyebrow {
-  font-size: 9.5px; font-weight: 700; letter-spacing: .16em;
+  font-size: 11px; font-weight: 700; letter-spacing: .16em;
   text-transform: uppercase; color: var(--muted); margin-bottom: 6px;
 }
 .slide-title {
@@ -131,7 +131,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 }
 .slide-title em { font-style: italic; color: var(--accent); }
 .slide-sub {
-  font-size: 11px; color: var(--muted); margin-bottom: 28px;
+  font-size: 13px; color: var(--muted); margin-bottom: 28px;
 }
 .section-rule {
   border: none; border-top: 2px solid var(--text);
@@ -337,7 +337,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 }
 .svc-items { list-style: none; }
 .svc-items li {
-  font-size: 11px; color: var(--body); padding: 5px 0;
+  font-size: 12px; color: var(--body); padding: 5px 0;
   border-bottom: 1px solid var(--border);
   display: flex; align-items: center; gap: 8px;
   line-height: 1.45;
@@ -390,11 +390,11 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .g3 .goal-subtitle { color: var(--warn); }
 
 .goal-desc {
-  font-size: 11px; color: var(--body); line-height: 1.6; margin-top: 4px;
+  font-size: 12px; color: var(--body); line-height: 1.6; margin-top: 4px;
 }
 .goal-items { list-style: none; margin-top: 6px; }
 .goal-items li {
-  font-size: 10.5px; color: var(--body); padding: 3px 0;
+  font-size: 11.5px; color: var(--body); padding: 3px 0;
   display: flex; align-items: flex-start; gap: 7px; line-height: 1.45;
 }
 .goal-items li::before {
@@ -432,7 +432,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 }
 .yr-items { list-style: none; }
 .yr-items li {
-  font-size: 10px; color: var(--body); padding: 3px 0;
+  font-size: 11px; color: var(--body); padding: 3px 0;
   display: flex; align-items: flex-start; gap: 6px; line-height: 1.4;
 }
 .yr-items li::before { content: '▸'; font-size: 7px; margin-top: 3px; color: var(--muted); flex-shrink: 0; }
@@ -479,9 +479,9 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .kpi.kpi-opex { border-top-color: var(--cost-text); }
 .kpi.kpi-net  { border-top-color: var(--accent); }
 .kpi.kpi-cum  { border-top-color: var(--staff); }
-.kpi-label { font-size: 8.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
-.kpi-value { font-family: 'Playfair Display', serif; font-size: 19px; line-height: 1; color: var(--text); }
-.kpi-note  { font-size: 9px; color: var(--muted); margin-top: 3px; }
+.kpi-label { font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.kpi-value { font-family: 'Playfair Display', serif; font-size: 22px; line-height: 1; color: var(--text); }
+.kpi-note  { font-size: 10px; color: var(--muted); margin-top: 3px; }
 
 .chart-card {
   background: var(--white); border: 1px solid var(--border); border-radius: 7px;
@@ -496,7 +496,37 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .cl-line { width: 14px; height: 2px; border-radius: 2px; }
 
 /* ══════════════════════════════════════════════════════════════
-   SLIDE 8 — WHAT NEEDS APPROVAL
+   SLIDE 8 — CAPITAL & REPAYMENT PLAN
+   ══════════════════════════════════════════════════════════════ */
+.cap-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 12px; margin-bottom: 12px; }
+.cap-card {
+  background: var(--white); border: 1px solid var(--border); border-radius: 7px;
+  padding: 14px 16px; border-top: 3px solid var(--accent2);
+}
+.cap-card.rep { border-top-color: var(--accent); }
+.cap-head { font-family: 'Playfair Display', serif; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+.cap-sub  { font-size: 9.5px; color: var(--muted); margin-bottom: 10px; }
+.cap-table { width: 100%; border-collapse: collapse; font-size: 11.5px; }
+.cap-table th { font-size: 9px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: var(--muted); padding: 5px 6px; text-align: right; border-bottom: 1px solid var(--border2); white-space: nowrap; }
+.cap-table th:first-child { text-align: left; }
+.cap-table td { padding: 5px 6px; border-bottom: 1px solid var(--border); color: var(--body); white-space: nowrap; text-align: right; font-size: 11px; }
+.cap-table td:first-child { text-align: left; color: var(--text); }
+.cap-table tr.total td { background: var(--bg); font-weight: 700; color: var(--text); border-top: 2px solid var(--accent2); border-bottom: none; }
+.cap-table tr.final td { background: rgba(10,123,108,.07); font-weight: 700; color: var(--accent); }
+.cap-kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 14px; }
+.cap-kpi  { background: var(--white); border: 1px solid var(--border); border-radius: 5px; padding: 10px 12px; border-top: 3px solid var(--border2); }
+.cap-kpi.k1 { border-top-color: var(--accent2); }
+.cap-kpi.k2 { border-top-color: var(--staff); }
+.cap-kpi.k3 { border-top-color: var(--warn); }
+.cap-kpi.k4 { border-top-color: var(--accent); }
+.cap-kpi .l { font-size: 9px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-bottom: 3px; }
+.cap-kpi .v { font-family: 'Playfair Display', serif; font-size: 19px; line-height: 1; color: var(--text); }
+.cap-kpi .n { font-size: 9.5px; color: var(--muted); margin-top: 3px; line-height: 1.35; }
+.cap-note { font-size: 11px; color: var(--body); line-height: 1.5; background: var(--white); border: 1px solid var(--border); border-left: 3px solid var(--accent2); border-radius: 5px; padding: 10px 14px; }
+.cap-note strong { color: var(--text); }
+
+/* ══════════════════════════════════════════════════════════════
+   SLIDE 9 — WHAT NEEDS APPROVAL
    ══════════════════════════════════════════════════════════════ */
 .approval-intro {
   font-size: 12px; color: var(--body); margin-bottom: 22px; line-height: 1.6;
@@ -526,11 +556,11 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
   color: var(--text); margin-bottom: 8px;
 }
 .appr-desc {
-  font-size: 11px; color: var(--body); line-height: 1.6; margin-bottom: 12px;
+  font-size: 12px; color: var(--body); line-height: 1.6; margin-bottom: 12px;
 }
 .appr-items { list-style: none; }
 .appr-items li {
-  font-size: 10px; color: var(--body); padding: 4px 0;
+  font-size: 11px; color: var(--body); padding: 4px 0;
   border-bottom: 1px solid var(--border);
   display: flex; align-items: flex-start; gap: 7px; line-height: 1.4;
 }
@@ -795,8 +825,8 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
         </div>
       </div>
 
-      <div style="margin-top:14px; background:var(--white); border:1px solid var(--border); border-radius:5px; padding:10px 16px; font-size:10.5px; color:var(--body); border-left:3px solid var(--accent2);">
-        <strong style="color:var(--text);">Inter-company arrangement:</strong> QCXIS provides these services under a formal Inter-company Service Agreement. The management fee structure is flexible — currently set at RM 1,000/month for infrastructure services, and subject to revision upward commensurate with QCXIS's net revenue performance. All IT staff are employed by QCXIS.
+      <div style="margin-top:14px; background:var(--white); border:1px solid var(--border); border-radius:5px; padding:10px 16px; font-size:11px; color:var(--body); border-left:3px solid var(--accent2);">
+        <strong style="color:var(--text);">Inter-company arrangement (4-phase infra model):</strong> QCXIS operates under a formal Inter-company Service Agreement with a flat <strong>RM 1,000/month retainer</strong> to QC Group across 2026&ndash;2031. The <strong>RM 14,499.99 hardware capex</strong> is repaid on revenue-scaled tiers (RM 1k &rarr; 1.5k &rarr; 2k) from <strong>Jan 2027</strong> and completes <strong>Nov 2027</strong>. Direct supplier takeover (cPanel + Immunify360 + Colocation) begins Jul 2028. Full breakdown &rarr; <em>Slide 8 &middot; Paid-Up Capital &amp; Repayment Plan</em>.
       </div>
     </div>
   </div>
@@ -894,19 +924,22 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
           <div class="yr-section-label">Revenue</div>
           <ul class="yr-items">
             <li class="ms">Fee collection begins (H2 2026)</li>
-            <li>RM 1/client/month · 226 outlets</li>
+            <li>Franchise: RM 1/client/mo &middot; 226 outlets</li>
+            <li class="ms">OHXEM pilot live (2 outlets)</li>
+            <li>OHXEM: USD 2/student/mo &middot; 90 cap/outlet</li>
           </ul>
 
           <div class="yr-section-label">People</div>
           <ul class="yr-items">
             <li class="ms">2 staff transferred from QC Group</li>
-            <li>CEO &amp; DCEO · RM 3,000 base</li>
+            <li>CEO &amp; DCEO &middot; RM 3,000 base</li>
           </ul>
 
           <div class="yr-section-label">Governance &amp; IP</div>
           <ul class="yr-items">
+            <li class="ms">RM 100k paid-up capital (on balance sheet)</li>
             <li>Inter-company Service Agreement</li>
-            <li>DPO Appointment · DPA signed</li>
+            <li>DPO Appointment &middot; DPA signed</li>
             <li class="ms">Trademark application started (Q4)</li>
           </ul>
         </div>
@@ -927,15 +960,22 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
           <div class="yr-section-label">People</div>
           <ul class="yr-items">
             <li class="ms">+2 IT Staff (Jan 2027)</li>
-            <li class="ms">+1 Admin Staff (Jun 2027) → 5 total</li>
-            <li>CEO &amp; DCEO → RM 3,900</li>
+            <li class="ms">+1 Admin Staff (Jun 2027) &rarr; 5 total</li>
+            <li>CEO &amp; DCEO &rarr; RM 3,900 (Mar)</li>
+            <li class="ms">CEO &amp; DCEO &rarr; <strong>RM 5,000 (Aug)</strong></li>
           </ul>
 
           <div class="yr-section-label">Infra &amp; Grants</div>
           <ul class="yr-items">
-            <li>Hardware repayment begins (RM 1k/mo)</li>
+            <li class="ms">Hardware repayment begins (Jan 2027)</li>
+            <li class="ms">Hardware fully repaid (Nov 2027, 8 mo early)</li>
             <li>DC migration (QC Group-funded)</li>
             <li>MDCG grant application</li>
+          </ul>
+
+          <div class="yr-section-label">OHXEM</div>
+          <ul class="yr-items">
+            <li>3 outlets (Dec 2026) &rarr; 15 outlets (Dec 2027)</li>
           </ul>
         </div>
 
@@ -959,14 +999,15 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 
           <div class="yr-section-label">People</div>
           <ul class="yr-items">
-            <li class="ms">CEO &amp; DCEO → RM 5,000 (Jan 2028)</li>
-            <li>Capacity review · 6th hire decision</li>
+            <li>CEO &amp; DCEO &rarr; RM 5,250 (+5% Jan)</li>
+            <li>Capacity review &middot; 6th hire decision</li>
           </ul>
 
-          <div class="yr-section-label">Infra</div>
+          <div class="yr-section-label">Milestones</div>
           <ul class="yr-items">
-            <li class="ms">Hardware repayment completed (Mar 2028)</li>
-            <li>Infra review &amp; ownership transfer begins</li>
+            <li class="ms"><strong>500 franchise outlets achieved</strong> (Dec)</li>
+            <li class="ms"><strong>50 OHXEM outlets achieved</strong> (Dec)</li>
+            <li>Direct supplier takeover begins (Jul)</li>
           </ul>
         </div>
       </div>
@@ -1020,8 +1061,8 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 
           <div class="yr-section-label">Revenue</div>
           <ul class="yr-items">
-            <li>HR Module → 65 customers</li>
-            <li>Outlet network approaching 500</li>
+            <li>HR Module &rarr; 65 customers</li>
+            <li class="ms">500 franchise + 50 OHXEM outlets (steady state)</li>
           </ul>
 
           <div class="yr-section-label">Certification</div>
@@ -1049,9 +1090,10 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 
           <div class="yr-section-label">Revenue</div>
           <ul class="yr-items">
-            <li class="ms">500 outlets achieved (Chief's target)</li>
-            <li>HR Module → 105 customers</li>
-            <li>Full SaaS recurring revenue</li>
+            <li class="ms">Steady state: 500 franchise + 50 OHXEM</li>
+            <li>HR Module &rarr; 105 customers</li>
+            <li>Portrait &rarr; ~RM 291k/yr</li>
+            <li>Full SaaS recurring revenue mix</li>
           </ul>
 
           <div class="yr-section-label">Product</div>
@@ -1084,23 +1126,23 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
       <div class="kpi-row">
         <div class="kpi kpi-rev">
           <div class="kpi-label">Total Revenue</div>
-          <div class="kpi-value">RM 3.63M</div>
-          <div class="kpi-note">2026–2031 cumulative</div>
+          <div class="kpi-value">RM 5.30M</div>
+          <div class="kpi-note">2026&ndash;2031 cumulative (4 streams)</div>
         </div>
         <div class="kpi kpi-opex">
           <div class="kpi-label">Total OPEX</div>
-          <div class="kpi-value">RM 1.58M</div>
+          <div class="kpi-value">RM 1.78M</div>
           <div class="kpi-note">Payroll + infra + corporate</div>
         </div>
         <div class="kpi kpi-net">
           <div class="kpi-label">Total Net Profit</div>
-          <div class="kpi-value">RM 2.05M</div>
+          <div class="kpi-value">RM 3.52M</div>
           <div class="kpi-note">Revenue minus OPEX</div>
         </div>
         <div class="kpi kpi-cum">
-          <div class="kpi-label">Cumulative Net</div>
-          <div class="kpi-value">RM 2.06M</div>
-          <div class="kpi-note">By December 2031</div>
+          <div class="kpi-label">Cash Balance</div>
+          <div class="kpi-value">RM 3.62M</div>
+          <div class="kpi-note">Dec 2031 (incl. RM 100k paid-up)</div>
         </div>
       </div>
 
@@ -1109,7 +1151,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
         <div class="chart-head">
           <div>
             <div class="chart-title">Revenue vs OPEX vs Net Profit (Annual)</div>
-            <div class="chart-sub">Optimum scenario · Fee Collection + HR Module + Portrait Module · 2026–2031</div>
+            <div class="chart-sub">Optimum &middot; Franchise + OHXEM + HR + Portrait &middot; 2026&ndash;2031</div>
           </div>
           <span class="tag tag-blue">Optimum</span>
         </div>
@@ -1124,9 +1166,96 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
   </div>
 
   <!-- ══════════════════════════════════════════════════════════
-       SLIDE 8 — WHAT NEEDS APPROVAL
+       SLIDE 8 — CAPITAL & REPAYMENT PLAN
        ══════════════════════════════════════════════════════════ -->
   <div class="slide" id="slide-8" data-slide="8">
+    <div class="s-inner">
+      <div class="eyebrow">Funding the Runway &amp; Hardware Settlement</div>
+      <h2 class="slide-title">Paid-Up Capital &amp; <em>Repayment Plan</em></h2>
+      <hr class="section-rule">
+
+      <!-- KPI strip: 4 tiles -->
+      <div class="cap-kpis">
+        <div class="cap-kpi k1">
+          <div class="l">Paid-Up Share Capital</div>
+          <div class="v">RM 100,000</div>
+          <div class="n">Equity at incorporation · not a repayable advance</div>
+        </div>
+        <div class="cap-kpi k2">
+          <div class="l">Hardware Obligation</div>
+          <div class="v">RM 14,499.99</div>
+          <div class="n">Existing QC Group hardware capex</div>
+        </div>
+        <div class="cap-kpi k3">
+          <div class="l">Repayment Starts</div>
+          <div class="v">Jan 2027</div>
+          <div class="n">Accelerated from prior Jul-27 plan</div>
+        </div>
+        <div class="cap-kpi k4">
+          <div class="l">Repayment Completes</div>
+          <div class="v">Nov 2027</div>
+          <div class="n">11-month scaled plan (8 mo early)</div>
+        </div>
+      </div>
+
+      <!-- Two-column: paid-up allocation + repayment schedule -->
+      <div class="cap-grid">
+
+        <!-- LEFT: paid-up capital allocation -->
+        <div class="cap-card">
+          <div class="cap-head">Paid-Up Capital Allocation — RM 100,000</div>
+          <div class="cap-sub">QCXIS is incorporated with RM 100k paid-up. RM 50k only survives Optimum; RM 100k must survive the Extended scenario + HR/Portrait delay + accelerated repayment start.</div>
+          <table class="cap-table">
+            <thead>
+              <tr><th>Use of capital</th><th>Amount</th><th>Rationale</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Expanded OPEX runway (3–4 mo full team)</td><td>RM 35,000</td><td>Covers Jun–Sep 2026 launch + HR/Portrait slip runway</td></tr>
+              <tr><td>AR buffer (45-day slip)</td><td>RM 10,000</td><td>Expanded pool at accelerated ramp</td></tr>
+              <tr><td>Hardware capex coverage</td><td>RM 14,500</td><td>Funds RM 14,499.99 until Jan 2027 start</td></tr>
+              <tr><td>Accelerated outlet onboarding</td><td>RM 15,000</td><td>Training · support · rollout to hit 500 by 2028</td></tr>
+              <tr><td>OHXEM international ramp</td><td>RM 10,000</td><td>FX ops · localisation · brand set-up</td></tr>
+              <tr><td>Delay + safety margin</td><td>RM 15,500</td><td>HR/Portrait slip · MD Status delay · unforeseen</td></tr>
+              <tr class="total"><td>Total</td><td>RM 100,000</td><td>Jun-2026 floor: RM 111,388 · never negative</td></tr>
+            </tbody>
+          </table>
+          <div class="cap-note" style="margin-top:10px;">
+            <strong>Why not RM 50k?</strong> At RM 50k paid-up, Jun-26 cash floor is RM 61,388 and the balance dips below RM 20k under the Extended scenario with a 6-month HR/Portrait delay. RM 100k provides resilience without over-capitalisation &mdash; and is a stepping stone toward the RM 250k minimum for MDEC's Malaysia Digital <em>Expansion</em> Incentive (future board decision post-MD Status).
+          </div>
+        </div>
+
+        <!-- RIGHT: hardware repayment schedule -->
+        <div class="cap-card rep">
+          <div class="cap-head">Hardware Repayment Schedule — scaled tiers (RM 14,499.99)</div>
+          <div class="cap-sub">Revenue-scaled tiers: RM 1k base &rarr; RM 1.5k (Rev &gt; 35k &times; 2mo) &rarr; RM 2k (Rev &gt; 45k &times; 2mo). Under Optimum (v5), Tier 1 fires Jun 2027; completes <strong>Nov 2027</strong> (8 months ahead of the prior Jul-28 plan thanks to OHXEM-lifted Rev_Total).</div>
+          <table class="cap-table">
+            <thead>
+              <tr><th>Window</th><th>Monthly</th><th>Months</th><th>Subtotal</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Jan 2027 &ndash; May 2027 (base)</td><td>RM 1,000</td><td>5</td><td>RM 5,000</td></tr>
+              <tr><td>Jun 2027 &ndash; Oct 2027 (Tier 1)</td><td>RM 1,500</td><td>5</td><td>RM 7,500</td></tr>
+              <tr class="final"><td>Nov 2027 (final)</td><td>RM 1,999.99</td><td>1</td><td>RM 1,999.99</td></tr>
+              <tr class="total"><td>Total</td><td>&mdash;</td><td>11</td><td>RM 14,499.99</td></tr>
+            </tbody>
+          </table>
+          <div style="margin-top:10px; font-size:11px; color:var(--body); line-height:1.5;">
+            <strong style="color:var(--text);">Beyond hardware &mdash; 4-phase ownership transfer:</strong> Hardware transfers to QCXIS on final payment (Nov 2027). Nov-27 &rarr; Jun-28 window lets QCXIS negotiate direct vendor contracts. From <strong>Jul 2028</strong> QCXIS contracts the recurring suppliers directly &mdash; cPanel RM 300 + Immunify360 RM 200 + Colocation 2U RM 490.05 = <strong>RM 990.05/mo</strong> (+3% p.a. from 2030). Self-funded <strong>Infra Upgrade CAPEX</strong>: Jul 2029 RM 10k &middot; Jul 2030 RM 15k &middot; Jul 2031 RM 20k.
+          </div>
+        </div>
+
+      </div>
+
+      <div class="cap-note">
+        <strong>Cash-balance under Optimum (v5):</strong> Jun-2026 cash floor <strong>RM 111,388</strong> &middot; Dec-2031 cash balance <strong>RM 3,620,164</strong> (RM 100k paid-up + RM 3,520,164 cumulative net profit). Cash never goes negative even under the Extended scenario plus a 6-month HR/Portrait launch delay &mdash; the RM 100k is sized to the binding downside, not to Optimum alone.
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════
+       SLIDE 9 — WHAT NEEDS APPROVAL
+       ══════════════════════════════════════════════════════════ -->
+  <div class="slide" id="slide-9" data-slide="9">
     <div class="s-inner">
       <div class="eyebrow">For Board Decision</div>
       <h2 class="slide-title">What Needs <em>Approval</em></h2>
@@ -1177,11 +1306,12 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
             Approval of the compensation structure and planned salary increments for all QCXIS staff.
           </p>
           <ul class="appr-items">
-            <li>CEO &amp; DCEO: RM 3k → RM 3.9k (Jan 2027) → RM 5k (Jan 2028)</li>
-            <li>IT Transfer: RM 2,200 · IT New Hire: RM 2,000 (Jan 2027)</li>
+            <li>CEO &amp; DCEO: RM 3k (Jun 2026) &rarr; RM 3.9k (Mar 2027) &rarr; <strong>RM 5k (Aug 2027)</strong> &mdash; revenue-milestone driven</li>
+            <li>IT Transfer: RM 2,200 &middot; IT New Hire: RM 2,000 (Jan 2027)</li>
             <li>Admin: RM 1,900 (Jun 2027)</li>
-            <li>5% annual increment for all roles from 2028</li>
-            <li>Allowances: RM 450/mo · Insurance: RM 150/mo/staff</li>
+            <li>5% annual increment for all roles from Jan 2028</li>
+            <li>RM 100,000 paid-up share capital (recorded at incorporation)</li>
+            <li>Allowances: RM 450/mo &middot; Insurance: RM 150/mo/staff</li>
           </ul>
         </div>
       </div>
@@ -1206,7 +1336,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 <div class="nav-bar" id="navBar">
   <button class="nav-btn" id="btnPrev" onclick="navigate(-1)" disabled>← Prev</button>
   <div class="nav-mid">
-    <div class="nav-counter" id="navCounter">1 / 8</div>
+    <div class="nav-counter" id="navCounter">1 / 9</div>
     <div class="dots" id="dots"></div>
   </div>
   <button class="nav-btn" id="btnNext" onclick="navigate(1)">Next →</button>
@@ -1219,7 +1349,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 // ══════════════════════════════════════
 // SLIDES STATE
 // ══════════════════════════════════════
-const TOTAL = 8;
+const TOTAL = 9;
 let current = 1;
 
 const slides = [];
@@ -1316,10 +1446,10 @@ updateNav();
 // ══════════════════════════════════════
 let chartInited = false;
 
-// Annual aggregated data — Optimum scenario
+// Annual aggregated data — Optimum scenario (v5 — 4 streams incl. OHXEM, RM 100k paid-up)
 const YEARS = ['2026', '2027', '2028', '2029', '2030', '2031'];
-const REV   = [146787, 375887, 507243, 661699, 854577, 1078853]; // Total annual revenue (Optimum scenario)
-const OPEX  = [71527,  258242, 295877, 304124, 316598, 329696];  // Total annual OPEX
+const REV   = [172893, 488415, 850592, 1122684, 1253760, 1416228]; // Rev_Total (Franchise + OHXEM + HR + Portrait)
+const OPEX  = [74933,  281825, 321469, 349640,  368499,  388043];  // Total OPEX (accelerated repayment + new staff ramp)
 const NET   = REV.map((r, i) => Math.round(r - OPEX[i]));
 
 function rm(v) {
