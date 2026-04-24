@@ -1080,6 +1080,10 @@ function buildProj(k, opts = {}) {
 // Runtime state + memoised per-scenario projection
 let portMix = 'base', qcInternalOnly = false, mdDelayed = false;
 let contingencyHireEnabled = false, contingencyHireYear = 2028;
+// Current scenario — hoisted so payrollYr/staffCtcMonthly (which read s()) work during the
+// top-level rebuildD() call below. setS() mutates `cur` at runtime.
+let cur = 'optimum';
+const s = () => cur;
 const D = {};
 function rebuildD() {
   const opts = {portMix, qcInternalOnly, contingencyHireEnabled, contingencyHireYear, mdDelayed};
@@ -1233,13 +1237,12 @@ const CAT_META = {
 // ═══════════════════════════════════════════════════════════════
 // ZONE 4 · RUNTIME STATE — UI-controlled globals
 // ═══════════════════════════════════════════════════════════════
-let cur = 'optimum';
 let revFilter = 'all'; // 'all' | 'fee' | 'saas'
 let plChartInstance, cashChartInstance, capChartInstance;
 const f = n => Math.round(n).toLocaleString();
 const fR = n => 'RM ' + f(n);
 const ic = (y, m) => y > 2026 || (y === 2026 && m >= 5);
-const s = () => cur;
+// (cur + s() hoisted earlier — needed by rebuildD() top-level call)
 
 // ═══════════════════════════════════════════════════════════════
 // ZONE 5 · STATE MUTATORS — onclick handlers from the DOM
