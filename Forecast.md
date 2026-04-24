@@ -170,44 +170,60 @@ Staff cost-to-company (CTC) = base salary + RM450 allowances + 14.95% statutory 
 | Tier | Base | Allowances | Statutory (14.95%) | Insurance | CTC/mo | CTC/yr |
 |------|------|------------|-------------------|-----------|--------|--------|
 | Executive (mature, from 2028) | RM 5,000 | RM 450 | RM 815 | RM 150 | **RM 6,415** | RM 76,980 |
-| IT (Transfer) | RM 2,200 | RM 450 | RM 386 | RM 150 | **RM 3,196** | RM 38,352 |
-| IT (New Hire) | RM 2,000 | RM 450 | RM 366 | RM 150 | **RM 2,966** | RM 35,592 |
-| Admin | RM 1,900 | RM 450 | RM 351 | RM 150 | **RM 2,851** | RM 34,212 |
+| Dev Transfer (Akmal) | RM 2,200 | RM 450 | RM 396 | RM 150 | **RM 3,196** | RM 38,352 |
+| Dev New Hire (Iffat) | RM 2,000 | RM 450 | RM 366 | RM 150 | **RM 2,966** | RM 35,592 |
+| IT Operations | RM 1,900 | RM 450 | RM 352 | RM 150 | **RM 2,851** | RM 34,212 |
 
 **Salary plan — revenue-milestone driven (CEO &amp; DCEO):**
 
 The CEO &amp; DCEO base salary increases are no longer pegged to fixed dates; they are gated on sustained QCXIS revenue performance. This aligns founder pay with the company's ability to absorb the cost.
 
-| Trigger | New base | When (Optimum, v5) |
+| Trigger | New base | When (Optimum, v6) |
 |---------|----------|--------------------------|
 | `Rev_Total` &gt; RM 27,000 for 2 consecutive months | **RM 3,900** | Mar 2027 |
-| `Rev_Total` &gt; RM 40,000 for 2 consecutive months | **RM 5,000** | **Aug 2027** (7 mo earlier vs prior Mar-28, thanks to OHXEM + accelerated franchise) |
-| Annual review (Jan) post-RM5k milestone | +5% p.a. | From Jan 2028 |
+| `Rev_Total` &gt; RM 40,000 for 2 consecutive months | **RM 5,000 for CEO & DCEO (MD Status)** | **Aug 2027** (Optimum) / Mar 2028 (Extended) |
+| Annual review (Jan) post-RM 5k milestone | +5% p.a. | From Jan 2028 |
 
 | Role | 2026 (Jun) | 2027 | 2028 | 2029+ |
 |------|-----------|------|------|-------|
-| CEO  | RM 3,000 | RM 3,000 (Jan–Feb) → RM 3,900 (Mar–Jul) → **RM 5,000 (Aug+)** | RM 5,250 (+5%) | 5% p.a. |
-| DCEO | RM 3,000 | RM 3,000 (Jan–Feb) → RM 3,900 (Mar–Jul) → **RM 5,000 (Aug+)** | RM 5,250 (+5%) | 5% p.a. |
-| IT (Transfer) | — | RM 2,200 (Jan 2027) | RM 2,310 (+5%) | 5% p.a. |
-| IT (New Hire) | — | RM 2,000 (Jan 2027) | RM 2,100 (+5%) | 5% p.a. |
-| Admin | — | RM 1,900 (Jun 2027) | RM 1,995 (+5%) | 5% p.a. |
+| CEO (Zain)  | RM 3,000 | RM 3,000 (Jan–Feb) → RM 3,900 (Mar–Jul) → **RM 5,000 (Aug+)** | RM 5,250 (+5%) | 5% p.a. |
+| DCEO (Sufian) | RM 3,000 | RM 3,000 (Jan–Feb) → RM 3,900 (Mar–Jul) → **RM 5,000 (Aug+)** | RM 5,250 (+5%) | 5% p.a. |
+| Dev Transfer (Akmal) | **RM 2,200 (Aug 2026, Optimum)**  / Jan 2027 (Extended) | RM 2,200 | RM 2,310 (+5%) | 5% p.a. |
+| Dev New Hire (Iffat) | **RM 2,000 (Aug 2026, Optimum)**  / Jan 2027 (Extended) | RM 2,000 | RM 2,100 (+5%) | 5% p.a. |
+| IT Operations | — | RM 1,900 (Jan 2027) | RM 1,995 (+5%) | 5% p.a. |
 
-> Both founders reach RM 5,000 by **Aug 2027** — well before the MD Status Q2-2028 application window (knowledge-worker requirement ≥ 2 staff at ≥ RM 5k comfortably met with ~10 months of track record).
+> Both founders reach **RM 5,000 for CEO & DCEO (MD Status)** by **Aug 2027** under Optimum (Mar 2028 under Extended) — comfortably before the MD Status Q2-2028 application window (knowledge-worker requirement ≥ 2 staff at ≥ RM 5k met with ~10 mo of track record under Optimum).
 
 **Payroll by year (verified against `QCXIS_Forecast_Optimum.csv`):**
 
 | Year | Payroll | Notes |
 |------|---------|-------|
-| 2026 | RM 57,621 | CEO + DCEO × 7 months (Jun–Dec) |
-| 2027 | RM 226,023 | CEO/DCEO — 2 mo @ RM3,000 + 5 mo @ RM3,900 + 5 mo @ RM5,000; IT×2 full year; Admin × 7 mo (Jun–Dec) |
-| 2028 | RM 273,224 | CEO/DCEO full year @ RM5,250 (+5% Jan); IT/Admin +5% increment |
+| 2026 | RM 88,433 | CEO + DCEO × 7 mo; **Akmal + Iffat Aug–Dec (5 mo, Optimum)** |
+| 2027 | RM 240,279 | CEO/DCEO — 2 mo @ RM3k + 5 mo @ RM3.9k + 5 mo @ RM5k; 2 Devs full year; IT Operations from Jan |
+| 2028 | RM 273,224 | Full 5-person team @ +5% increment (Jan) |
 | 2029 | RM 284,883 | All 5 full year; 5% increment |
 | 2030 | RM 297,126 | All 5 full year; 5% increment |
 | 2031 | RM 309,980 | All 5 full year; 5% increment |
 
+> **Extended-scenario payroll (Dev hires deferred to Jan 2027)**: 2026 = RM 56,241 (CEO+DCEO only, 7 mo); 2027 = RM 226,023. 2028+ matches Optimum. The Aug-26 accelerated hire adds RM 32,192 of 2026 payroll under Optimum — the revenue-acceleration trade-off for the Dec-28 (not Dec-29) 500/50 outlet target.
+
+### AI Usage & Research (new in v6)
+
+Ongoing operating expense for AI-assisted development tooling (LLM API credits, copilot subscriptions, research experimentation). Flat **RM 1,500/month** from Jun 2026 through Dec 2031 — includes budget for prototyping new AI capabilities feeding into Portrait Module (psychometric scoring) and future R&D.
+
+| Year | AI Research | Notes |
+|------|------------|-------|
+| 2026 | RM 10,500 | 7 months (Jun–Dec) |
+| 2027 | RM 18,000 | Flat RM 1.5k/mo |
+| 2028 | RM 18,000 | |
+| 2029 | RM 18,000 | |
+| 2030 | RM 18,000 | |
+| 2031 | RM 18,000 | |
+| **Total** | **RM 100,500** | Contributes to MD Status qualifying AI activity evidence |
+
 ### Infrastructure — 4-Phase Ownership Transfer Model
 
-Infrastructure flows through four phases, each tied to QCXIS's ability to absorb cost. **v5 tightening**: repayment starts Jan 2027 (not Jul 2027) now that RM 100k paid-up capital removes the cash-flow reason to defer; OHXEM revenue is folded into `Rev_Total`, so tier triggers fire harder and the asset fully transfers in **Nov 2027** — 8 months ahead of the prior model.
+Infrastructure flows through four phases, each tied to QCXIS's ability to absorb cost. Repayment starts Jan 2027 (RM 100k paid-up removes the cash-flow reason to defer); OHXEM revenue is folded into `Rev_Total`, so tier triggers fire harder and the asset fully transfers in **Nov 2027** — 8 months ahead of the prior Jul-28 plan.
 
 | Phase | Window | Who pays suppliers | QCXIS out-of-pocket |
 |-------|--------|--------------------|---------------------|
@@ -218,18 +234,18 @@ Infrastructure flows through four phases, each tied to QCXIS's ability to absorb
 
 > **Why the Dec-27 → Jun-28 gap?** Hardware is paid off Nov-27, but QC Group retains the supplier relationships (cPanel, Immunify, Colocation) through Jun 2028 to give QCXIS 6–8 months to negotiate direct vendor contracts and transition cleanly. During this window the RM 1,000/mo retainer continues to reimburse QC Group for pass-through supplier cost. From Jul 2028 onward, QCXIS invoices suppliers directly and the RM 1,000 becomes a pure advisory / backup-DC retainer.
 
-#### Phase 1–2 · Inter-company Management Fee (flat RM 1,000/mo)
+#### Phase 1–2 · Inter-company Management Fee (stepped RM 1k → RM 3k)
 
-A **flat RM 1,000/month** retainer to QC Group, held throughout the 6-year horizon as a flexible board-revisable advisory / backup-DC fee. Through Jun 2028 it also reimburses QC Group for the itemised suppliers below (Phase 1–2 pass-through); from Jul 2028 onward those suppliers are paid directly by QCXIS and the RM 1,000 converts into pure retainer (advisory, disaster recovery, shared services). The 2.5%-of-revenue scaling formula that previously applied from Apr 2028 has been **retired** — replaced by the concrete direct-supplier model below.
+A **stepped retainer** to QC Group. Through **Jun 2028** it is RM 1,000/month, reimbursing the itemised Phase 1–2 supplier pass-through (cPanel RM 300 + Immunify RM 200 + Colocation RM 490.05 = RM 990.05). From **Jul 2028** (when QCXIS takes over direct supplier contracts) it **steps up to RM 3,000/month** — now a pure board-revisable advisory retainer covering: disaster-recovery / backup-DC services, shared-services buffer, and the payroll uplift from the team × 5% annual reviews plus vendor cost drift that accumulates over Phase 4. The 2.5%-of-revenue scaling formula that previously applied from Apr 2028 has been **retired** in favour of this concrete stepped model.
 
 | Year | Mgmt Fee | Notes |
 |------|----------|-------|
-| 2026 | RM 7,000  | 7 months (Jun–Dec) |
+| 2026 | RM 7,000  | 7 months (Jun–Dec) @ RM 1k |
 | 2027 | RM 12,000 | Flat RM 1k/mo |
-| 2028 | RM 12,000 | Flat (Phase 1–3 transition) |
-| 2029 | RM 12,000 | Flexible retainer (Phase 4) |
-| 2030 | RM 12,000 | Flexible retainer |
-| 2031 | RM 12,000 | Flexible retainer |
+| 2028 | RM 24,000 | Jan–Jun @ RM 1k + Jul–Dec @ RM 3k (step-up coincides with direct supplier takeover) |
+| 2029 | RM 36,000 | Flat RM 3k/mo |
+| 2030 | RM 36,000 | Flat RM 3k/mo |
+| 2031 | RM 36,000 | Flat RM 3k/mo |
 
 #### Phase 2 · Hardware Repayment — revenue-scaled tiers (RM 14,499.99 total)
 
@@ -241,7 +257,7 @@ Repayment of the RM 14,499.99 hardware capex QC Group fronted. Starts **Jan 2027
 | Tier 1 | RM 1,500 | `Rev_Total` &gt; RM 35,000 for 2 consecutive prior months |
 | Tier 2 | RM 2,000 | `Rev_Total` &gt; RM 45,000 for 2 consecutive prior months |
 
-**Schedule under Optimum (v5) baseline** — Tier 1 fires Jun 2027; Tier 2 never needed (balance cleared before threshold):
+**Schedule under Optimum baseline** — Tier 1 fires Jun 2027; Tier 2 never needed (balance cleared before threshold):
 
 | Window | Monthly | Months | Subtotal |
 |--------|---------|--------|----------|
@@ -294,7 +310,7 @@ Once QCXIS owns the core infra, it funds its own expansion — backup storage, s
 | MDEC application fee | RM 1,080 | 2028 | 2028 Q1–Q2 |
 
 ### Contingency
-- **10%** applied on (payroll + management fee + direct recurring + corporate one-offs) monthly. **Excluded:** hardware repayment (known balance-sheet paydown) and upgrade CAPEX (planned capital, not operational risk). Direct recurring IS included as vendor-invoice volatility can drift.
+- **10%** applied on (payroll + management fee + direct recurring + corporate one-offs + AI research) monthly. **Excluded:** hardware repayment (known balance-sheet paydown) and upgrade CAPEX (planned capital, not operational risk).
 
 ---
 
@@ -304,26 +320,25 @@ QCXIS is incorporated with **RM 100,000 paid-up share capital** — actual equit
 
 ### Why RM 100k (not RM 50k)
 
-RM 50k would only survive *Optimum execution*. RM 100k must survive **combined downside**: the Extended scenario (500 outlets slipped to 2029) plus a 6-month HR/Portrait launch delay, plus the earlier Jan-2027 hardware repayment start, plus expanded OPEX runway for the full 5-person team by mid-2027.
+RM 50k would only survive *Optimum execution*. RM 100k must survive **combined downside**: the Extended scenario (500 outlets slipped to 2029) plus a 6-month HR/Portrait launch delay, plus the earlier Jan-2027 hardware repayment start, plus expanded OPEX runway for the full 5-person team by mid-2027 and the accelerated Aug-26 Dev hire under Optimum.
 
 | Use of capital | Amount | Rationale |
 |----------------|--------|-----------|
 | Expanded OPEX runway (~3–4 mo full-team payroll cover) | RM 35,000 | Covers Jun–Sep 2026 launch months plus contingency runway if HR/Portrait slip |
-| AR buffer (45-day slip cushion) | RM 10,000 | Outlets paying 45+ days instead of contracted 30; expanded pool with accelerated ramp |
-| Hardware capex coverage | RM 14,500 | Funds the RM 14,499.99 obligation until Jan 2027 repayment start |
-| Accelerated outlet onboarding (500-by-2028) | RM 15,000 | Training, support, rollout materials for front-loaded franchise expansion |
-| OHXEM international ramp | RM 10,000 | FX operational cost, localisation, legal/brand set-up for international stream |
-| Delay contingency + safety margin | RM 15,500 | Single merged line covering HR/Portrait launch slip, MD Status delay, unforeseen ops/legal |
+| AR buffer (45-day collection slip cushion) | RM 10,000 | Outlets paying 45+ days instead of contracted 30; expanded pool with accelerated ramp |
+| Payroll buffer (accelerated Aug-26 Dev hire + 2027 uplift) | RM 25,000 | Absorbs the Aug-26 Dev hire timing (Akmal + Iffat) before revenue catches up, plus the RM 3,900 salary trigger uplift in Mar-27 |
+| Vendor cost increase buffer (Phase 4 direct suppliers) | RM 14,500 | Covers Jul-28 supplier takeover ramp, 3% p.a. escalation from Jan-30, and any one-off contract set-up / negotiation costs |
+| Delay contingency + safety margin | RM 15,500 | Single merged line covering HR/Portrait launch slip, MD Status delay, FX/FX policy risk, unforeseen ops/legal |
 | **Total** | **RM 100,000** | |
 
 ### Cash-balance comparison (Optimum baseline)
 
 | Opening capital | Jun 2026 cash floor | Dec 2031 ending cash | Headroom under Extended + HR delay? |
 |-----------------|--------------------:|---------------------:|:-----------------------------------|
-| RM 50,000 | RM 61,388 | RM 3,570,164 | **No** — dips below RM 20k if HR/Portrait slip 6 mo |
-| **RM 100,000** | **RM 111,388** | **RM 3,620,164** | **Yes** — never dips below RM 50k even in combined downside |
+| RM 50,000 | RM 59,738 | RM 2,766,524 | **No** — dips below RM 20k if HR/Portrait slip 6 mo |
+| **RM 100,000** | **RM 109,738** | **RM 2,816,524** | **Yes** — never dips below RM 50k even in combined downside |
 
-> Under Optimum with RM 100k paid-up, cash balance never goes negative and grows from RM 111,388 (Jun 2026 floor) to **RM 3,620,164 at Dec 2031** (RM 100k paid-up + RM 3,520,164 cumulative net profit). The RM 100k is the **binding constraint at launch** — Jun-2026 closing cash of RM 111k demonstrates it's genuinely needed, not over-capitalisation.
+> Under Optimum with RM 100k paid-up, cash balance never goes negative and grows from RM 109,738 (Jun 2026 floor) to **RM 2,816,524 at Dec 2031** (RM 100k paid-up + RM 2,716,524 post-tax cumulative net profit). The RM 100k is the **binding constraint at launch** — Jun-2026 closing cash of ~RM 110k demonstrates it's genuinely needed, not over-capitalisation. Under Extended the Dec-2031 cash lands at RM 2,566,816 (cumulative post-tax net RM 2,466,816).
 
 **Forward optionality:** RM 100k paid-up is also a stepping stone toward the MDEC **Malaysia Digital Expansion Incentive** minimum of RM 250,000 paid-up — a future top-up decision for the board once MD Status is in hand (2028+).
 
@@ -343,22 +358,99 @@ All figures verified against `QCXIS_Forecast_Optimum.csv` (regenerated by `_reca
 | Portrait Module | 0 | 17,844 | 53,532 | 108,924 | 193,470 | 291,588 |
 | **Rev_Total** | **172,893** | **488,415** | **850,592** | **1,122,684** | **1,253,760** | **1,416,228** |
 
-### OPEX
+### OPEX & Tax
 
 | Cost Item | 2026 | 2027 | 2028 | 2029 | 2030 | 2031 |
 |-----------|-----:|-----:|-----:|-----:|-----:|-----:|
-| Payroll | 57,621 | 226,023 | 273,224 | 284,883 | 297,126 | 309,980 |
-| Management Fee (retainer) | 7,000 | 12,000 | 12,000 | 12,000 | 12,000 | 12,000 |
+| Payroll | 88,433 | 240,279 | 273,224 | 284,883 | 297,126 | 309,980 |
+| AI Usage & Research | 10,500 | 18,000 | 18,000 | 18,000 | 18,000 | 18,000 |
+| Management Fee (stepped 1k→3k) | 7,000 | 12,000 | 24,000 | 36,000 | 36,000 | 36,000 |
 | Hardware Repayment | — | 14,500 | — | — | — | — |
 | Direct Recurring (cPanel + Immunify + Colo) | — | — | 5,940 | 11,881 | 12,237 | 12,604 |
 | Infra Upgrade CAPEX | — | — | — | 10,000 | 15,000 | 20,000 |
 | Corporate One-offs | 3,500 | 5,000 | 1,080 | — | — | — |
-| Contingency (10%) | 6,812 | 24,302 | 29,224 | 30,876 | 32,136 | 33,458 |
-| **Total OPEX** | **74,933** | **281,825** | **321,469** | **349,640** | **368,499** | **388,043** |
-| Net Profit/Loss | 97,960 | 206,590 | 529,124 | 773,044 | 885,261 | 1,028,185 |
+| Contingency (10%) | 10,943 | 27,528 | 32,224 | 35,076 | 36,336 | 37,658 |
+| **Total OPEX** | **120,376** | **317,307** | **354,469** | **395,840** | **414,699** | **434,243** |
+| **Tax (Malaysian SME + Portrait MD 14%)** | **7,877** | **26,088** | **80,873** | **122,391** | **143,427** | **170,458** |
+| **Net Profit/Loss (post-tax)** | **44,639** | **145,020** | **415,251** | **604,453** | **695,634** | **811,527** |
 
-**6-Year Revenue:** RM 5,304,572 · **6-Year OPEX:** RM 1,784,409 · **6-Year Cumulative Net:** **RM 3,520,164**
-**Cash Balance Dec 2031 (incl. RM 100k paid-up): RM 3,620,164**
+**6-Year Revenue:** RM 5,304,572 · **6-Year OPEX:** RM 2,036,934 · **6-Year Tax:** RM 551,114 · **6-Year Cumulative Net (post-tax):** **RM 2,716,524**
+**Cash Balance Dec 2031 (incl. RM 100k paid-up): RM 2,816,524**
+**Cash floor (Jun 2026): RM 109,738** — model remains cash-positive across the entire 6-year horizon under both Optimum and Extended scenarios.
+
+---
+
+## Malaysian Corporate Tax (v6)
+
+YA 2024+ treatment. QCXIS qualifies as an **SME** for tax purposes (paid-up ≤ RM 2.5M; gross ≤ RM 50M; no foreign holding > 20%). The model implements the current SME graduated schedule plus the MD Status Portrait-Module carve-out.
+
+### SME Graduated Rates
+
+| Chargeable Income Band | Rate |
+|------------------------|-----:|
+| First RM 150,000 | **15%** |
+| Next RM 150,000 – 600,000 | **17%** |
+| Above RM 600,000 | **24%** |
+
+### Portrait Module — MD Status Concessionary Rate
+
+MD Status (targeted H2-2028) grants a **concessionary 14% corporate tax rate on Portrait Module income** (the MD-qualifying digital service). The model applies:
+
+- **Pro-rata OPEX allocation** by revenue share — annual OPEX is split between Portrait and Other streams in proportion to their revenue contribution; each stream's net income is taxed separately.
+- **2028 H2 blend** — Portrait Net for 2028 is split between an H1 portion (SME rates) and an H2 portion (14%), weighted by Portrait revenue in each half. From 2029 onwards 100% of Portrait Net is taxed at 14%.
+- **Loss carry-forward** — Malaysia allows 10-year loss carry-forward (Income Tax Act §44(5F)). The model maintains **two independent loss pools** (Other / Portrait MD) to reflect the separate-stream treatment.
+
+### Computed Annual Tax (Optimum)
+
+| Year | Pre-Tax Net | Portrait Rev | Effective Rate | Tax |
+|------|-----------:|-------------:|---------------:|-----:|
+| 2026 | 52,516 | 0 | 15.0% | **7,877** |
+| 2027 | 171,108 | 17,844 | 15.2% | **26,088** |
+| 2028 | 496,124 | 53,532 | 16.3% | **80,873** |
+| 2029 | 726,844 | 108,924 | 16.8% | **122,391** |
+| 2030 | 839,061 | 193,470 | 17.1% | **143,427** |
+| 2031 | 981,985 | 291,588 | 17.4% | **170,458** |
+| **6-yr** | **3,267,638** | **665,358** | **16.9%** | **551,114** |
+
+> Effective rate rises with scale (more income in higher SME brackets) but is moderated by the Portrait MD 14% carve-out — growing from ~0% of income in 2027 to ~21% by 2031.
+
+---
+
+## Best vs Worst — Breakeven & Cash Outlook
+
+Two scenarios frame the decision envelope. Both share the same RM 100k paid-up capital, tax engine, and operating model; they differ in execution pace and downside stress.
+
+### Scenario Definitions
+
+| Driver | **Best (Optimum)** | **Worst (Extended + Stress)** |
+|--------|-------------------|-------------------------------|
+| Dev hires (Akmal, Iffat) | **Aug 2026** | Jan 2027 |
+| 500 franchise outlets hit | Dec 2028 | Dec 2029 (12-mo slip) |
+| 50 OHXEM outlets hit | Dec 2028 | Dec 2029 (12-mo slip) |
+| HR / Portrait Module launch | Q1 2027 | Q3 2027 (6-mo slip) — sensitivity |
+| Outlet ramp achievement | 100% of directive | 80% of directive — sensitivity |
+| Tax engine | SME graduated + Portrait MD 14% | SME graduated + Portrait MD 14% |
+
+### Key Metrics
+
+| Metric | **Best** | **Worst (Extended base)** |
+|--------|---------:|--------------------------:|
+| Cash floor (Jun 2026) | **RM 109,738** | **RM 109,738** |
+| Min cash (horizon) | RM 109,738 (Jun-26) | RM 109,738 (Jun-26) |
+| Monthly breakeven | ~Oct 2026 (Optimum revenue > full OPEX by Q4-26) | ~Q1 2027 |
+| Dec 2031 cash | **RM 2,816,524** | **RM 2,566,816** |
+| 6-year cumulative net (post-tax) | **RM 2,716,524** | **RM 2,466,816** |
+| RM 5k MD salary milestone | Aug 2027 | Mar 2028 |
+| MD Status filing readiness | Strong (10 mo track record) | Marginal (~3 mo track record at Q2-28 filing) |
+
+### Risks Captured in Worst
+
+1. **Outlet ramp slip** — 500 + 50 outlets land 12 months later. Franchise + OHXEM revenue profile shifts right, reducing 6-year cumulative by ~RM 250k post-tax.
+2. **HR / Portrait launch slip** — 6-month delay reduces 2027 recurring-SaaS revenue. Mitigated by the RM 15.5k delay contingency in paid-up capital allocation.
+3. **MD Status salary-track-record risk** — RM 5k milestone lands Mar 2028 under Extended, leaving only ~3 months of RM 5k pay by Q2-28 filing. Mitigation: file slightly later (Q3-28) or rely on forward-commitment letter.
+4. **Cash-floor compression** — Jun 2026 floor is RM 109,738 under both scenarios (Devs not yet onboard); any further cost surprise before the Oct-26 monthly breakeven would narrow headroom. Mitigation: RM 35k OPEX runway + RM 25k payroll buffer inside paid-up allocation.
+
+> **Conclusion:** Even under the Worst scenario, QCXIS remains cash-positive across the entire horizon, hits MD Status requirements (albeit tighter), and produces a six-year post-tax cumulative net of RM 2.47M. The RM 100k paid-up plus the stepped Management Fee retainer are **both load-bearing** in the Worst case.
 
 ---
 
@@ -380,7 +472,7 @@ The baseline model includes 5 staff from mid-2027. The optional **6th hire from 
 
 | Parameter | Value |
 |-----------|-------|
-| **Scenarios (v5)** | **Optimum** (500 franchise + 50 OHXEM by Dec 2028) · **Extended** (same targets, 12-month slip to Dec 2029) |
+| **Scenarios (v6)** | **Optimum** (500 franchise + 50 OHXEM by Dec 2028, Devs hired **Aug 2026**) · **Extended** (same targets, 12-month slip to Dec 2029, Devs hired Jan 2027) |
 | Franchise outlet target | 500 by Dec 2028 (Optimum) — Chief's directive |
 | Franchise capacity/outlet | 120 clients |
 | Franchise realisation | 88% |
@@ -397,19 +489,21 @@ The baseline model includes 5 staff from mid-2027. The optional **6th hire from 
 | Portrait Module | Starter RM299 / Pro RM699 / Enterprise RM1,199 per org/mo. WA RM444, bundled RM377. |
 | Bundle | 15% off Portrait sub when taken with HR. HR pricing unchanged. |
 | HR Market | ~307k small enterprises (DOSM 2024) |
-| Exec Salary | **Revenue-milestone driven** — RM 3,000 base; bumps to RM 3,900 once `Rev_Total` &gt; RM 27k for 2 mo (lands Mar 2027) and RM 5,000 once &gt; RM 40k for 2 mo (lands **Aug 2027** under v5); 5% p.a. from Jan 2028 |
+| Exec Salary | **Revenue-milestone driven** — RM 3,000 base; bumps to RM 3,900 once `Rev_Total` &gt; RM 27k for 2 mo (lands Mar 2027) and **RM 5,000 for CEO & DCEO (MD Status)** once &gt; RM 40k for 2 mo (lands **Aug 2027** under Optimum / Mar 2028 under Extended); 5% p.a. from Jan 2028 |
 | Exec CTC (2026) | RM3k base + RM450 allow + 14.95% stat + RM150 ins = ~RM4,116/mo |
 | Exec CTC (post-T1) | RM3.9k base → ~RM5,150/mo CTC |
 | Exec CTC (post-T2) | RM5k base → ~RM6,415/mo CTC |
-| IT Transfer CTC | RM2.2k base + RM450 allow + 14.95% stat + RM150 ins = ~RM3,196/mo |
-| IT New Hire CTC | RM2k base + RM450 allow + 14.95% stat + RM150 ins = ~RM2,966/mo |
-| Admin Tier CTC | RM1.9k base + RM450 allow + 14.95% stat + RM150 ins = ~RM2,851/mo |
+| Dev Transfer CTC (Akmal) | RM2.2k base + RM450 allow + 14.95% stat + RM150 ins = ~RM3,196/mo |
+| Dev New Hire CTC (Iffat) | RM2k base + RM450 allow + 14.95% stat + RM150 ins = ~RM2,966/mo |
+| IT Operations CTC | RM1.9k base + RM450 allow + 14.95% stat + RM150 ins = ~RM2,851/mo |
 | Statutory | EPF 13% + SOCSO 1.75% + EIS 0.2% = 14.95% employer |
-| Management Fee | Flat **RM1,000/mo** retainer through 2031 (flexible, board-revisable). Reimburses Phase 1–2 suppliers; pure advisory retainer from Phase 4 |
+| Management Fee | **Stepped**: RM 1,000/mo Jun 2026 – Jun 2028 (Phase 1–2 pass-through); **RM 3,000/mo** Jul 2028 – Dec 2031 (advisory retainer + payroll uplift/vendor buffer after QCXIS takes suppliers direct) |
+| AI Usage & Research | **RM 1,500/mo flat** Jun 2026 – Dec 2031 (LLM APIs, AI tooling, R&D prototyping). Total 6-yr cost RM 100,500. Supports MD Status qualifying AI activity evidence. |
 | Direct Recurring | cPanel RM300 + Immunify RM200 + Colocation RM490.05 = **RM990.05/mo** from Jul 2028; 3% annual escalation from Jan 2030 |
 | Upgrade CAPEX | QCXIS-funded: Jul 2029 RM10k · Jul 2030 RM15k · Jul 2031 RM20k (3-year total RM45k) |
 | Hardware Repayment | RM 14,499.99 scaled-tier: RM 1k base → RM 1.5k (Rev&gt;35k ×2mo) → RM 2k (Rev&gt;45k ×2mo); **starts Jan 2027**, completes **Nov 2027** under Optimum (8 mo earlier vs prior plan) |
 | Corporate | TM RM 3.5k (2026), GPU RM 5k (2027), MDEC RM 1,080 (2028) |
-| Contingency | **10%** of (payroll + mgmt fee + direct recurring + corp one-offs) |
+| Contingency | **10%** of (payroll + mgmt fee + direct recurring + corp one-offs + AI research) |
 | Paid-Up Capital | **RM 100,000** share capital at incorporation (equity, not a working-capital advance). Stepping stone to RM 250k for future MDEC Expansion Incentive. |
-| Cash Floor (Optimum) | Lowest cash balance: Jun 2026 = RM 111,388; never negative |
+| Cash Floor (Optimum) | Lowest cash balance: Jun 2026 = RM 109,738; never negative |
+| Tax | Malaysian SME graduated **15% / 17% / 24%** (≤ 150k / 150k–600k / > 600k); **Portrait Module income taxed at 14% (MD concessionary)** from H2-2028; pro-rata OPEX allocation by revenue share; 10-yr loss carry-forward with 2 separate pools |

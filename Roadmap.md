@@ -16,7 +16,7 @@ Build QCXIS Sdn Bhd into a credible, self-sustaining SaaS company — starting a
 - 2030 — Full operational maturity, external market push
 - 2031 — Self-sustaining, complete infra ownership, regional expansion evaluation
 
-**Scenarios (v5):** **Optimum** baseline = 500 franchise + 50 OHXEM outlets by Dec 2028. **Extended** = same targets slip 12 months to Dec 2029 (downside-planning scenario; validated by the RM 100k paid-up cash-floor test).
+**Scenarios (v6):** **Optimum** baseline = 500 franchise + 50 OHXEM outlets by Dec 2028, with Dev hires pulled forward to **Aug 2026** to accelerate module delivery. **Extended** = same outlet targets slip 12 months to Dec 2029 and Dev hires land Jan 2027 (downside-planning scenario; validated by the RM 100k paid-up cash-floor test under both scenarios).
 
 ---
 
@@ -28,9 +28,9 @@ Two major cost components, structured around QC Group intermediation:
 Infrastructure follows a staged handover tied to QCXIS's ability to absorb cost:
 
 - **Phase 1 · Launch (Jun 2026 – Dec 2026)** — QC Group fronts all infra (servers, DC hosting, networking, cPanel, Immunify360, colocation). QCXIS pays a flat **RM 1,000/mo management fee** that reimburses the itemised supplier pass-through (cPanel RM 300 + Immunify RM 200 + Colocation RM 490.05 = RM 990.05).
-- **Phase 2 · Hardware repayment (Jan 2027 – Nov 2027)** — QCXIS repays the RM 14,499.99 hardware capex QC Group fronted. Schedule accelerates with QCXIS revenue: **RM 1,000/mo base → RM 1,500/mo (when `Rev_Total > RM35k` for 2 consecutive prior months) → RM 2,000/mo (when > RM45k × 2 mo)**. Under Optimum (v5): Tier 1 fires Jun 2027, completes **Nov 2027 (RM 1,999.99 final)** — 8 months ahead of the prior Jul-28 plan.
+- **Phase 2 · Hardware repayment (Jan 2027 – Nov 2027)** — QCXIS repays the RM 14,499.99 hardware capex QC Group fronted. Schedule accelerates with QCXIS revenue: **RM 1,000/mo base → RM 1,500/mo (when `Rev_Total > RM35k` for 2 consecutive prior months) → RM 2,000/mo (when > RM45k × 2 mo)**. Under Optimum: Tier 1 fires Jun 2027, completes **Nov 2027 (RM 1,999.99 final)** — 8 months ahead of the prior Jul-28 plan.
 - **Phase 3 · Asset transfer (Nov 2027)** — Purchased hardware ownership transfers to QCXIS on final payment. QC Group retains the supplier contracts through Jun 2028 to allow QCXIS a 6–8 month window to negotiate direct vendor relationships.
-- **Phase 4 · Direct ownership (Jul 2028 onwards)** — QCXIS contracts suppliers directly (RM 990.05/mo base; **3% annual escalation from Jan 2030**). QCXIS also funds its own **Infra Upgrade CAPEX** for capacity growth: Jul 2029 RM 10k · Jul 2030 RM 15k · Jul 2031 RM 20k. The RM 1,000/mo retainer to QC Group continues throughout 2031 as a flexible, board-revisable advisory / backup-DC fee.
+- **Phase 4 · Direct ownership (Jul 2028 onwards)** — QCXIS contracts suppliers directly (RM 990.05/mo base; **3% annual escalation from Jan 2030**). QCXIS also funds its own **Infra Upgrade CAPEX** for capacity growth: Jul 2029 RM 10k · Jul 2030 RM 15k · Jul 2031 RM 20k. The management fee **steps up to RM 3,000/mo from Jul 2028** (from RM 1,000/mo in Phase 1–2) — now a board-revisable advisory retainer covering backup-DC / disaster recovery services, shared-services buffer, and accumulated payroll-uplift / vendor drift.
 
 QCXIS is incorporated with **RM 100,000 paid-up share capital** — equity on balance sheet at Jun 2026, not a repayable working-capital advance. Sizing rationale (OPEX runway, AR buffer, hardware capex coverage, onboarding, OHXEM ramp, contingency) detailed in [Forecast.md](Forecast.md) → *Paid-Up Capital (RM 100,000)* and `③B Capital & Repayment Plan` in the deck. The 2.5%-of-revenue scaling formula previously drafted has been retired in favour of this concrete itemised model.
 
@@ -46,11 +46,13 @@ All people costs — payroll, statutory contributions, insurance, benefits — a
 Target: **Application Q1–Q2 2028**
 
 1. Carrying out qualifying digital activities (SaaS, AI)
-2. ≥2 knowledge workers at ≥RM5,000/month base salary
-3. ≥RM50,000/year OPEX on MD-qualifying activities
-4. ≥RM1,000 paid-up capital — **QCXIS has RM 100,000** (10× buffer; also a stepping stone toward the RM 250,000 minimum for future MD Expansion Incentive eligibility)
+2. ≥2 knowledge workers at **RM 5,000/month base salary** — covered by **RM 5,000 for CEO & DCEO (MD Status knowledge-worker threshold)** once `Rev_Total` passes the trigger
+3. ≥RM 50,000/year OPEX on MD-qualifying activities
+4. ≥RM 1,000 paid-up capital — **QCXIS has RM 100,000** (100× buffer; stepping stone toward the RM 250,000 minimum for future MD Expansion Incentive eligibility)
 
-> Salary ramp: CEO and DCEO both start at RM 3,000. Increases are revenue-milestone driven — step to RM 3,900 once `Rev_Total > RM 27k` for 2 consecutive months (lands Mar 2027 under Optimum), then RM 5,000 once `Rev_Total > RM 40k` for 2 consecutive months (**lands Aug 2027** under v5 — 7 mo earlier thanks to OHXEM + accelerated franchise). By the time the MD Status application is filed in Q2 2028, both founders will have been at RM 5k for ~10 months — well beyond the minimum track record needed for the knowledge-worker requirement.
+**Portrait Module tax treatment:** MD Status grants a concessionary **14% corporate tax rate on Portrait Module income** from H2-2028 onwards (vs. Malaysian SME graduated 15% / 17% / 24%). All other income remains on the SME graduated schedule.
+
+> Salary ramp: CEO and DCEO both start at RM 3,000. Increases are revenue-milestone driven — step to RM 3,900 once `Rev_Total > RM 27k` for 2 consecutive months (lands Mar 2027 under Optimum), then **RM 5,000 for CEO & DCEO (MD Status)** once `Rev_Total > RM 40k` for 2 consecutive months (**lands Aug 2027** under Optimum, Mar 2028 under Extended). By the time the MD Status application is filed in Q2 2028, both founders will have been at RM 5k for ~10 months (Optimum) — comfortably beyond the minimum track record needed for the knowledge-worker requirement.
 
 ---
 
@@ -77,9 +79,10 @@ Target: **Application Q1–Q2 2028**
 
 | Quarter | Milestone | Details |
 |---------|-----------|---------|
-| 2026 | **2 staff transferred from QC Group** | Employment transferred to QCXIS. CEO (RM 3,000 base) and DCEO (RM 3,000 base). Positions are placeholders — final titles TBD. Benefits not included in base. |
+| 2026 | **2 staff transferred from QC Group** | CEO **Zain** (RM 3,000 base) and DCEO **Sufian** (RM 3,000 base). Benefits not included in base. |
+| **Aug 2026** (Optimum only) | **+2 Dev staff** | **Akmal** (Dev Transfer from QC Group, RM 2,200 base) and **Iffat** (Dev New Hire, RM 2,000 base). Accelerated hire timing locked in the v6 Optimum scenario to front-load module development. Extended scenario defers to Jan 2027. |
 
-> Salaries are revenue-milestone driven — step to RM 3,900 once Rev_Total > RM 27k for 2 mo (Mar 2027), then RM 5,000 once Rev_Total > RM 40k for 2 mo (**Aug 2027** under v5). 5% p.a. increments from Jan 2028 onwards.
+> Salaries are revenue-milestone driven — step to RM 3,900 once Rev_Total > RM 27k for 2 mo (Mar 2027), then **RM 5,000 for CEO & DCEO (MD Status)** once Rev_Total > RM 40k for 2 mo (**Aug 2027** under Optimum, Mar 2028 under Extended). 5% p.a. increments from Jan 2028 onwards.
 
 ### Governance & Agreements
 
@@ -121,16 +124,16 @@ Target: **Application Q1–Q2 2028**
 | Early 2027 | **OMNI Module launch** | Stock & Inventory management, eCommerce, and Warehouse operations. |
 | 2027 | **HR Module launch** | Revenue stream #2. Payroll, attendance, leave, claims, performance, recruitment. External customers: RM500 setup + RM8/emp/month. Franchise network gets it bundled. |
 | 2027 | **Portrait Module launch** | Psychometric assessments module. Launches alongside the HR Module. |
-| Late 2027 / Early 2028 | **MEET Module launch** | Video conferencing — internal rooms + external integrations (Zoom, Google Meet, Teams). Spearheaded by the 2 new IT staff. |
+| Late 2027 / Early 2028 | **MEET Module launch** | Video conferencing — internal rooms + external integrations (Zoom, Google Meet, Teams). Spearheaded by the 2 developers (Akmal & Iffat). |
 
 ### People
 
 | Quarter | Milestone | Details |
 |---------|-----------|---------|
-| Jan | **+2 IT staff** | IT Transfer RM2,200; IT New Hire RM2,000. Focus: module development (OMNI, HR, Portrait, MEET) + AI research. |
-| 2027 | **+1 Admin & Management staff** | Base salary RM1,900. Focus: management processes, manual documentation, IT support. |
+| Jan (Extended only) | **+2 Dev staff** | **Akmal** (Dev Transfer, RM 2,200) and **Iffat** (Dev New Hire, RM 2,000). *Under Optimum these two hires occur in Aug 2026.* Focus: module development (OMNI, HR, Portrait, MEET) + AI research. |
+| Jan 2027 | **+1 IT Operations staff** | Transfer role (was 'Admin'), base salary RM 1,900. Focus: IT operations support, manual documentation, process admin, vendor coordination. |
 
-> **End of 2027: 5 staff** — CEO, DCEO, 2 IT developers, 1 Admin.
+> **End of 2027: 5 staff** — CEO (Zain), DCEO (Sufian), 2 Developers (Akmal, Iffat), 1 IT Operations.
 
 ### Revenue
 
@@ -144,10 +147,8 @@ Target: **Application Q1–Q2 2028**
 
 | Quarter | Milestone | Details |
 |---------|-----------|---------|
-| **Jan 2027** | **Hardware repayment begins (scaled)** | Revenue-scaled tiers: RM 1,000/mo base → RM 1,500 (Rev>35k ×2mo) → RM 2,000 (Rev>45k ×2mo). Total hardware cost: RM 14,499.99. Under Optimum (v5), Tier 1 fires Jun 2027. |
+| **Jan 2027** | **Hardware repayment begins (scaled)** | Revenue-scaled tiers: RM 1,000/mo base → RM 1,500 (Rev>35k ×2mo) → RM 2,000 (Rev>45k ×2mo). Total hardware cost: RM 14,499.99. Under Optimum, Tier 1 fires Jun 2027. |
 | **Nov 2027** | **Hardware repayment completes (8 mo early)** | Final payment RM 1,999.99 — hardware ownership transfers to QCXIS. Direct supplier takeover staged for Jul 2028 to allow a negotiation window. |
-| 2027 | **Data centre migration** | Production server at dedicated DC. Colocation decommissioned. (QC Group-funded, QCXIS pays management fee on this asset.) |
-
 ### Grant & Certification
 
 | Quarter | Milestone | Details |
@@ -171,7 +172,6 @@ Target: **Application Q1–Q2 2028**
 - 6+ modules live (Franchise, Cashbook, Helpdesk, OMNI, HR, Portrait)
 - MEET Module in development (late 2027 / early 2028 launch)
 - HR Module generating external revenue
-- DC migration complete (QC Group-owned asset)
 - MDCG grant application submitted
 - Trademark registered
 - AI R&D activity documented
@@ -199,7 +199,7 @@ Target: **Application Q1–Q2 2028**
 
 | Quarter | Deliverable | Details |
 |---------|------------|---------|
-| 2028 | **ICARUS (RASCI) Module launch** | Task & project management tool using the RASCI framework. Covers projects, tasks, milestones, team workload, time tracking. |
+| 2028 | **RASCI Module launch** | Task & project management tool (previously code-named ICARUS). Built on the RASCI responsibility-assignment framework. Covers projects, tasks, milestones, team workload, time tracking. |
 
 ### Revenue
 
@@ -221,13 +221,13 @@ Target: **Application Q1–Q2 2028**
 
 | Quarter | Milestone | Details |
 |---------|-----------|---------|
-| Jul 2028 | **Direct supplier takeover begins** | QCXIS contracts directly with cPanel (RM 300/mo), Immunify360 (RM 200/mo), and Server Colocation 2U (RM 490.05/mo ≈ RM 5,880.60/yr). The Nov-27 – Jun-28 window was set aside for QCXIS to negotiate these direct vendor contracts. RM 1,000/mo retainer to QC Group continues as flexible advisory / backup-DC fee (board-revisable). |
+| Jul 2028 | **Direct supplier takeover begins** | QCXIS contracts directly with cPanel (RM 300/mo), Immunify360 (RM 200/mo), and Server Colocation 2U (RM 490.05/mo ≈ RM 5,880.60/yr). The Nov-27 – Jun-28 window was set aside for QCXIS to negotiate these direct vendor contracts. Management fee **steps up to RM 3,000/mo** from this month — pure advisory retainer (backup-DC + payroll/vendor drift buffer). |
 
 ### 2028 End State
 - **MD Status obtained** (or in final review) — application filed Q2–Q3 with ~10 months of RM 5k salary track record
 - 5 staff (capacity review conducted — 6th hire decision pending)
 - MEET Module live (if not launched late 2027)
-- ICARUS (RASCI) module live
+- RASCI Module live
 - **500 franchise outlets + 50 OHXEM outlets achieved (Optimum)**
 - QCXIS contracting suppliers directly from Jul 2028 (cPanel + Immunify360 + Colocation = RM 990.05/mo)
 - HR Module growing (target: 15 customers)
@@ -333,7 +333,7 @@ Target: **Application Q1–Q2 2028**
 
 | Quarter | Deliverable | Details |
 |---------|------------|---------|
-| 2031 | **Full module suite live** | Franchise, Finance, HR, Portrait, OMNI, MEET, ICARUS (RASCI), Helpdesk — all operational. |
+| 2031 | **Full module suite live** | Franchise, Finance, HR, Portrait, OMNI, MEET, RASCI, Helpdesk — all operational. |
 | 2031 | **Platform v2 architecture** | Technical debt addressed. Scalability improvements for multi-thousand-tenant load. |
 
 ### Revenue
@@ -368,7 +368,7 @@ Target: **Application Q1–Q2 2028**
 - Fully independent, self-sustaining company
 - 6 staff (ceiling), lean professional team
 - 500 franchise + 50 OHXEM outlets (held from 2028), 105+ HR Module customers
-- 6-year cumulative net profit: **RM 3.52M**; Dec-31 cash balance: **RM 3.62M**
+- 6-year cumulative net profit (post-tax, Optimum): **RM 2.72M**; Dec-31 cash balance: **RM 2.82M** (Extended: RM 2.47M / RM 2.57M)
 - Full module suite live, Platform v2
 - All infra owned, all agreements in place
 - MD Status active, security-certified
@@ -383,8 +383,8 @@ Target: **Application Q1–Q2 2028**
 2026 ──────── 2027 ──────── 2028 ──────── 2029 ──────── 2030 ──────── 2031
   │             │             │             │             │             │
   ├ Franchise   ├ OMNI        ├ MEET*       ├ Finance+    │             ├ Full suite
-  │ + Cashbook  ├ HR Module   ├ ICARUS      │             │             ├ Platform v2
-  │ + Helpdesk  ├ Portrait    │ (RASCI)     │             │             │
+  │ + Cashbook  ├ HR Module   ├ RASCI       │             │             ├ Platform v2
+  │ + Helpdesk  ├ Portrait    │             │             │             │
   │ launch      │             │             │             │             │
   │             │             │             │             │             │
   ├ Fee+OHXEM   ├ HR clients  ├ MD Status   ├ 35 HR       ├ 65 HR      ├ Steady
@@ -393,8 +393,11 @@ Target: **Application Q1–Q2 2028**
   │ (2 OHXEM)   │             │ (Optimum)   │             │ 500+50      │ RM 291k/yr
   │             │             │             │             │             │
   ├ 2 staff     ├ 5 staff     ├ 5 staff     ├ up to 6    ├ 6 staff    ├ 6 staff
-  │ (CEO+DCEO)  │ (+2 IT,     │ (capacity   │ (6th hire   │ (ceiling)  │ (ceiling)
-  │             │  +1 admin)  │  review)    │  if approved)│            │
+  │ (CEO Zain,  │ (+Akmal,    │ (capacity   │ (6th hire   │ (ceiling)  │ (ceiling)
+  │  DCEO       │  Iffat,     │  review)    │  if approved)│            │
+  │  Sufian;    │  +1 IT Ops) │             │             │            │
+  │  Opt: +Akmal│             │             │             │            │
+  │  +Iffat Aug)│             │             │             │            │
   │             │             │             │             │             │
   ├ RM100k      ├ HW repay    ├ Direct       ├ ISO 27001  ├ ISO 27001  ├ Infra fully
   │ paid-up     │ Jan–Nov     │ supplier     │ scoping     │ /SOC 2     │ owned
@@ -414,7 +417,7 @@ Target: **Application Q1–Q2 2028**
 | OHXEM scales to 50 outlets by 2028 | OHXEM revenue stream | **Medium-High** — new international brand, limited market data | 70% realisation (vs 88% franchise) builds buffer; conservative 3-outlet 2026 exit; Extended scenario models 12-month slip |
 | HR Module finds market fit | Revenue stream #3, staffing viability | **High** — product + market risk | Start small (5 customers), validate before scaling; RM 100k paid-up survives 6-month launch delay |
 | QC Group fronts infra costs | All infrastructure availability | **Low** — aligned interests | Formalised in inter-company Service Agreement |
-| CEO & DCEO hit RM 5,000 base | MD Status knowledge worker requirement | **Low** — happens Aug 2027 under v5 | Revenue-milestone trigger fires 7 mo earlier thanks to OHXEM; ~10 mo of RM 5k track record before Q2-28 application |
+| RM 5,000 for CEO & DCEO (MD Status) | MD Status knowledge worker requirement | **Low** — Aug 2027 (Optimum) / Mar 2028 (Extended) | Revenue-milestone trigger; OHXEM + accelerated franchise pulls forward vs prior plan; ~10 mo of RM 5k track record before Q2-28 application under Optimum |
 | MDEC approves MD Status | Tax benefits, grants, credibility | **Medium** — regulatory | Pre-consultation in 2028, buffer period built in; RM 100k paid-up = 100× the RM 1k minimum, stepping stone to RM 250k Expansion Incentive |
 | Trademark completes before 2028 | MD application (IP requirement) | **Low** — filed 2026, 12–18mo processing | Timeline allows buffer |
 | MDCG grant approved | Infra + AI module funding | **Medium** — competitive process | Exploratory; not a dependency for core operations |
