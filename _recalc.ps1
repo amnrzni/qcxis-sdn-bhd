@@ -9,10 +9,13 @@
 #     their business and stay connected."
 #   • Roles renamed: IT Transfer → Dev Transfer (Akmal); IT New Hire → Dev New Hire (Iffat);
 #     Admin → IT Operations (start Jan-2027 = col 7, was Jun-27).
-#   • Recurring AI usage & research line: RM 1,500/mo flat from Jun-2026.
-#   • Mgmt fee step: RM 1,000/mo Jun-26→Jun-28 (cols 0–24), RM 3,000/mo Jul-28→Dec-31
-#     (cols 25–66) — covers payroll uplift buffer + advisory + vendor uplift after takeover.
-#   • Hardware repayment unchanged: RM 14,499.99 starts Jan-27, scaled tiers (RM1k→1.5k→2k).
+#   • Recurring AI usage & research line: RM 1,200/mo flat from Jun-2026.
+#   • Mgmt fee: FLAT RM 1,500/mo Jun-26→Dec-31 (all cols) — covers Phase 1–2
+#     supplier pass-through (≈RM 990.05/mo) with modest margin; re-scoped as
+#     flat advisory/backup-DC retainer from Jul-2028 after direct takeover.
+#   • Hardware repayment: RM 14,499.99 starts Jan-28 (deferred to fully protect
+#     Jun-26 → Dec-27 salary runway), scaled tiers (RM1k→1.5k→2k). Under Optimum
+#     (OHXEM folded in) Tier 2 typically fires from start of 2028 → clears ~Aug-28.
 #   • Direct recurring suppliers absorbed Jul-2028 (cPanel + Immunify + Colocation).
 #   • Paid-up capital RM 100,000 Jun-2026 (equity, not repayable).
 #   • Tax engine — Malaysian corporate tax (YA 2024+):
@@ -220,25 +223,30 @@ for ($c = 0; $c -lt $nCols; $c++) {
     $pay[$c] = [Math]::Round($ceo[$c] + $dceo[$c] + $devT[$c] + $devN[$c] + $ops[$c], 2)
 }
 
-# ─── 5b · AI Usage & Research (RM 1,500/mo flat from Jun-26) ────────────────
-$AI_MO = 1500.0
+# ─── 5b · AI Usage & Research (RM 1,200/mo flat from Jun-26) ────────────
+$AI_MO = 1200.0
 $aiRes = [double[]]::new($nCols)
 for ($c = 0; $c -lt $nCols; $c++) { $aiRes[$c] = $AI_MO }
 
-# ─── 6 · Infra Management Fee — STEPPED ──────────────────────────────────────
-# RM 1,000/mo Jun-26 → Jun-28 (cols 0–24) — covers Phase 1–2 supplier reimbursement.
-# RM 3,000/mo Jul-28 → Dec-31 (cols 25–66) — advisory + payroll uplift buffer.
+# ─── 6 · Infra Management Fee — FLAT RM 1,500/mo ─────────────────────────────
+# Flat RM 1,500/mo retainer Jun-26 → Dec-31 (all 67 cols). Covers Phase 1–2
+# supplier pass-through (cPanel + Immunify + Colocation ≈ RM 990.05/mo) with a
+# modest RM 510/mo margin; from Jul-2028 re-scoped as a flat advisory /
+# backup-DC retainer (board-revisable) once QCXIS takes direct supplier contracts.
 $mgmtFee = [double[]]::new($nCols)
-for ($c = 0; $c -lt $nCols; $c++) {
-    $mgmtFee[$c] = if ($c -lt 25) { 1000.0 } else { 3000.0 }
-}
+for ($c = 0; $c -lt $nCols; $c++) { $mgmtFee[$c] = 1500.0 }
 
-# ─── 7 · Infra Repayment — scaled tiers (Jan-27 start) ──────────────────────
+# ─── 7 · Infra Repayment — scaled tiers (Jan-28 start, salary-prioritised) ─
+# Deferred from Jan-27 → Jan-28 so 100% of the Jun-26 → Dec-27 cash runway is
+# earmarked for payroll (CEO/DCEO MD-Status RM5k each, Dev, IT-Ops Jan-27, etc.).
+# Under Optimum, Rev_Total > RM45k by end-2027 → Tier 2 (RM2,000) fires from
+# the start of 2028, clearing the RM14,499.99 balance by ~Aug-2028 — aligned
+# with the Jul-2028 direct-supplier takeover milestone.
 $repay = [double[]]::new($nCols)
 $hwBalance = 14499.99
 $R1 = 35000.0
 $R2 = 45000.0
-for ($c = 7; $c -lt $nCols; $c++) {
+for ($c = 19; $c -lt $nCols; $c++) {
     if ($hwBalance -le 0) { break }
     $tier = 1000.0
     if ($c -ge 2 -and $revTot[$c-1] -gt $R1 -and $revTot[$c-2] -gt $R1) { $tier = 1500.0 }
@@ -432,8 +440,8 @@ Write-Host ("Payroll   : Jun26={0}  Aug26={1}  Jan27={2}  Jun27={3}  Jan28={4}" 
 Write-Host ("AI/R&D    : Jun26={0}  Dec31={1}" -f $aiRes[0], $aiRes[66])
 Write-Host ("MgmtFee   : Jun26={0}  Jun28={1}  Jul28={2}  Dec31={3}" -f `
     $mgmtFee[0], $mgmtFee[24], $mgmtFee[25], $mgmtFee[66])
-Write-Host ("Repay     : Jan27={0}  Oct27={1}  Nov27={2}  Dec27={3}" -f `
-    $repay[7], $repay[16], $repay[17], $repay[18])
+Write-Host ("Repay     : Dec27={0}  Jan28={1}  Jul28={2}  Aug28={3}  Sep28={4}" -f `
+    $repay[18], $repay[19], $repay[25], $repay[26], $repay[27])
 $repaySum = ($repay | Measure-Object -Sum).Sum
 Write-Host ("Repay sum : {0}  (expected 14499.99)" -f $repaySum)
 Write-Host ("DirectRec : Jun28={0}  Jul28={1}  Jan30={2}  Dec31={3}" -f `

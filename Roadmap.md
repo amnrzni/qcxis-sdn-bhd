@@ -10,7 +10,7 @@ Build QCXIS Sdn Bhd into a credible, self-sustaining SaaS company — starting a
 
 **Key milestones:**
 - 2026 — Revenue begins (franchise + OHXEM pilot), first 2 staff, governance foundations, RM 100k paid-up share capital
-- 2027 — Team grows to 5, multi-module product launches, grant exploration, hardware repayment begins **Jan** and completes **Nov** (accelerated 8 mo ahead of prior plan)
+- 2027 — Team grows to 5, multi-module product launches, grant exploration; **hardware repayment deliberately deferred to Jan 2028** to keep the Jun-26 → Dec-27 salary window fully funded
 - 2028 — Malaysia Digital (MD) Status, **500 franchise outlets + 50 OHXEM outlets achieved (Optimum)**, QCXIS takes over direct supplier contracts
 - 2029 — Product-market fit, scaling operations (Extended scenario: 500+50 outlets land here instead of 2028)
 - 2030 — Full operational maturity, external market push
@@ -27,10 +27,10 @@ Two major cost components, structured around QC Group intermediation:
 ### 1. Infrastructure — 4-Phase Ownership Transfer (QC Group → QCXIS)
 Infrastructure follows a staged handover tied to QCXIS's ability to absorb cost:
 
-- **Phase 1 · Launch (Jun 2026 – Dec 2026)** — QC Group fronts all infra (servers, DC hosting, networking, cPanel, Immunify360, colocation). QCXIS pays a flat **RM 1,000/mo management fee** that reimburses the itemised supplier pass-through (cPanel RM 300 + Immunify RM 200 + Colocation RM 490.05 = RM 990.05).
-- **Phase 2 · Hardware repayment (Jan 2027 – Nov 2027)** — QCXIS repays the RM 14,499.99 hardware capex QC Group fronted. Schedule accelerates with QCXIS revenue: **RM 1,000/mo base → RM 1,500/mo (when `Rev_Total > RM35k` for 2 consecutive prior months) → RM 2,000/mo (when > RM45k × 2 mo)**. Under Optimum: Tier 1 fires Jun 2027, completes **Nov 2027 (RM 1,999.99 final)** — 8 months ahead of the prior Jul-28 plan.
-- **Phase 3 · Asset transfer (Nov 2027)** — Purchased hardware ownership transfers to QCXIS on final payment. QC Group retains the supplier contracts through Jun 2028 to allow QCXIS a 6–8 month window to negotiate direct vendor relationships.
-- **Phase 4 · Direct ownership (Jul 2028 onwards)** — QCXIS contracts suppliers directly (RM 990.05/mo base; **3% annual escalation from Jan 2030**). QCXIS also funds its own **Infra Upgrade CAPEX** for capacity growth: Jul 2029 RM 10k · Jul 2030 RM 15k · Jul 2031 RM 20k. The management fee **steps up to RM 3,000/mo from Jul 2028** (from RM 1,000/mo in Phase 1–2) — now a board-revisable advisory retainer covering backup-DC / disaster recovery services, shared-services buffer, and accumulated payroll-uplift / vendor drift.
+- **Phase 1 · Launch (Jun 2026 – Dec 2026)** — QC Group fronts all infra (servers, DC hosting, networking, cPanel, Immunify360, colocation). QCXIS pays a flat **RM 1,500/mo management fee** that reimburses the itemised supplier pass-through (cPanel RM 300 + Immunify RM 200 + Colocation RM 490.05 = RM 990.05) with a modest RM 510/mo margin.
+- **Phase 2 · Hardware repayment (Jan 2028 – Aug 2028, salary-prioritised deferral)** — QCXIS repays the RM 14,499.99 hardware capex QC Group fronted. **Repayment is deliberately held off through Dec 2027** so the entire Jun 2026 → Dec 2027 cash runway is earmarked for salary (CEO/DCEO MD-Status RM 5k each, Aug-26 Dev hire, Jan-27 IT Ops, 2027 uplift). Scaled tiers: **RM 1,000/mo base → RM 1,500/mo (when `Rev_Total > RM35k` for 2 consecutive prior months) → RM 2,000/mo (when > RM45k × 2 mo)**. Under Optimum, Nov/Dec 2027 Rev is already > RM 45k, so Tier 2 fires from the Jan-28 start; balance clears **Aug 2028 (RM 499.99 final)** — one month after the Jul-28 direct-supplier takeover.
+- **Phase 3 · Asset transfer (Aug 2028)** — Purchased hardware ownership transfers to QCXIS on final payment, landing one month after QCXIS takes the recurring suppliers direct (Jul 2028).
+- **Phase 4 · Direct ownership (Jul 2028 onwards)** — QCXIS contracts suppliers directly (RM 990.05/mo base; **3% annual escalation from Jan 2030**). QCXIS also funds its own **Infra Upgrade CAPEX** for capacity growth: Jul 2029 RM 10k · Jul 2030 RM 15k · Jul 2031 RM 20k. The management fee **stays flat at RM 1,500/mo** — now re-scoped as a board-revisable advisory / backup-DC retainer (payroll uplift + vendor drift absorbed operationally rather than through fee step-ups).
 
 QCXIS is incorporated with **RM 100,000 paid-up share capital** — equity on balance sheet at Jun 2026, not a repayable working-capital advance. Sizing rationale (OPEX runway, AR buffer, hardware capex coverage, onboarding, OHXEM ramp, contingency) detailed in [Forecast.md](Forecast.md) → *Paid-Up Capital (RM 100,000)* and `③B Capital & Repayment Plan` in the deck. The 2.5%-of-revenue scaling formula previously drafted has been retired in favour of this concrete itemised model.
 
@@ -108,8 +108,8 @@ Target: **Application Q1–Q2 2028**
 - RM 100,000 paid-up share capital on balance sheet
 - All foundational agreements signed
 - Trademark application in progress
-- Infra owned by QC Group, QCXIS paying RM 1,000/mo management fee
-- Inter-company hardware repayment schedule agreed; commences **Jan 2027** (accelerated from prior Jul-27 plan — RM 100k paid-up removes the cash-flow reason to defer)
+- Infra owned by QC Group, QCXIS paying RM 1,500/mo management fee
+- Inter-company hardware repayment schedule agreed; **deferred to Jan 2028** to fully protect the Jun-26 → Dec-27 salary window (RM 100k paid-up then serves payroll first and capital repayment second)
 
 ---
 
@@ -147,8 +147,8 @@ Target: **Application Q1–Q2 2028**
 
 | Quarter | Milestone | Details |
 |---------|-----------|---------|
-| **Jan 2027** | **Hardware repayment begins (scaled)** | Revenue-scaled tiers: RM 1,000/mo base → RM 1,500 (Rev>35k ×2mo) → RM 2,000 (Rev>45k ×2mo). Total hardware cost: RM 14,499.99. Under Optimum, Tier 1 fires Jun 2027. |
-| **Nov 2027** | **Hardware repayment completes (8 mo early)** | Final payment RM 1,999.99 — hardware ownership transfers to QCXIS. Direct supplier takeover staged for Jul 2028 to allow a negotiation window. |
+| **Jan 2028** | **Hardware repayment begins (Tier 2, deferred)** | Revenue-scaled tiers: RM 1,000/mo base → RM 1,500 (Rev>35k ×2mo) → RM 2,000 (Rev>45k ×2mo). Total RM 14,499.99. Deferred from Jan-27 to protect the Jun-26 → Dec-27 salary window; under Optimum Tier 2 fires immediately (Nov/Dec 2027 Rev > RM 45k). |
+| **Aug 2028** | **Hardware repayment completes** | Final payment RM 499.99 — hardware ownership transfers to QCXIS, one month after the Jul-28 direct-supplier takeover. |
 ### Grant & Certification
 
 | Quarter | Milestone | Details |
@@ -176,7 +176,7 @@ Target: **Application Q1–Q2 2028**
 - Trademark registered
 - AI R&D activity documented
 - **CEO + DCEO at RM 5,000 base from Aug 2027** (~10 mo of track record before Q2-28 MD Status filing)
-- **Hardware repayment to QC Group complete (Nov 2027)** — hardware owned by QCXIS
+- **Hardware repayment to QC Group complete (Aug 2028)** — hardware owned by QCXIS
 - Franchise network at ~410 outlets, OHXEM at 15 outlets
 
 ---
@@ -221,7 +221,7 @@ Target: **Application Q1–Q2 2028**
 
 | Quarter | Milestone | Details |
 |---------|-----------|---------|
-| Jul 2028 | **Direct supplier takeover begins** | QCXIS contracts directly with cPanel (RM 300/mo), Immunify360 (RM 200/mo), and Server Colocation 2U (RM 490.05/mo ≈ RM 5,880.60/yr). The Nov-27 – Jun-28 window was set aside for QCXIS to negotiate these direct vendor contracts. Management fee **steps up to RM 3,000/mo** from this month — pure advisory retainer (backup-DC + payroll/vendor drift buffer). |
+| Jul 2028 | **Direct supplier takeover begins** | QCXIS contracts directly with cPanel (RM 300/mo), Immunify360 (RM 200/mo), and Server Colocation 2U (RM 490.05/mo ≈ RM 5,880.60/yr). The Nov-27 – Jun-28 window was set aside for QCXIS to negotiate these direct vendor contracts. Management fee **stays flat at RM 1,500/mo** from this month — re-scoped as a pure advisory retainer (backup-DC + shared-services buffer). |
 
 ### 2028 End State
 - **MD Status obtained** (or in final review) — application filed Q2–Q3 with ~10 months of RM 5k salary track record

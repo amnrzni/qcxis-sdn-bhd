@@ -68,7 +68,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 /* Slide inner content wrapper */
 .s-inner {
   width: 100%;
-  max-width: 900px;
+  max-width: 1000px;
   margin: 0 auto;
 }
 
@@ -122,16 +122,20 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
    SHARED SLIDE COMPONENTS
    ══════════════════════════════════════════════════════════════ */
 .eyebrow {
-  font-size: 11px; font-weight: 700; letter-spacing: .16em;
-  text-transform: uppercase; color: var(--muted); margin-bottom: 6px;
+  font-size: 12px; font-weight: 700; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 8px;
 }
 .slide-title {
   font-family: 'Playfair Display', serif;
-  font-size: clamp(24px, 3.8vw, 36px); line-height: 1.15; margin-bottom: 6px;
+  font-size: clamp(30px, 4.6vw, 44px); line-height: 1.15; margin-bottom: 8px;
 }
 .slide-title em { font-style: italic; color: var(--accent); }
+/* Keep display-title segments that would read poorly in Playfair italic in DM Sans italic */
+.slide-title em.sans, h2.slide-title em.sans, h1.slide-title em.sans {
+  font-family: 'DM Sans', sans-serif; font-weight: 600; font-style: italic;
+}
 .slide-sub {
-  font-size: 13px; color: var(--muted); margin-bottom: 28px;
+  font-size: 15px; color: var(--muted); margin-bottom: 28px;
 }
 .section-rule {
   border: none; border-top: 2px solid var(--text);
@@ -161,14 +165,19 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 #slide-1 .eyebrow { color: rgba(255,255,255,.45); }
 #slide-1 .slide-title { color: #fff; font-size: clamp(32px, 5vw, 52px); }
 #slide-1 .slide-title em { color: #5de8d6; }
-#slide-1 .slide-sub { color: rgba(255,255,255,.55); font-size: 13px; margin-bottom: 36px; }
+#slide-1 .slide-sub { color: rgba(255,255,255,.55); font-size: 15px; margin-bottom: 36px; }
 #slide-1 .s-inner { text-align: center; }
 
 .cover-brand {
-  width: 80px; height: 80px; border-radius: 50%;
-  background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.15);
+  width: 104px; height: 104px; border-radius: 50%;
+  background: #fff; border: 1px solid rgba(255,255,255,.15);
+  box-shadow: 0 6px 22px rgba(0,0,0,.35);
   display: flex; align-items: center; justify-content: center;
   margin: 0 auto 28px;
+  overflow: hidden;
+}
+.cover-brand img {
+  width: 72px; height: 72px; object-fit: contain; display: block;
 }
 .cover-initials {
   font-family: 'Playfair Display', serif;
@@ -322,7 +331,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .svc-card.s4 { border-left: 4px solid var(--staff); }
 
 .svc-pillar {
-  font-size: 9px; font-weight: 700; letter-spacing: .1em;
+  font-size: 10px; font-weight: 700; letter-spacing: .1em;
   text-transform: uppercase; margin-bottom: 6px;
 }
 .s1 .svc-pillar { color: var(--accent2); }
@@ -332,12 +341,12 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 
 .svc-name {
   font-family: 'Playfair Display', serif;
-  font-size: 16px; font-weight: 600; color: var(--text);
+  font-size: 18px; font-weight: 600; color: var(--text);
   margin-bottom: 10px;
 }
 .svc-items { list-style: none; }
 .svc-items li {
-  font-size: 12px; color: var(--body); padding: 5px 0;
+  font-size: 13px; color: var(--body); padding: 6px 0;
   border-bottom: 1px solid var(--border);
   display: flex; align-items: center; gap: 8px;
   line-height: 1.45;
@@ -352,6 +361,34 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .s2 .svc-items li::before { background: var(--accent); }
 .s3 .svc-items li::before { background: var(--warn); }
 .s4 .svc-items li::before { background: var(--staff); }
+
+/* Slide 3 — Inter-Company Agreement callout */
+.svc-agreement {
+  margin-top: 16px;
+  background: var(--white); border: 1px solid var(--border); border-left: 3px solid var(--accent2);
+  border-radius: 6px; padding: 12px 18px;
+}
+.svc-agreement-head {
+  font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--accent2); margin-bottom: 10px;
+}
+.svc-agreement-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
+}
+.svc-pill {
+  background: var(--bg); border: 1px solid var(--border); border-radius: 5px;
+  padding: 8px 12px;
+}
+.svc-pill-v {
+  font-family: 'Playfair Display', serif; font-size: 18px; color: var(--text); line-height: 1.1;
+}
+.svc-pill-v span { font-family: 'DM Sans', sans-serif; font-size: 11px; color: var(--muted); font-weight: 500; }
+.svc-pill-l {
+  font-size: 11px; color: var(--body); margin-top: 3px; line-height: 1.35;
+}
+.svc-agreement-foot {
+  font-size: 10.5px; color: var(--muted); margin-top: 10px; letter-spacing: .02em;
+}
 
 /* ══════════════════════════════════════════════════════════════
    SLIDE 4 — ROADMAP GOALS
@@ -379,10 +416,10 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .goal-icon { font-size: 22px; }
 .goal-title {
   font-family: 'Playfair Display', serif;
-  font-size: 17px; color: var(--text); line-height: 1.25;
+  font-size: 19px; color: var(--text); line-height: 1.25;
 }
 .goal-subtitle {
-  font-size: 9.5px; font-weight: 700; letter-spacing: .08em;
+  font-size: 10.5px; font-weight: 700; letter-spacing: .08em;
   text-transform: uppercase;
 }
 .g1 .goal-subtitle { color: var(--accent); }
@@ -390,11 +427,11 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .g3 .goal-subtitle { color: var(--warn); }
 
 .goal-desc {
-  font-size: 12px; color: var(--body); line-height: 1.6; margin-top: 4px;
+  font-size: 13px; color: var(--body); line-height: 1.6; margin-top: 4px;
 }
 .goal-items { list-style: none; margin-top: 6px; }
 .goal-items li {
-  font-size: 11.5px; color: var(--body); padding: 3px 0;
+  font-size: 12.5px; color: var(--body); padding: 3px 0;
   display: flex; align-items: flex-start; gap: 7px; line-height: 1.45;
 }
 .goal-items li::before {
@@ -416,23 +453,23 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 }
 .yr-badge {
   display: inline-flex; align-items: center; justify-content: center;
-  width: 40px; height: 40px; border-radius: 50%;
-  font-family: 'Playfair Display', serif; font-size: 13px; font-weight: 600;
+  width: 44px; height: 44px; border-radius: 50%;
+  font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 600;
   color: #fff; margin-bottom: 10px; flex-shrink: 0;
 }
 .yr-theme {
-  font-size: 8.5px; font-weight: 700; letter-spacing: .09em;
+  font-size: 10px; font-weight: 700; letter-spacing: .09em;
   text-transform: uppercase; margin-bottom: 10px; padding-bottom: 8px;
   border-bottom: 1px solid var(--border);
 }
 .yr-section-label {
-  font-size: 7.5px; font-weight: 700; letter-spacing: .1em;
+  font-size: 9px; font-weight: 700; letter-spacing: .1em;
   text-transform: uppercase; color: var(--muted);
   margin-top: 10px; margin-bottom: 4px;
 }
 .yr-items { list-style: none; }
 .yr-items li {
-  font-size: 11px; color: var(--body); padding: 3px 0;
+  font-size: 12px; color: var(--body); padding: 3px 0;
   display: flex; align-items: flex-start; gap: 6px; line-height: 1.4;
 }
 .yr-items li::before { content: '▸'; font-size: 7px; margin-top: 3px; color: var(--muted); flex-shrink: 0; }
@@ -479,17 +516,17 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .kpi.kpi-opex { border-top-color: var(--cost-text); }
 .kpi.kpi-net  { border-top-color: var(--accent); }
 .kpi.kpi-cum  { border-top-color: var(--staff); }
-.kpi-label { font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
-.kpi-value { font-family: 'Playfair Display', serif; font-size: 22px; line-height: 1; color: var(--text); }
-.kpi-note  { font-size: 10px; color: var(--muted); margin-top: 3px; }
+.kpi-label { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.kpi-value { font-family: 'Playfair Display', serif; font-size: 26px; line-height: 1; color: var(--text); }
+.kpi-note  { font-size: 11px; color: var(--muted); margin-top: 3px; }
 
 .chart-card {
   background: var(--white); border: 1px solid var(--border); border-radius: 7px;
   padding: 18px 20px;
 }
 .chart-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px; }
-.chart-title { font-family: 'Playfair Display', serif; font-size: 15px; color: var(--text); }
-.chart-sub   { font-size: 9.5px; color: var(--muted); margin-top: 2px; }
+.chart-title { font-family: 'Playfair Display', serif; font-size: 17px; color: var(--text); }
+.chart-sub   { font-size: 11px; color: var(--muted); margin-top: 2px; }
 .chart-wrap  { position: relative; height: 280px; }
 .chart-legend { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 10px; }
 .cl-item { display: flex; align-items: center; gap: 5px; font-size: 9.5px; color: var(--body); }
@@ -504,12 +541,12 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
   padding: 14px 16px; border-top: 3px solid var(--accent2);
 }
 .cap-card.rep { border-top-color: var(--accent); }
-.cap-head { font-family: 'Playfair Display', serif; font-size: 14px; color: var(--text); margin-bottom: 2px; }
-.cap-sub  { font-size: 9.5px; color: var(--muted); margin-bottom: 10px; }
-.cap-table { width: 100%; border-collapse: collapse; font-size: 11.5px; }
-.cap-table th { font-size: 9px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: var(--muted); padding: 5px 6px; text-align: right; border-bottom: 1px solid var(--border2); white-space: nowrap; }
+.cap-head { font-family: 'Playfair Display', serif; font-size: 16px; color: var(--text); margin-bottom: 2px; }
+.cap-sub  { font-size: 11px; color: var(--muted); margin-bottom: 10px; line-height: 1.45; }
+.cap-table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+.cap-table th { font-size: 10px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: var(--muted); padding: 6px 6px; text-align: right; border-bottom: 1px solid var(--border2); white-space: nowrap; }
 .cap-table th:first-child { text-align: left; }
-.cap-table td { padding: 5px 6px; border-bottom: 1px solid var(--border); color: var(--body); white-space: nowrap; text-align: right; font-size: 11px; }
+.cap-table td { padding: 6px 6px; border-bottom: 1px solid var(--border); color: var(--body); white-space: nowrap; text-align: right; font-size: 12px; }
 .cap-table td:first-child { text-align: left; color: var(--text); }
 .cap-table tr.total td { background: var(--bg); font-weight: 700; color: var(--text); border-top: 2px solid var(--accent2); border-bottom: none; }
 .cap-table tr.final td { background: rgba(10,123,108,.07); font-weight: 700; color: var(--accent); }
@@ -519,17 +556,17 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .cap-kpi.k2 { border-top-color: var(--staff); }
 .cap-kpi.k3 { border-top-color: var(--warn); }
 .cap-kpi.k4 { border-top-color: var(--accent); }
-.cap-kpi .l { font-size: 9px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-bottom: 3px; }
-.cap-kpi .v { font-family: 'Playfair Display', serif; font-size: 19px; line-height: 1; color: var(--text); }
-.cap-kpi .n { font-size: 9.5px; color: var(--muted); margin-top: 3px; line-height: 1.35; }
-.cap-note { font-size: 11px; color: var(--body); line-height: 1.5; background: var(--white); border: 1px solid var(--border); border-left: 3px solid var(--accent2); border-radius: 5px; padding: 10px 14px; }
+.cap-kpi .l { font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-bottom: 3px; }
+.cap-kpi .v { font-family: 'Playfair Display', serif; font-size: 22px; line-height: 1; color: var(--text); }
+.cap-kpi .n { font-size: 11px; color: var(--muted); margin-top: 4px; line-height: 1.35; }
+.cap-note { font-size: 12px; color: var(--body); line-height: 1.55; background: var(--white); border: 1px solid var(--border); border-left: 3px solid var(--accent2); border-radius: 5px; padding: 12px 16px; }
 .cap-note strong { color: var(--text); }
 
 /* ══════════════════════════════════════════════════════════════
    SLIDE 9 — WHAT NEEDS APPROVAL
    ══════════════════════════════════════════════════════════════ */
 .approval-intro {
-  font-size: 12px; color: var(--body); margin-bottom: 22px; line-height: 1.6;
+  font-size: 14px; color: var(--body); margin-bottom: 22px; line-height: 1.6;
 }
 .approval-grid {
   display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 24px;
@@ -552,17 +589,17 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 
 .appr-icon { font-size: 24px; margin-bottom: 10px; }
 .appr-title {
-  font-family: 'Playfair Display', serif; font-size: 17px;
+  font-family: 'Playfair Display', serif; font-size: 19px;
   color: var(--text); margin-bottom: 8px;
 }
 .appr-desc {
-  font-size: 12px; color: var(--body); line-height: 1.6; margin-bottom: 12px;
+  font-size: 13px; color: var(--body); line-height: 1.6; margin-bottom: 12px;
 }
 .appr-items { list-style: none; }
 .appr-items li {
-  font-size: 11px; color: var(--body); padding: 4px 0;
+  font-size: 12px; color: var(--body); padding: 5px 0;
   border-bottom: 1px solid var(--border);
-  display: flex; align-items: flex-start; gap: 7px; line-height: 1.4;
+  display: flex; align-items: flex-start; gap: 7px; line-height: 1.45;
 }
 .appr-items li:last-child { border-bottom: none; }
 .appr-items li::before { content: '→'; font-size: 9px; color: var(--muted); margin-top: 1px; flex-shrink: 0; }
@@ -605,7 +642,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
   <div class="slide active" id="slide-1" data-slide="1">
     <div class="s-inner">
       <div class="cover-brand">
-        <span class="cover-initials">QX</span>
+        <img src="../cx-01.png" alt="QCXIS logo">
       </div>
       <div class="eyebrow">April 2026</div>
       <h1 class="slide-title" style="font-size: clamp(32px, 5vw, 52px); margin-bottom: 10px;">
@@ -734,7 +771,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
   <div class="slide" id="slide-3" data-slide="3">
     <div class="s-inner">
       <div class="eyebrow">What We Do</div>
-      <h2 class="slide-title">Services to <em>QC Group</em></h2>
+      <h2 class="slide-title">Services to <em class="sans">QC Group</em></h2>
       <hr class="section-rule">
 
       <div class="svc-grid">
@@ -825,8 +862,23 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
         </div>
       </div>
 
-      <div style="margin-top:14px; background:var(--white); border:1px solid var(--border); border-radius:5px; padding:10px 16px; font-size:11px; color:var(--body); border-left:3px solid var(--accent2);">
-        <strong style="color:var(--text);">Inter-company arrangement (4-phase infra model):</strong> QCXIS operates under a formal Inter-company Service Agreement with a **stepped management fee** — <strong>RM 1,000/mo</strong> through Jun 2028 (reimbursing Phase 1–2 suppliers), stepping up to <strong>RM 3,000/mo</strong> from Jul 2028 as the direct-supplier takeover begins (advisory retainer + payroll/vendor drift buffer). A new <strong>RM 1,500/mo AI Usage &amp; Research</strong> line runs from Jun 2026 supporting MD-qualifying AI activity. The <strong>RM 14,499.99 hardware capex</strong> is repaid on revenue-scaled tiers (RM 1k &rarr; 1.5k &rarr; 2k) from <strong>Jan 2027</strong> and completes <strong>Nov 2027</strong>. Full breakdown &rarr; <em>Slide 8 &middot; Paid-Up Capital &amp; Repayment Plan</em>.
+      <div class="svc-agreement">
+        <div class="svc-agreement-head">Inter-Company Service Agreement</div>
+        <div class="svc-agreement-grid">
+          <div class="svc-pill">
+            <div class="svc-pill-v">RM 1,500<span>/mo</span></div>
+            <div class="svc-pill-l">Management fee &middot; Jun 2026 &rarr; Dec 2031</div>
+          </div>
+          <div class="svc-pill">
+            <div class="svc-pill-v">RM 1,200<span>/mo</span></div>
+            <div class="svc-pill-l">AI Usage &amp; Research &middot; from Jun 2026</div>
+          </div>
+          <div class="svc-pill">
+            <div class="svc-pill-v">RM 14,499.99</div>
+            <div class="svc-pill-l">Hardware capex &middot; repaid Jan 2028 &rarr; Aug 2028</div>
+          </div>
+        </div>
+        <div class="svc-agreement-foot">Full breakdown on Slide 8 &middot; Paid-Up Capital &amp; Repayment Plan</div>
       </div>
     </div>
   </div>
@@ -932,7 +984,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
           <ul class="yr-items">
             <li class="ms">2 staff (Zain &middot; Sufian) &middot; RM 3,000 base</li>
             <li class="ms"><strong>+2 Devs (Akmal &middot; Iffat)</strong> Aug 2026</li>
-            <li>AI Usage &amp; Research: RM 1,500/mo from Jun</li>
+            <li>AI Usage &amp; Research: RM 1,200/mo from Jun</li>
           </ul>
 
           <div class="yr-section-label">Governance &amp; IP</div>
@@ -966,8 +1018,8 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 
           <div class="yr-section-label">Infra &amp; Grants</div>
           <ul class="yr-items">
-            <li class="ms">Hardware repayment begins (Jan 2027)</li>
-            <li class="ms">Hardware fully repaid (Nov 2027, 8 mo early)</li>
+            <li class="ms">Salary window (Jun 2026 &rarr; Dec 2027) &mdash; no hardware repayment</li>
+            <li class="ms">Hardware fully repaid (Aug 2028, Tier 2 under Optimum)</li>
             <li>MDCG grant application</li>
           </ul>
 
@@ -1129,17 +1181,17 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
         </div>
         <div class="kpi kpi-opex">
           <div class="kpi-label">Total OPEX + Tax</div>
-          <div class="kpi-value">RM 2.59M</div>
-          <div class="kpi-note">OPEX RM 2.04M + Tax RM 0.55M</div>
+          <div class="kpi-value">RM 2.53M</div>
+          <div class="kpi-note">OPEX RM 1.96M + Tax RM 0.57M</div>
         </div>
         <div class="kpi kpi-net">
           <div class="kpi-label">Net Profit (post-tax)</div>
-          <div class="kpi-value">RM 2.72M</div>
+          <div class="kpi-value">RM 2.78M</div>
           <div class="kpi-note">SME graduated + Portrait MD 14%</div>
         </div>
         <div class="kpi kpi-cum">
           <div class="kpi-label">Cash Balance</div>
-          <div class="kpi-value">RM 2.82M</div>
+          <div class="kpi-value">RM 2.88M</div>
           <div class="kpi-note">Dec 2031 (incl. RM 100k paid-up)</div>
         </div>
       </div>
@@ -1186,13 +1238,13 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
         </div>
         <div class="cap-kpi k3">
           <div class="l">Repayment Starts</div>
-          <div class="v">Jan 2027</div>
-          <div class="n">Accelerated from prior Jul-27 plan</div>
+          <div class="v">Jan 2028</div>
+          <div class="n">Deferred &mdash; salary window protected</div>
         </div>
         <div class="cap-kpi k4">
           <div class="l">Repayment Completes</div>
-          <div class="v">Nov 2027</div>
-          <div class="n">11-month scaled plan (8 mo early)</div>
+          <div class="v">Aug 2028</div>
+          <div class="n">8-month Tier 2 plan under Optimum</div>
         </div>
       </div>
 
@@ -1202,49 +1254,43 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
         <!-- LEFT: paid-up capital allocation -->
         <div class="cap-card">
           <div class="cap-head">Paid-Up Capital Allocation — RM 100,000</div>
-          <div class="cap-sub">Re-scoped in v6 around <em>cash-flow resilience</em> (not project-specific ring-fences). Supports the Aug-26 accelerated Dev hire (Optimum), stepped management fee, recurring AI OPEX, and Phase 4 vendor transition.</div>
+          <div class="cap-sub">Sized for cash-flow resilience across Optimum and Extended downside.</div>
           <table class="cap-table">
             <thead>
-              <tr><th>Use of capital</th><th>Amount</th><th>Rationale</th></tr>
+              <tr><th>Use of capital</th><th>Amount</th><th>Purpose</th></tr>
             </thead>
             <tbody>
-              <tr><td>Expanded OPEX runway (3–4 mo full team)</td><td>RM 35,000</td><td>Covers Jun–Sep 2026 launch + HR/Portrait slip runway</td></tr>
-              <tr><td>AR buffer (45-day collection slip)</td><td>RM 10,000</td><td>Expanded pool at accelerated ramp</td></tr>
-              <tr><td>Payroll buffer (Aug-26 Dev hire + 2027 uplift)</td><td>RM 25,000</td><td>Absorbs Akmal + Iffat hires before revenue catches up + Mar-27 RM 3,900 trigger uplift</td></tr>
-              <tr><td>Vendor cost increase buffer (Phase 4)</td><td>RM 14,500</td><td>Jul-28 supplier takeover ramp + 3% p.a. escalation from 2030 + mgmt-fee step-up coverage</td></tr>
-              <tr><td>Delay contingency + safety margin</td><td>RM 15,500</td><td>HR/Portrait slip &middot; MD Status delay &middot; FX policy risk &middot; unforeseen</td></tr>
-              <tr class="total"><td>Total</td><td>RM 100,000</td><td>Jun-2026 floor: RM 109,738 &middot; never negative</td></tr>
+              <tr><td>Expanded OPEX runway</td><td>RM 35,000</td><td>3–4 months full team at launch</td></tr>
+              <tr><td>AR buffer</td><td>RM 10,000</td><td>45-day collection slip</td></tr>
+              <tr><td>Payroll buffer</td><td>RM 25,000</td><td>Aug-26 Dev hire + Mar-27 uplift</td></tr>
+              <tr><td>Vendor cost buffer (Phase 4)</td><td>RM 14,500</td><td>Jul-28 supplier takeover</td></tr>
+              <tr><td>Delay contingency</td><td>RM 15,500</td><td>HR slip &middot; MD delay &middot; FX risk</td></tr>
+              <tr class="total"><td>Total</td><td>RM 100,000</td><td>Jun-26 floor: RM 109,518</td></tr>
             </tbody>
           </table>
-          <div class="cap-note" style="margin-top:10px;">
-            <strong>Recurring OPEX additions (v6):</strong> <strong>AI Usage &amp; Research RM 1,500/mo</strong> from Jun 2026 (MD-qualifying AI activity evidence). <strong>Management fee steps RM 1k &rarr; RM 3k/mo</strong> from Jul 2028 (advisory retainer + payroll/vendor drift buffer). Both absorbed inside the RM 100k runway; Jun-26 cash floor of ~RM 110k preserved across both Optimum and Extended scenarios.
-          </div>
         </div>
 
         <!-- RIGHT: hardware repayment schedule -->
         <div class="cap-card rep">
-          <div class="cap-head">Hardware Repayment Schedule — scaled tiers (RM 14,499.99)</div>
-          <div class="cap-sub">Revenue-scaled tiers: RM 1k base &rarr; RM 1.5k (Rev &gt; 35k &times; 2mo) &rarr; RM 2k (Rev &gt; 45k &times; 2mo). Under Optimum, Tier 1 fires Jun 2027; completes <strong>Nov 2027</strong> (8 months ahead of the prior Jul-28 plan thanks to OHXEM-lifted Rev_Total).</div>
+          <div class="cap-head">Hardware Repayment &mdash; RM 14,499.99</div>
+          <div class="cap-sub">Deferred so the Jun-26 &rarr; Dec-27 cash runway goes 100% to salary. Tier 2 fires on Jan 2028; balance clears Aug 2028.</div>
           <table class="cap-table">
             <thead>
               <tr><th>Window</th><th>Monthly</th><th>Months</th><th>Subtotal</th></tr>
             </thead>
             <tbody>
-              <tr><td>Jan 2027 &ndash; May 2027 (base)</td><td>RM 1,000</td><td>5</td><td>RM 5,000</td></tr>
-              <tr><td>Jun 2027 &ndash; Oct 2027 (Tier 1)</td><td>RM 1,500</td><td>5</td><td>RM 7,500</td></tr>
-              <tr class="final"><td>Nov 2027 (final)</td><td>RM 1,999.99</td><td>1</td><td>RM 1,999.99</td></tr>
-              <tr class="total"><td>Total</td><td>&mdash;</td><td>11</td><td>RM 14,499.99</td></tr>
+              <tr><td>Jun 2026 &ndash; Dec 2027 (salary window)</td><td>&mdash;</td><td>19</td><td>No repayment</td></tr>
+              <tr><td>Jan 2028 &ndash; Jul 2028 (Tier 2)</td><td>RM 2,000</td><td>7</td><td>RM 14,000</td></tr>
+              <tr class="final"><td>Aug 2028 (final)</td><td>RM 499.99</td><td>1</td><td>RM 499.99</td></tr>
+              <tr class="total"><td>Total</td><td>&mdash;</td><td>8</td><td>RM 14,499.99</td></tr>
             </tbody>
           </table>
-          <div style="margin-top:10px; font-size:11px; color:var(--body); line-height:1.5;">
-            <strong style="color:var(--text);">Beyond hardware &mdash; 4-phase ownership transfer:</strong> Hardware transfers to QCXIS on final payment (Nov 2027). Nov-27 &rarr; Jun-28 window lets QCXIS negotiate direct vendor contracts. From <strong>Jul 2028</strong> QCXIS contracts the recurring suppliers directly &mdash; cPanel RM 300 + Immunify360 RM 200 + Colocation 2U RM 490.05 = <strong>RM 990.05/mo</strong> (+3% p.a. from 2030). Self-funded <strong>Infra Upgrade CAPEX</strong>: Jul 2029 RM 10k &middot; Jul 2030 RM 15k &middot; Jul 2031 RM 20k.
-          </div>
         </div>
 
       </div>
 
       <div class="cap-note">
-        <strong>Cash-balance under Optimum:</strong> Jun-2026 cash floor <strong>RM 109,738</strong> &middot; Dec-2031 cash balance <strong>RM 2,816,524</strong> (RM 100k paid-up + RM 2,716,524 post-tax cumulative net profit). Cash never goes negative even under the Extended scenario plus a 6-month HR/Portrait launch delay &mdash; the RM 100k is sized to the binding downside, not to Optimum alone.
+        <strong>Bottom line:</strong> Jun-26 cash floor <strong>RM 109,518</strong> &rarr; Dec-31 balance <strong>RM 2,877,044</strong>. Cash never negative, even under Extended + 6-month launch delay. RM 100k sized to the binding downside &mdash; not Optimum alone.
       </div>
     </div>
   </div>
@@ -1306,7 +1352,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
             <li>CEO &amp; DCEO: RM 3k (Jun 2026) &rarr; RM 3.9k (Mar 2027) &rarr; <strong>RM 5,000 for CEO &amp; DCEO (MD Status)</strong> &mdash; revenue-milestone driven; lands Aug 2027 under Optimum</li>
             <li>Dev Transfer (Akmal): RM 2,200 &middot; Dev New Hire (Iffat): RM 2,000 &middot; <strong>joining Aug 2026 (Optimum)</strong></li>
             <li>IT Operations: RM 1,900 (Jan 2027)</li>
-            <li>AI Usage &amp; Research: <strong>RM 1,500/mo</strong> recurring OPEX from Jun 2026</li>
+            <li>AI Usage &amp; Research: <strong>RM 1,200/mo</strong> recurring OPEX from Jun 2026</li>
             <li>5% annual increment for all roles from Jan 2028</li>
             <li>RM 100,000 paid-up share capital (recorded at incorporation)</li>
             <li>Allowances: RM 450/mo &middot; Insurance: RM 150/mo/staff</li>
@@ -1444,11 +1490,11 @@ updateNav();
 // ══════════════════════════════════════
 let chartInited = false;
 
-// Annual aggregated data — Optimum scenario (v6 — 4 streams, RM 100k paid-up, AI R&D, stepped mgmt fee, SME + Portrait MD 14% tax)
+// Annual aggregated data — Optimum scenario (v6 — 4 streams, RM 100k paid-up, AI R&D RM 1,200/mo, flat RM 1,500/mo mgmt fee, SME + Portrait MD 14% tax)
 const YEARS = ['2026', '2027', '2028', '2029', '2030', '2031'];
 const REV   = [172893, 488415, 850592, 1122684, 1253760, 1416228]; // Rev_Total
-const OPEX  = [120376, 317307, 354469, 395840,  414699,  434243];  // Total OPEX pre-tax (inc. AI R&D, stepped mgmt fee)
-const TAX   = [7877,   26088,  80873,  122391,  143427,  170458];  // Annual tax (SME + Portrait MD 14%)
+const OPEX  = [121916, 305447, 358409, 372080,  390939,  410483];  // Total OPEX pre-tax (inc. AI R&D RM 1,200/mo, flat RM 1,500/mo mgmt fee, repayment deferred to Jan-28)
+const TAX   = [7646,   28105,  80207,  127862,  148763,  175672];  // Annual tax (SME + Portrait MD 14%)
 const NET   = REV.map((r, i) => Math.round(r - OPEX[i] - TAX[i])); // Post-tax net
 
 function rm(v) {
