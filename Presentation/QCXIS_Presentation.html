@@ -46,14 +46,24 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
   inset: 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  /* `safe center` falls back to flex-start when content overflows,
+     preventing the top of tall slides from being clipped above the scroll origin. */
+  justify-content: safe center;
   align-items: center;
   opacity: 0;
   pointer-events: none;
   transform: translateX(40px);
   transition: opacity .35s ease, transform .35s ease;
   overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
   padding: 48px 40px 100px;
+}
+/* Fallback for engines that ignore the `safe` keyword: use auto margins,
+   which collapse to 0 when content exceeds the flex container. */
+@supports not (justify-content: safe center) {
+  .slide { justify-content: flex-start; }
+  .slide > .s-inner { margin-top: auto; margin-bottom: auto; }
 }
 .slide.active {
   opacity: 1;
@@ -202,6 +212,11 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 #slide-1 .nav-counter { color: rgba(255,255,255,.4); }
 #slide-1 .dot { background: rgba(255,255,255,.2); }
 #slide-1 .dot.active { background: #fff; }
+
+/* Slide 11 — Thank You (dark, matches cover) */
+#slide-11 { background: var(--text); }
+#slide-11 .slide-title { color: #fff; }
+#slide-11 .slide-title em { color: #5de8d6; }
 
 /* ══════════════════════════════════════════════════════════════
    SLIDE 2 — VISION & MISSION + ORG CHART
@@ -569,23 +584,25 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
   font-size: 14px; color: var(--body); margin-bottom: 22px; line-height: 1.6;
 }
 .approval-grid {
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 24px;
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-bottom: 18px;
 }
 .appr-card {
   background: var(--white); border: 1px solid var(--border); border-radius: 7px;
-  padding: 22px 20px; position: relative; overflow: hidden;
+  padding: 18px 20px; position: relative; overflow: hidden;
 }
 .appr-card.a1 { border-top: 3px solid var(--accent); }
 .appr-card.a2 { border-top: 3px solid var(--accent2); }
 .appr-card.a3 { border-top: 3px solid var(--staff); }
+.appr-card.a4 { border-top: 3px solid var(--warn); }
 
 .appr-num {
-  font-family: 'Playfair Display', serif; font-size: 48px; font-weight: 600;
-  position: absolute; top: 10px; right: 16px; line-height: 1; opacity: .07;
+  font-family: 'Playfair Display', serif; font-size: 44px; font-weight: 600;
+  position: absolute; top: 8px; right: 16px; line-height: 1; opacity: .07;
 }
 .a1 .appr-num { color: var(--accent); opacity: .1; }
 .a2 .appr-num { color: var(--accent2); opacity: .1; }
 .a3 .appr-num { color: var(--staff); opacity: .1; }
+.a4 .appr-num { color: var(--warn); opacity: .1; }
 
 .appr-icon { font-size: 24px; margin-bottom: 10px; }
 .appr-title {
@@ -619,16 +636,150 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .apf-tags { display: flex; gap: 6px; flex-wrap: wrap; }
 
 /* ══════════════════════════════════════════════════════════════
+   SLIDE 8 — RISK MATRIX
+   ══════════════════════════════════════════════════════════════ */
+.risk-matrix {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  overflow: hidden;
+}
+.risk-row {
+  display: grid;
+  grid-template-columns: 56px 1fr 120px 120px 1fr;
+  align-items: stretch;
+  border-bottom: 1px solid var(--border);
+}
+.risk-row:last-child { border-bottom: none; }
+.risk-row.risk-header {
+  background: var(--bg);
+}
+.risk-row.risk-header .risk-cell {
+  font-size: 8.5px; font-weight: 700; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--muted);
+  padding: 10px 12px;
+  display: flex; align-items: center;
+}
+.risk-cell {
+  padding: 14px 12px;
+  font-size: 12px;
+  color: var(--body);
+  line-height: 1.45;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-right: 1px solid var(--border);
+}
+.risk-cell:last-child { border-right: none; }
+.risk-cell-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  font-weight: 600;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+.risk-cell-title {
+  font-weight: 600; color: var(--text); font-size: 13px; margin-bottom: 3px;
+}
+.risk-cell-desc {
+  font-size: 11px; color: var(--muted); line-height: 1.45;
+}
+.risk-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  padding: 4px 10px;
+  border-radius: 4px;
+  white-space: nowrap;
+  width: fit-content;
+}
+.risk-badge.high    { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
+.risk-badge.med-hi  { background: #fff7ed; color: #9a3412; border: 1px solid #fed7aa; }
+.risk-badge.medium  { background: var(--warn-l); color: var(--warn); border: 1px solid #fde68a; }
+.risk-badge.low     { background: var(--net-bg); color: var(--net-text); border: 1px solid #a7f3d0; }
+.risk-mit {
+  font-size: 11.5px;
+  color: var(--body);
+  line-height: 1.5;
+}
+.risk-mit strong { color: var(--text); font-weight: 600; }
+.risk-note {
+  font-size: 11.5px; color: var(--body); line-height: 1.55;
+  background: var(--white); border: 1px solid var(--border);
+  border-left: 3px solid var(--warn);
+  border-radius: 5px; padding: 12px 16px; margin-top: 14px;
+}
+.risk-note strong { color: var(--text); }
+
+/* ══════════════════════════════════════════════════════════════
    RESPONSIVE GUARD
    ══════════════════════════════════════════════════════════════ */
+
+/* Universal guard: never let any element force horizontal scroll on a slide */
+.slide img, .slide pre, .slide canvas { max-width: 100%; }
+.cap-table { width: 100%; }
+/* Wrap tables on narrow screens so they scroll inside their card instead of pushing the layout */
+@media (max-width: 800px) {
+  .cap-card { overflow-x: auto; }
+}
+
+/* Tablet (≤960px) — collapse 4-up KPI rows to 2-up, narrow chart, soften padding */
+@media (max-width: 960px) {
+  .kpi-row, .cap-kpis { grid-template-columns: repeat(2, 1fr); }
+  .cap-grid { grid-template-columns: 1fr; }
+  .chart-wrap { height: 260px; }
+  .slide { padding: 40px 28px 96px; }
+}
+
+/* Small tablet (≤800px) — collapse 3-up grids to 2-up */
+@media (max-width: 800px) {
+  .goal-grid, .yr-grid, .approval-grid, .svc-grid { grid-template-columns: 1fr 1fr; }
+  .chart-wrap { height: 240px; }
+}
+
+/* Phone (≤680px) — single column everywhere, table-like risk rows stack */
 @media (max-width: 680px) {
-  .vm-grid, .svc-grid, .goal-grid, .yr-grid, .approval-grid, .kpi-row {
+  .vm-grid, .svc-grid, .goal-grid, .yr-grid, .approval-grid,
+  .kpi-row, .cap-kpis, .cap-grid {
     grid-template-columns: 1fr;
   }
-  .slide { padding: 32px 20px 90px; }
+  .slide { padding: 28px 16px 88px; }
+  .risk-row { grid-template-columns: 1fr; }
+  .risk-row.risk-header { display: none; }
+  .chart-wrap { height: 220px; }
+  .nav-bar { padding: 0 16px; height: 58px; }
+  .nav-btn { padding: 7px 12px; font-size: 10px; }
 }
-@media (max-width: 800px) {
-  .goal-grid, .yr-grid, .approval-grid { grid-template-columns: 1fr 1fr; }
+
+/* Very narrow phones (≤420px) */
+@media (max-width: 420px) {
+  .slide-title { font-size: clamp(22px, 7vw, 30px) !important; }
+  .nav-mid .dots { display: none; }
+}
+
+/* Reduced motion — disable slide transition for users who request it */
+@media (prefers-reduced-motion: reduce) {
+  .slide { transition: opacity .15s ease; transform: none !important; }
+}
+
+/* Print — render every slide stacked, hide nav */
+@media print {
+  html, body { overflow: visible; height: auto; background: #fff; }
+  .nav-bar { display: none; }
+  .deck { height: auto; }
+  .slide {
+    position: relative; inset: auto; opacity: 1 !important;
+    transform: none !important; pointer-events: auto;
+    page-break-after: always; break-after: page;
+    min-height: 100vh; padding: 32px 28px;
+  }
 }
 </style>
 </head>
@@ -642,7 +793,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
   <div class="slide active" id="slide-1" data-slide="1">
     <div class="s-inner">
       <div class="cover-brand">
-        <img src="../cx-01.png" alt="QCXIS logo">
+        <img src="data:image/png;base64,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JAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJOcugcEAAAGRSURBVAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAk9P+/3X9nqSyvWgAAAABJRU5ErkJggg==" alt="QCXIS logo">
       </div>
       <div class="eyebrow">April 2026</div>
       <h1 class="slide-title" style="font-size: clamp(32px, 5vw, 52px); margin-bottom: 10px;">
@@ -878,7 +1029,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
             <div class="svc-pill-l">Hardware capex &middot; repaid Jan 2028 &rarr; Aug 2028</div>
           </div>
         </div>
-        <div class="svc-agreement-foot">Full breakdown on Slide 8 &middot; Paid-Up Capital &amp; Repayment Plan</div>
+        <div class="svc-agreement-foot">Full breakdown on Slide 9 &middot; Paid-Up Capital &amp; Repayment Plan</div>
       </div>
     </div>
   </div>
@@ -1216,9 +1367,105 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
   </div>
 
   <!-- ══════════════════════════════════════════════════════════
-       SLIDE 8 — CAPITAL & REPAYMENT PLAN
+       SLIDE 8 — RISKS & MITIGATIONS
        ══════════════════════════════════════════════════════════ -->
   <div class="slide" id="slide-8" data-slide="8">
+    <div class="s-inner">
+      <div class="eyebrow">What Could Go Wrong</div>
+      <h2 class="slide-title">Risks &amp; <em>Mitigations</em></h2>
+      <hr class="section-rule">
+
+      <div class="risk-matrix">
+        <!-- Header -->
+        <div class="risk-row risk-header">
+          <div class="risk-cell">#</div>
+          <div class="risk-cell">Risk</div>
+          <div class="risk-cell">Severity</div>
+          <div class="risk-cell">Likelihood</div>
+          <div class="risk-cell">Mitigation</div>
+        </div>
+
+        <!-- Risk 1: Outlet Growth -->
+        <div class="risk-row">
+          <div class="risk-cell risk-cell-num" style="color:var(--cost-text); opacity:.25;">1</div>
+          <div class="risk-cell">
+            <div class="risk-cell-title">Outlet Growth Stalls</div>
+            <div class="risk-cell-desc">HOME + OHXEM don't hit 500 + 50 by Dec 2028. Fee collection is the main revenue for the first 3 years.</div>
+          </div>
+          <div class="risk-cell"><span class="risk-badge high">High</span></div>
+          <div class="risk-cell"><span class="risk-badge medium">Medium</span></div>
+          <div class="risk-cell">
+            <div class="risk-mit">Extended scenario models a <strong>12-month slip</strong> &mdash; cash stays positive. OHXEM pilots before scaling. HR &amp; Portrait diversify revenue from 2027.</div>
+          </div>
+        </div>
+
+        <!-- Risk 2: Developer Retention -->
+        <div class="risk-row">
+          <div class="risk-cell risk-cell-num" style="color:var(--cost-text); opacity:.25;">2</div>
+          <div class="risk-cell">
+            <div class="risk-cell-title">Developer Retention</div>
+            <div class="risk-cell-desc">Losing a developer delays module launches and revenue timelines.</div>
+          </div>
+          <div class="risk-cell"><span class="risk-badge high">High</span></div>
+          <div class="risk-cell"><span class="risk-badge medium">Medium</span></div>
+          <div class="risk-cell">
+            <div class="risk-mit"><strong>2 dev hires (Aug 2026)</strong> distribute knowledge. Competitive pay with 5% annual increments. Contingency hire budgeted if utilisation &gt;85%.</div>
+          </div>
+        </div>
+
+        <!-- Risk 3: Infra Cost -->
+        <div class="risk-row">
+          <div class="risk-cell risk-cell-num" style="color:var(--cost-text); opacity:.25;">3</div>
+          <div class="risk-cell">
+            <div class="risk-cell-title">Infra Cost (AWS Facial Recognition)</div>
+            <div class="risk-cell-desc">Rising AWS cloud-compute costs for facial recognition workloads. In-house infra is capital-heavy and only viable after ~5 years.</div>
+          </div>
+          <div class="risk-cell"><span class="risk-badge med-hi">Med&ndash;High</span></div>
+          <div class="risk-cell"><span class="risk-badge medium">Medium</span></div>
+          <div class="risk-cell">
+            <div class="risk-mit"><strong>Stay on AWS through 2031</strong> &mdash; pass-through priced into fees. Reserved Instances &amp; usage optimisation cap monthly spend. In-house GPU infra evaluated from 2031 once volume justifies capex.</div>
+          </div>
+        </div>
+
+        <!-- Risk 4: MD Status Changes -->
+        <div class="risk-row">
+          <div class="risk-cell risk-cell-num" style="color:var(--cost-text); opacity:.25;">4</div>
+          <div class="risk-cell">
+            <div class="risk-cell-title">MD Status Benefits Change</div>
+            <div class="risk-cell-desc">MDEC revises tax incentives, grants, or eligibility. Criteria have changed ~7 times in 5 years.</div>
+          </div>
+          <div class="risk-cell"><span class="risk-badge medium">Medium</span></div>
+          <div class="risk-cell"><span class="risk-badge high">High</span></div>
+          <div class="risk-cell">
+            <div class="risk-mit"><strong>QCXIS is viable without MD incentives</strong> &mdash; RM 2.78M net profit stands on its own. MD accelerates but doesn't enable. Pre-consultation in 2028 confirms terms before applying.</div>
+          </div>
+        </div>
+
+        <!-- Risk 5: External Customer Market -->
+        <div class="risk-row">
+          <div class="risk-cell risk-cell-num" style="color:var(--warn); opacity:.25;">5</div>
+          <div class="risk-cell">
+            <div class="risk-cell-title">External Market Penetration</div>
+            <div class="risk-cell-desc">HR &amp; Portrait struggle to win customers against established systems in medium-sized businesses.</div>
+          </div>
+          <div class="risk-cell"><span class="risk-badge med-hi">Med&ndash;High</span></div>
+          <div class="risk-cell"><span class="risk-badge medium">Medium</span></div>
+          <div class="risk-cell">
+            <div class="risk-mit"><strong>Targeting micro-SMEs without existing systems</strong> &mdash; not displacing incumbents. 105 customers by 2031 = 0.03% of ~307k market. Fee revenue alone sustains QCXIS through 2028 if SaaS lags.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="risk-note">
+        <strong>Stress-tested:</strong> All risks above are modelled in the Extended scenario (12-month slip on all growth targets). Cash never goes negative &mdash; lowest point RM 109,518 at Jun 2026.
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════
+       SLIDE 9 — CAPITAL & REPAYMENT PLAN
+       ══════════════════════════════════════════════════════════ -->
+  <div class="slide" id="slide-9" data-slide="9">
     <div class="s-inner">
       <div class="eyebrow">Funding the Runway &amp; Hardware Settlement</div>
       <h2 class="slide-title">Paid-Up Capital &amp; <em>Repayment Plan</em></h2>
@@ -1296,79 +1543,94 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
   </div>
 
   <!-- ══════════════════════════════════════════════════════════
-       SLIDE 9 — WHAT NEEDS APPROVAL
+       SLIDE 10 — WHAT NEEDS APPROVAL
        ══════════════════════════════════════════════════════════ -->
-  <div class="slide" id="slide-9" data-slide="9">
+  <div class="slide" id="slide-10" data-slide="10">
     <div class="s-inner">
-      <div class="eyebrow">For Board Decision</div>
+      <div class="eyebrow">For Board Resolution</div>
       <h2 class="slide-title">What Needs <em>Approval</em></h2>
       <hr class="section-rule">
 
-      <p class="approval-intro">
-        The following items from this presentation require board and MD-level review and endorsement to proceed. Each item is foundational to QCXIS Sdn Bhd's operations and strategic trajectory.
-      </p>
+
 
       <div class="approval-grid">
-        <!-- Item 1 -->
+        <!-- Item 1 — Strategic Direction -->
         <div class="appr-card a1">
           <div class="appr-num">1</div>
           <div class="appr-icon">🌐</div>
           <div class="appr-title">Vision &amp; Mission</div>
-          <p class="appr-desc">
-            Formal endorsement of QCXIS's stated vision and mission as the company's official strategic direction.
-          </p>
+          <p class="appr-desc">Adopt QCXIS's stated strategic direction as a long-term SaaS ecosystem within QC Group.</p>
           <ul class="appr-items">
-            <li>Confirm target market definition</li>
-            <li>Approve long-term positioning as a SaaS ecosystem</li>
+            <li>Confirm target market: QC-linked outlets + external micro-SMEs</li>
+            <li>Endorse long-term positioning as a SaaS ecosystem</li>
             <li>Align with QC Group's broader strategic intent</li>
           </ul>
         </div>
 
-        <!-- Item 2 -->
+        <!-- Item 2 — Execution Plan -->
         <div class="appr-card a2">
           <div class="appr-num">2</div>
           <div class="appr-icon">🗺️</div>
-          <div class="appr-title">Roadmap</div>
-          <p class="appr-desc">
-            Approval of the 6-year roadmap (2026–2031) covering product launches, hiring milestones, and MD Status pursuit.
-          </p>
+          <div class="appr-title">6-Year Roadmap (2026&ndash;2031)</div>
+          <p class="appr-desc">Approve the execution plan spanning module launches, MD Status pursuit, and infrastructure transition.</p>
           <ul class="appr-items">
-            <li>Module launch sequence and timeline</li>
-            <li>MD Status application plan (Q2–Q3 2028)</li>
-            <li>Staffing ramp: 2 → 5 → up to 6 staff</li>
-            <li>Infrastructure ownership transition plan</li>
+            <li>Module launch sequence &amp; timeline</li>
+            <li>MD Status application window (Q2&ndash;Q3 2028)</li>
+            <li>Staffing ramp: 2 &rarr; 5 &rarr; up to 6 staff</li>
+            <li>AWS &rarr; in-house infra transition (re-evaluated 2031+)</li>
           </ul>
         </div>
 
-        <!-- Item 3 -->
+        <!-- Item 3 — Capital Structure -->
         <div class="appr-card a3">
           <div class="appr-num">3</div>
-          <div class="appr-icon">💼</div>
-          <div class="appr-title">Salary &amp; Increment</div>
-          <p class="appr-desc">
-            Approval of the compensation structure and planned salary increments for all QCXIS staff.
-          </p>
+          <div class="appr-icon">🏦</div>
+          <div class="appr-title">Capital Structure</div>
+          <p class="appr-desc">Confirm paid-up equity and the hardware repayment schedule. No further capital call required through 2031.</p>
           <ul class="appr-items">
-            <li>CEO &amp; DCEO: RM 3k (Jun 2026) &rarr; RM 3.9k (Mar 2027) &rarr; <strong>RM 5,000 for CEO &amp; DCEO (MD Status)</strong> &mdash; revenue-milestone driven; lands Aug 2027 under Optimum</li>
-            <li>Dev Transfer (Akmal): RM 2,200 &middot; Dev New Hire (Iffat): RM 2,000 &middot; <strong>joining Aug 2026 (Optimum)</strong></li>
-            <li>IT Operations: RM 1,900 (Jan 2027)</li>
-            <li>AI Usage &amp; Research: <strong>RM 1,200/mo</strong> recurring OPEX from Jun 2026</li>
-            <li>5% annual increment for all roles from Jan 2028</li>
-            <li>RM 100,000 paid-up share capital (recorded at incorporation)</li>
-            <li>Allowances: RM 450/mo &middot; Insurance: RM 150/mo/staff</li>
+            <li><strong>RM 100,000</strong> paid-up share capital at incorporation</li>
+            <li><strong>RM 14,499.99</strong> hardware obligation to QC Group</li>
+            <li>Repayment deferred to Jan 2028 &middot; clears Aug 2028</li>
+            <li>No additional capital call through 2031</li>
+          </ul>
+        </div>
+
+        <!-- Item 4 — Compensation Framework -->
+        <div class="appr-card a4">
+          <div class="appr-num">4</div>
+          <div class="appr-icon">💼</div>
+          <div class="appr-title">Compensation Framework</div>
+          <p class="appr-desc">Adopt the salary bands, progression triggers, and recurring staff costs &mdash; framework, not individual line items.</p>
+          <ul class="appr-items">
+            <li>CEO/DCEO band: RM 3.0k &rarr; 3.9k &rarr; <strong>RM 5.0k on MD Status trigger</strong></li>
+            <li>Developer &amp; IT Ops bands per offer letters (Aug 2026, Jan 2027)</li>
+            <li><strong>5% annual increment</strong> for all roles from Jan 2028</li>
+            <li>Allowances RM 450/mo &middot; Insurance RM 150/mo/staff</li>
+            <li>AI Usage &amp; Research OPEX: <strong>RM 1,200/mo</strong> recurring</li>
           </ul>
         </div>
       </div>
 
-      <div class="approval-footer">
-        <div>
-          <div class="apf-label">Presented by</div>
-          <div class="apf-note">QCXIS Sdn Bhd</div>
-        </div>
-        <div class="apf-tags">
-          <span class="tag tag-muted">April 2026</span>
-        </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════
+       SLIDE 11 — THANK YOU
+       ══════════════════════════════════════════════════════════ -->
+  <div class="slide" id="slide-11" data-slide="11">
+    <div class="s-inner" style="display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:16px;">
+      <div class="cover-brand">
+        <img src="data:image/png;base64,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JAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJOcugcEAAAGRSURBVAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAkJAAAQEICAAAk9P+/3X9nqSyvWgAAAABJRU5ErkJggg==" alt="QCXIS logo">
       </div>
+      <h2 class="slide-title" style="font-size: clamp(28px, 4.5vw, 46px);">Thank <em>You</em></h2>
+      <p style="font-size:14px; color:var(--muted); max-width:480px; line-height:1.6;">
+        QCXIS Sdn Bhd &middot; April 2026
+      </p>
+      <div class="cover-divider" style="margin:8px 0;"></div>
+      <p style="font-size:12px; color:var(--muted); letter-spacing:.03em;">
+        Questions &amp; Discussion
+      </p>
     </div>
   </div>
 
@@ -1380,7 +1642,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 <div class="nav-bar" id="navBar">
   <button class="nav-btn" id="btnPrev" onclick="navigate(-1)" disabled>← Prev</button>
   <div class="nav-mid">
-    <div class="nav-counter" id="navCounter">1 / 9</div>
+    <div class="nav-counter" id="navCounter">1 / 11</div>
     <div class="dots" id="dots"></div>
   </div>
   <button class="nav-btn" id="btnNext" onclick="navigate(1)">Next →</button>
@@ -1393,7 +1655,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 // ══════════════════════════════════════
 // SLIDES STATE
 // ══════════════════════════════════════
-const TOTAL = 9;
+const TOTAL = 11;
 let current = 1;
 
 const slides = [];
@@ -1415,9 +1677,9 @@ function updateNav() {
   document.getElementById('btnNext').disabled = current === TOTAL;
   dotEls.forEach((d, i) => d.classList.toggle('active', i + 1 === current));
 
-  // Slide 1 dark nav override
+  // Slide 1 & 11 dark nav override
   const nb = document.getElementById('navBar');
-  if (current === 1) {
+  if (current === 1 || current === TOTAL) {
     nb.style.background = '#0e1322';
     nb.style.borderColor = 'rgba(255,255,255,.08)';
     document.getElementById('navCounter').style.color = 'rgba(255,255,255,.4)';
