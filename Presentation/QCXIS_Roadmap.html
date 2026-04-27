@@ -1,0 +1,1441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QCXIS — Detailed Roadmap 2026–2031</title>
+<link rel="icon" type="image/png" href="../cx-01.png">
+<link rel="shortcut icon" type="image/png" href="../cx-01.png">
+<link rel="apple-touch-icon" href="../cx-01.png">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,600&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ════════════════════════════════════════════════════════════
+   DESIGN TOKENS
+   ════════════════════════════════════════════════════════════ */
+:root {
+  --bg: #f5f6f8; --white: #fff; --border: #dfe2e8; --border2: #cdd2db;
+  --text: #161b2e; --body: #3b4460; --muted: #8590a6;
+  --accent: #0a7b6c; --accent-l: #e6f4f2;
+  --accent2: #1d4ed8; --accent2-l: #eff4ff;
+  --warn: #b45309; --warn-l: #fef3e2;
+  --staff: #7c3aed; --staff-l: #f5f3ff;
+  --hr: #0891b2; --hr-l: #ecfeff;
+  --rev: #16a34a; --rev-l: #dcfce7;
+  --cap: #db2777; --cap-l: #fce7f3;
+  --y26: #1d4ed8; --y27: #b45309; --y28: #0a7b6c;
+  --y29: #7c3aed; --y30: #dc2626; --y31: #0891b2;
+  --done: #0a7b6c; --inprog: #1d4ed8; --plan: #8590a6;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html, body {
+  background: var(--bg); font-family: 'DM Sans', sans-serif;
+  color: var(--text); font-size: 14px; line-height: 1.5;
+  scroll-behavior: smooth;
+}
+
+.page {
+  max-width: 1480px; margin: 0 auto; padding: 28px 32px 80px;
+}
+
+/* ════════════════════════════════════════════════════════════
+   HEADER
+   ════════════════════════════════════════════════════════════ */
+.header {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  padding-bottom: 18px; margin-bottom: 24px;
+  border-bottom: 2px solid var(--text);
+}
+.eyebrow {
+  font-size: 10px; font-weight: 700; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 6px;
+}
+.header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(26px, 3.6vw, 38px); line-height: 1.15;
+  font-weight: 600;
+}
+.header h1 em { font-style: italic; color: var(--accent); }
+.header-sub { font-size: 13px; color: var(--muted); margin-top: 6px; max-width: 720px; line-height: 1.5; }
+.header-right { text-align: right; display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+.header-date { font-size: 11px; color: var(--muted); }
+.header-tag {
+  display: inline-block; font-size: 9px; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+  background: var(--accent-l); color: var(--accent);
+  padding: 4px 9px; border-radius: 3px;
+}
+.back-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 11px; font-weight: 600; letter-spacing: .03em;
+  padding: 7px 12px;
+  background: var(--white); color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  text-decoration: none;
+  transition: all .15s ease;
+}
+.back-btn:hover { background: var(--text); color: #fff; border-color: var(--text); }
+.back-btn svg { width: 12px; height: 12px; }
+
+/* ════════════════════════════════════════════════════════════
+   SCENARIO + LEGEND BAR
+   ════════════════════════════════════════════════════════════ */
+.legend-bar {
+  display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center;
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 7px; padding: 12px 16px; margin-bottom: 20px;
+}
+.lg-label {
+  font-size: 9px; font-weight: 700; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--muted);
+}
+.lg-item {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 11px; color: var(--body);
+}
+.lg-swatch {
+  width: 12px; height: 8px; border-radius: 2px;
+  border: 1px solid var(--border);
+}
+.lg-swatch.ms { background: var(--accent-l); border-color: var(--accent); }
+.lg-swatch.warn { background: var(--warn-l); border-color: var(--warn); }
+.lg-swatch.done { background: var(--done); border-color: var(--done); }
+.lg-swatch.inprog { background: var(--inprog); border-color: var(--inprog); }
+.lg-swatch.plan { background: var(--white); border-color: var(--plan); }
+
+/* ════════════════════════════════════════════════════════════
+   FILTER BAR
+   ════════════════════════════════════════════════════════════ */
+.filters {
+  display: grid; grid-template-columns: auto 1fr auto; gap: 14px; align-items: center;
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 7px; padding: 14px 16px; margin-bottom: 18px;
+  position: sticky; top: 0; z-index: 50;
+  box-shadow: 0 1px 3px rgba(17,24,39,.04);
+}
+.f-group { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.f-label {
+  font-size: 9px; font-weight: 700; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--muted);
+}
+.chip {
+  font-size: 11px; font-weight: 600; letter-spacing: .02em;
+  padding: 5px 10px; border-radius: 4px;
+  background: var(--bg); color: var(--body);
+  border: 1px solid var(--border);
+  cursor: pointer; transition: all .15s ease;
+  user-select: none;
+}
+.chip:hover { background: var(--white); border-color: var(--border2); }
+.chip.active { background: var(--text); color: #fff; border-color: var(--text); }
+.chip.lane-product.active  { background: #1f2937; border-color: #1f2937; }
+.chip.lane-people.active   { background: var(--staff); border-color: var(--staff); }
+.chip.lane-infra.active    { background: var(--hr); border-color: var(--hr); }
+.chip.lane-comply.active   { background: var(--accent); border-color: var(--accent); }
+.chip.lane-revenue.active  { background: var(--rev); border-color: var(--rev); }
+.chip.lane-capital.active  { background: var(--cap); border-color: var(--cap); }
+.chip.year-y26.active { background: var(--y26); border-color: var(--y26); }
+.chip.year-y27.active { background: var(--y27); border-color: var(--y27); }
+.chip.year-y28.active { background: var(--y28); border-color: var(--y28); }
+.chip.year-y29.active { background: var(--y29); border-color: var(--y29); }
+.chip.year-y30.active { background: var(--y30); border-color: var(--y30); }
+.chip.year-y31.active { background: var(--y31); border-color: var(--y31); }
+.f-reset {
+  font-size: 10px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase;
+  background: none; border: none; cursor: pointer; color: var(--muted);
+  padding: 6px 10px;
+}
+.f-reset:hover { color: var(--text); }
+.f-count {
+  font-size: 11px; color: var(--muted);
+  white-space: nowrap;
+}
+.f-count strong { color: var(--text); font-weight: 700; }
+
+/* ════════════════════════════════════════════════════════════
+   GANTT
+   ════════════════════════════════════════════════════════════ */
+.section {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 9px; padding: 18px 18px 14px; margin-bottom: 22px;
+  box-shadow: 0 1px 2px rgba(17,24,39,.03);
+}
+.section-h {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding-bottom: 12px; margin-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+}
+.section-h h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px; font-weight: 600; color: var(--text);
+}
+.section-h h2 em { font-style: italic; color: var(--accent); }
+.section-h .section-sub {
+  font-size: 11px; color: var(--muted);
+}
+
+/* Wider, taller, scrollable canvas */
+.gantt {
+  position: relative;
+  overflow-x: auto;
+  border-radius: 6px;
+  /* subtle scroll hint */
+  background:
+    linear-gradient(to right, var(--white) 30%, rgba(255,255,255,0)) left center / 24px 100% no-repeat,
+    linear-gradient(to left,  var(--white) 30%, rgba(255,255,255,0)) right center / 24px 100% no-repeat,
+    linear-gradient(to right, rgba(0,0,0,.06), rgba(0,0,0,0)) left center / 12px 100% no-repeat,
+    linear-gradient(to left,  rgba(0,0,0,.06), rgba(0,0,0,0)) right center / 12px 100% no-repeat;
+  background-attachment: local, local, scroll, scroll;
+}
+.gantt-inner {
+  min-width: 2300px;          /* ~100px / quarter -> generous room for labels */
+}
+.g-row {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 0;
+  border-bottom: 1px solid var(--border);
+  align-items: stretch;
+  position: relative;
+}
+.g-row:last-child { border-bottom: none; }
+
+/* Year/quarter header */
+.g-header-y {
+  display: grid;
+  grid-template-columns: 220px repeat(23, 1fr);
+  gap: 0;
+  border-bottom: 1px solid var(--border);
+  position: sticky; top: 0; z-index: 5;
+}
+.g-header-q {
+  display: grid;
+  grid-template-columns: 220px repeat(23, 1fr);
+  gap: 0;
+  border-bottom: 1.5px solid var(--text);
+  margin-bottom: 4px;
+  position: sticky; top: 30px; z-index: 5; background: var(--white);
+}
+.g-corner { padding: 6px 10px; }
+.g-year-cell {
+  font-family: 'Playfair Display', serif;
+  font-size: 14px; font-weight: 600;
+  text-align: center; padding: 8px 0 6px; color: #fff;
+  border-right: 1px solid rgba(255,255,255,.25);
+  letter-spacing: .01em;
+}
+.g-year-cell:last-child { border-right: none; }
+.g-year-cell.y26 { background: var(--y26); }
+.g-year-cell.y27 { background: var(--y27); }
+.g-year-cell.y28 { background: var(--y28); }
+.g-year-cell.y29 { background: var(--y29); }
+.g-year-cell.y30 { background: var(--y30); }
+.g-year-cell.y31 { background: var(--y31); }
+.g-q-cell {
+  font-size: 9px; font-weight: 700; letter-spacing: .06em;
+  text-transform: uppercase; color: var(--muted);
+  text-align: center; padding: 5px 0 6px;
+  border-right: 1px solid var(--border);
+}
+.g-q-cell:last-child { border-right: none; }
+.g-q-cell.q1 { border-left: 1.5px solid var(--border2); }
+
+/* Lane label column */
+.g-lane-label {
+  display: flex; align-items: center; gap: 10px;
+  padding: 14px 14px 14px 8px;
+  font-size: 13px; font-weight: 600;
+  color: var(--text);
+  border-right: 1px solid var(--border);
+  background: var(--white);
+  position: sticky; left: 0; z-index: 4;
+  box-shadow: 1px 0 0 var(--border);
+}
+.g-lane-label-text { display: flex; flex-direction: column; gap: 2px; line-height: 1.15; }
+.g-lane-tag { font-size: 9px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.g-lane-icon {
+  width: 28px; height: 28px; flex-shrink: 0; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  color: #fff;
+}
+.g-lane-icon svg { width: 13px; height: 13px; }
+.g-lane-icon.i-product  { background: #1f2937; }
+.g-lane-icon.i-people   { background: var(--staff); }
+.g-lane-icon.i-infra    { background: var(--hr); }
+.g-lane-icon.i-comply   { background: var(--accent); }
+.g-lane-icon.i-revenue  { background: var(--rev); }
+.g-lane-icon.i-capital  { background: var(--cap); }
+
+/* Track now stacks N sub-rows of items so concurrent bars never overlap */
+.g-track {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(23, 1fr);
+  /* grid-template-rows set inline per lane */
+  grid-auto-rows: 44px;
+  row-gap: 6px;
+  padding: 8px 0;
+  align-items: stretch;
+}
+/* Quarter gridlines */
+.g-track::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(to right, var(--border) 1px, transparent 1px);
+  background-size: calc(100% / 23) 100%;
+  pointer-events: none;
+}
+/* Year boundary gridlines (variable widths: 2026=3 quarters, others=4) */
+.g-track::after {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(var(--border2), var(--border2)) calc(3 * 100% / 23) 0 / 1.5px 100% no-repeat,
+    linear-gradient(var(--border2), var(--border2)) calc(7 * 100% / 23) 0 / 1.5px 100% no-repeat,
+    linear-gradient(var(--border2), var(--border2)) calc(11 * 100% / 23) 0 / 1.5px 100% no-repeat,
+    linear-gradient(var(--border2), var(--border2)) calc(15 * 100% / 23) 0 / 1.5px 100% no-repeat,
+    linear-gradient(var(--border2), var(--border2)) calc(19 * 100% / 23) 0 / 1.5px 100% no-repeat;
+  pointer-events: none;
+}
+
+/* Bars — taller, two lines (name + dates) */
+.g-bar {
+  position: relative;
+  height: 40px;
+  margin: 0 3px;
+  border-radius: 5px;
+  background: var(--bg);
+  border: 1px solid var(--border2);
+  border-left-width: 4px;
+  color: var(--body);
+  padding: 4px 9px;
+  display: flex; flex-direction: column; justify-content: center; gap: 2px;
+  overflow: hidden;
+  cursor: pointer;
+  z-index: 2;
+  transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+}
+.g-bar:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(17,24,39,.14);
+  z-index: 4;
+}
+.g-bar-name {
+  font-size: 11.5px; font-weight: 600; line-height: 1.15;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  display: flex; align-items: center; gap: 5px;
+}
+.g-bar-dates {
+  font-size: 9.5px; font-weight: 500; letter-spacing: .02em;
+  opacity: .82;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  display: flex; align-items: center; gap: 4px;
+}
+.g-bar-dates .arrow { opacity: .55; }
+
+/* Lane theming */
+.g-bar.lane-product  { background: #f3f4f6; border-color: #4b5563; color: #1f2937; }
+.g-bar.lane-people   { background: var(--staff-l); border-color: var(--staff); color: var(--staff); }
+.g-bar.lane-infra    { background: var(--hr-l); border-color: var(--hr); color: var(--hr); }
+.g-bar.lane-comply   { background: var(--accent-l); border-color: var(--accent); color: var(--accent); }
+.g-bar.lane-revenue  { background: var(--rev-l); border-color: var(--rev); color: var(--rev); }
+.g-bar.lane-capital  { background: var(--cap-l); border-color: var(--cap); color: var(--cap); }
+.g-bar.ms {
+  box-shadow: 0 0 0 1px currentColor inset, 0 1px 4px rgba(0,0,0,.08);
+}
+.g-bar.ms .g-bar-name::before {
+  content: '◆'; font-size: 10px; opacity: .9;
+}
+.g-bar.warn { background: var(--warn-l); border-color: var(--warn); color: var(--warn); }
+.g-bar.warn .g-bar-name::before { content: '⚠'; font-size: 10px; }
+.g-bar.done .g-bar-name::before { content: '✓'; font-weight: 800; }
+.g-bar.inprog .g-bar-name::before { content: '●'; font-size: 9px; }
+.g-bar.hidden { display: none; }
+
+/* Status dot in corner */
+.g-bar-status {
+  position: absolute; top: 4px; right: 5px;
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--plan);
+}
+.g-bar.done .g-bar-status   { background: var(--done); }
+.g-bar.inprog .g-bar-status { background: var(--inprog); }
+
+/* Single-quarter milestone — keep room for label by making it a thin pill, not a dot */
+.g-bar.point {
+  align-items: flex-start;
+}
+
+/* Nested child bars (e.g. Helpdesk / Cashbook under Franchise Module) */
+.g-bar.child {
+  height: 34px;
+  margin-left: 14px;
+  border-left-width: 3px;
+  opacity: .92;
+}
+.g-bar.child .g-bar-name { font-size: 10.5px; }
+.g-bar.child .g-bar-name::before { content: '↳'; opacity: .7; margin-right: 2px; font-weight: 500; }
+.g-bar.child.ms .g-bar-name::before { content: '↳ ◆'; }
+.g-bar.child.warn .g-bar-name::before { content: '↳ ⚠'; }
+.g-bar.child.done .g-bar-name::before { content: '↳ ✓'; }
+.g-bar.child.inprog .g-bar-name::before { content: '↳ ●'; }
+
+/* Status pill (used in modal) */
+.status-pill {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 10px; font-weight: 700; letter-spacing: .04em;
+  padding: 3px 8px; border-radius: 12px;
+  text-transform: uppercase;
+}
+.status-pill.done { background: var(--accent-l); color: var(--accent); }
+.status-pill.inprog { background: var(--accent2-l); color: var(--accent2); }
+.status-pill.plan { background: var(--bg); color: var(--muted); border: 1px solid var(--border); }
+
+/* ════════════════════════════════════════════════════════════
+   UPCOMING — 9-month plan
+   ════════════════════════════════════════════════════════════ */
+.upcoming {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 14px;
+}
+.month-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-top: 4px solid var(--accent);
+  border-radius: 8px;
+  padding: 16px 16px 14px;
+  display: flex; flex-direction: column;
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.month-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(17,24,39,.08);
+}
+.month-card.now { border-top-color: var(--accent2); background: linear-gradient(180deg, var(--accent2-l) 0%, var(--white) 60%); }
+.month-card.milestone { border-top-color: var(--y26); }
+.month-card.milestone-warm { border-top-color: var(--y27); }
+.month-card.review { border-top-color: var(--staff); }
+.month-card.year-end { border-top-color: var(--y28); }
+
+.month-head {
+  display: flex; justify-content: space-between; align-items: baseline;
+  margin-bottom: 12px; padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+.month-head-l { display: flex; align-items: baseline; gap: 8px; }
+.month-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px; font-weight: 600;
+  color: var(--text);
+  line-height: 1;
+}
+.month-num em { font-style: italic; color: var(--accent); }
+.month-year {
+  font-size: 10px; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--muted);
+}
+.month-tag {
+  font-size: 8.5px; font-weight: 700; letter-spacing: .12em;
+  text-transform: uppercase;
+  padding: 3px 7px; border-radius: 3px;
+  background: var(--bg); color: var(--muted);
+}
+.month-card.now .month-tag { background: var(--accent2-l); color: var(--accent2); }
+.month-card.milestone .month-tag { background: var(--accent-l); color: var(--accent); }
+.month-card.milestone-warm .month-tag { background: var(--warn-l); color: var(--warn); }
+.month-card.review .month-tag { background: var(--staff-l); color: var(--staff); }
+.month-card.year-end .month-tag { background: rgba(10,123,108,.12); color: var(--y28); }
+
+.month-list {
+  list-style: none;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.month-item {
+  display: grid;
+  grid-template-columns: 18px 1fr;
+  gap: 8px;
+  font-size: 12.5px;
+  color: var(--body);
+  line-height: 1.5;
+}
+.month-item-icon {
+  width: 16px; height: 16px; border-radius: 4px;
+  background: var(--bg);
+  display: inline-flex; align-items: center; justify-content: center;
+  color: var(--muted);
+  margin-top: 2px;
+  font-size: 9px; font-weight: 700;
+}
+.month-item-icon.lane-product { background: #f3f4f6; color: #1f2937; }
+.month-item-icon.lane-people  { background: var(--staff-l); color: var(--staff); }
+.month-item-icon.lane-infra   { background: var(--hr-l); color: var(--hr); }
+.month-item-icon.lane-comply  { background: var(--accent-l); color: var(--accent); }
+.month-item-icon.lane-revenue { background: var(--rev-l); color: var(--rev); }
+.month-item-icon.lane-capital { background: var(--cap-l); color: var(--cap); }
+.month-item-text strong { font-weight: 600; color: var(--text); }
+.month-item-text .note {
+  display: block;
+  font-size: 11px; color: var(--muted); margin-top: 2px;
+}
+
+/* ════════════════════════════════════════════════════════════
+   MODAL
+   ════════════════════════════════════════════════════════════ */
+.modal-backdrop {
+  position: fixed; inset: 0;
+  background: rgba(15,18,32,.55);
+  display: none; align-items: center; justify-content: center;
+  z-index: 200;
+  padding: 20px;
+}
+.modal-backdrop.open { display: flex; }
+.modal {
+  background: var(--white); border-radius: 10px;
+  width: 100%; max-width: 580px;
+  max-height: 88vh; overflow-y: auto;
+  box-shadow: 0 12px 40px rgba(0,0,0,.25);
+}
+.modal-h {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  padding: 20px 24px 14px; border-bottom: 1px solid var(--border);
+}
+.modal-h-l { flex: 1; }
+.modal-eyebrow {
+  font-size: 9px; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 6px;
+  display: flex; gap: 6px; flex-wrap: wrap; align-items: center;
+}
+.modal-eyebrow .pill {
+  padding: 2px 7px; border-radius: 3px; font-size: 8.5px;
+}
+.modal-eyebrow .pill.lane-product  { background: #f3f4f6; color: #1f2937; }
+.modal-eyebrow .pill.lane-people   { background: var(--staff-l); color: var(--staff); }
+.modal-eyebrow .pill.lane-infra    { background: var(--hr-l); color: var(--hr); }
+.modal-eyebrow .pill.lane-comply   { background: var(--accent-l); color: var(--accent); }
+.modal-eyebrow .pill.lane-revenue  { background: var(--rev-l); color: var(--rev); }
+.modal-eyebrow .pill.lane-capital  { background: var(--cap-l); color: var(--cap); }
+.modal-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px; font-weight: 600; color: var(--text); line-height: 1.2;
+}
+.modal-close {
+  background: none; border: 1px solid var(--border);
+  width: 32px; height: 32px; border-radius: 6px;
+  font-size: 18px; cursor: pointer; color: var(--muted);
+  display: inline-flex; align-items: center; justify-content: center;
+  transition: all .15s ease;
+}
+.modal-close:hover { background: var(--text); color: #fff; border-color: var(--text); }
+.modal-body { padding: 18px 24px 24px; }
+.modal-grid {
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px;
+  padding: 14px 16px; background: var(--bg);
+  border-radius: 7px; margin-bottom: 16px;
+}
+.modal-field-l {
+  font-size: 9px; font-weight: 700; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 3px;
+}
+.modal-field-v {
+  font-size: 13px; color: var(--text); font-weight: 500;
+}
+.modal-section {
+  margin-bottom: 16px;
+}
+.modal-section h4 {
+  font-size: 10px; font-weight: 700; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 8px;
+}
+.modal-section p {
+  font-size: 13px; color: var(--body); line-height: 1.6;
+}
+.modal-list {
+  list-style: none;
+}
+.modal-list li {
+  font-size: 12.5px; color: var(--body); line-height: 1.5;
+  padding: 6px 0 6px 18px; position: relative;
+  border-bottom: 1px solid var(--border);
+}
+.modal-list li:last-child { border-bottom: none; }
+.modal-list li::before {
+  content: '▸'; position: absolute; left: 4px; top: 6px;
+  color: var(--muted); font-size: 10px;
+}
+.modal-list.risks li::before { content: '⚠'; color: var(--warn); }
+
+/* ════════════════════════════════════════════════════════════
+   FOOTER
+   ════════════════════════════════════════════════════════════ */
+.footer {
+  margin-top: 40px; padding-top: 18px;
+  border-top: 1px solid var(--border);
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 10.5px; color: var(--muted);
+}
+.footer a { color: var(--accent); text-decoration: none; font-weight: 600; }
+.footer a:hover { text-decoration: underline; }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .filters { grid-template-columns: 1fr; }
+  .header { flex-direction: column; gap: 14px; }
+  .header-right { align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ═════════════════════════════════════════
+       HEADER
+       ═════════════════════════════════════════ -->
+  <div class="header">
+    <div>
+      <div class="eyebrow">QCXIS Sdn Bhd · Detailed Roadmap</div>
+      <h1>Roadmap <em>2026 – 2031</em></h1>
+      <div class="header-sub">
+        Quarter-by-quarter expansion of the four roadmap lanes — Product, People, Infrastructure, Compliance &amp; Growth — plus revenue stream activations and capital events. Each item lists planned start, deploy date, owner, dependencies, and tied risks.
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="header-date">As of April 2026 · Optimum Scenario</div>
+      <span class="header-tag">Internal Use Only</span>
+      <a class="back-btn" href="#" onclick="event.preventDefault(); if (history.length > 1) { history.back(); } else { window.location.href = 'QCXIS_Presentation.html'; }">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+        Back
+      </a>
+    </div>
+  </div>
+
+  <!-- ═════════════════════════════════════════
+       LEGEND
+       ═════════════════════════════════════════ -->
+  <div class="legend-bar">
+    <span class="lg-label">Legend</span>
+    <span class="lg-item"><span class="lg-swatch ms"></span>Milestone</span>
+    <span class="lg-item"><span class="lg-swatch warn"></span>Trigger / Critical</span>
+    <span class="lg-item"><span class="lg-swatch done"></span>Done</span>
+    <span class="lg-item"><span class="lg-swatch inprog"></span>In progress</span>
+    <span class="lg-item"><span class="lg-swatch plan"></span>Planned</span>
+  </div>
+
+  <!-- ═════════════════════════════════════════
+       FILTER BAR
+       ═════════════════════════════════════════ -->
+  <div class="filters">
+    <div class="f-group">
+      <span class="f-label">Lanes</span>
+      <span class="chip lane-product active" data-lane="product">Product</span>
+      <span class="chip lane-people active" data-lane="people">People</span>
+      <span class="chip lane-infra active" data-lane="infra">Infra</span>
+      <span class="chip lane-comply active" data-lane="comply">Compliance</span>
+      <span class="chip lane-revenue active" data-lane="revenue">Revenue</span>
+      <span class="chip lane-capital active" data-lane="capital">Capital</span>
+    </div>
+    <div class="f-group">
+      <span class="f-label">Years</span>
+      <span class="chip year-y26 active" data-year="2026">2026</span>
+      <span class="chip year-y27 active" data-year="2027">2027</span>
+      <span class="chip year-y28 active" data-year="2028">2028</span>
+      <span class="chip year-y29 active" data-year="2029">2029</span>
+      <span class="chip year-y30 active" data-year="2030">2030</span>
+      <span class="chip year-y31 active" data-year="2031">2031</span>
+      <button class="f-reset" id="resetFilters">Reset</button>
+    </div>
+    <div class="f-count"><strong id="fcVisible">0</strong> of <strong id="fcTotal">0</strong> items</div>
+  </div>
+
+  <!-- ═════════════════════════════════════════
+       GANTT OVERVIEW
+       ═════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-h">
+      <div>
+        <h2>Roadmap <em>Gantt</em></h2>
+        <div class="section-sub">Each bar shows planned start → deploy and the responsible owner · click for full detail · scroll horizontally to traverse 2026–2031</div>
+      </div>
+    </div>
+    <div class="gantt">
+      <div class="gantt-inner">
+        <!-- Year header -->
+        <div class="g-header-y">
+          <div class="g-corner"></div>
+          <div class="g-year-cell y26" style="grid-column: span 3">2026</div>
+          <div class="g-year-cell y27" style="grid-column: span 4">2027</div>
+          <div class="g-year-cell y28" style="grid-column: span 4">2028</div>
+          <div class="g-year-cell y29" style="grid-column: span 4">2029</div>
+          <div class="g-year-cell y30" style="grid-column: span 4">2030</div>
+          <div class="g-year-cell y31" style="grid-column: span 4">2031</div>
+        </div>
+        <!-- Quarter header -->
+        <div class="g-header-q">
+          <div class="g-corner"></div>
+          <!-- 23 quarters generated by JS (Q1 2026 omitted) -->
+          <div id="qHeaders" style="display:contents"></div>
+        </div>
+
+        <!-- Lane rows generated by JS -->
+        <div id="ganttRows"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═════════════════════════════════════════
+       UPCOMING — May 2026 → Jan 2027
+       ═════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-h">
+      <div>
+        <h2>Upcoming <em>9-Month Plan</em></h2>
+        <div class="section-sub">Month-by-month execution plan from May 2026 through January 2027 · highest-confidence near-term outlook</div>
+      </div>
+      <div class="section-sub" style="text-align:right">As of April 2026 · 9 months</div>
+    </div>
+    <div class="upcoming" id="upcomingMonths"></div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div>QCXIS Sdn Bhd · Detailed Roadmap · Generated April 2026</div>
+    <div><a href="https://team.qcxis.com/" target="_blank" rel="noopener noreferrer">Team Portal ↗</a></div>
+  </div>
+
+</div>
+
+<!-- ═════════════════════════════════════════
+     MODAL
+     ═════════════════════════════════════════ -->
+<div class="modal-backdrop" id="modal">
+  <div class="modal" id="modalContent">
+    <div class="modal-h">
+      <div class="modal-h-l">
+        <div class="modal-eyebrow" id="mEyebrow"></div>
+        <div class="modal-title" id="mTitle"></div>
+      </div>
+      <button class="modal-close" id="mClose" aria-label="Close">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-grid">
+        <div>
+          <div class="modal-field-l">Start</div>
+          <div class="modal-field-v" id="mStart"></div>
+        </div>
+        <div>
+          <div class="modal-field-l">Deploy / Complete</div>
+          <div class="modal-field-v" id="mEnd"></div>
+        </div>
+        <div>
+          <div class="modal-field-l">Status</div>
+          <div class="modal-field-v" id="mStatus"></div>
+        </div>
+      </div>
+      <div class="modal-section">
+        <h4>Description</h4>
+        <p id="mDesc"></p>
+      </div>
+      <div class="modal-section" id="mDepsSection">
+        <h4>Dependencies</h4>
+        <ul class="modal-list" id="mDeps"></ul>
+      </div>
+      <div class="modal-section" id="mRisksSection">
+        <h4>Risks</h4>
+        <ul class="modal-list risks" id="mRisks"></ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ════════════════════════════════════════════════════════════
+// LANE METADATA
+// ════════════════════════════════════════════════════════════
+const LANES = {
+  product:  { label: 'Product',     tag: 'Module Releases',          icon: '<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>' },
+  people:   { label: 'People',      tag: 'Team & Salary',            icon: '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>' },
+  infra:    { label: 'Infra',       tag: 'Hardware & Ops',           icon: '<rect x="2" y="3" width="20" height="6" rx="1"/><rect x="2" y="15" width="20" height="6" rx="1"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/>' },
+  comply:   { label: 'Compliance',  tag: 'Certification & Growth',   icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/>' },
+  revenue:  { label: 'Revenue',     tag: 'Stream Activations',       icon: '<line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>' },
+  capital:  { label: 'Capital',     tag: 'Funding & Repayment',      icon: '<rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18"/><path d="M7 15h2"/>' }
+};
+const LANE_ORDER = ['product', 'people', 'infra', 'comply', 'revenue', 'capital'];
+const YEAR_THEMES = {
+  2026: 'Foundation & Identity',
+  2027: 'Growth & Multi-module',
+  2028: 'MD Status & Infra Independence',
+  2029: 'Scaling',
+  2030: 'Market Expansion',
+  2031: 'Maturity'
+};
+
+// ════════════════════════════════════════════════════════════
+// ROADMAP DATA — 46 items
+// startQ/endQ: 1..4 (calendar quarters)
+// status: planned | inprog | done
+// ms: milestone (highlighted) | warn: amber-critical
+// ════════════════════════════════════════════════════════════
+const ITEMS = [
+  // ─── PRODUCT ───
+  { id: 'p-franchise', lane: 'product', name: 'Franchise Module',
+    startY: 2026, startQ: 2, endY: 2026, endQ: 3, monthCallout: 'Aug 2026 fee start',
+    ms: true, status: 'inprog', owner: 'Devs (Akmal, Iffat)',
+    desc: 'Core franchise management module for QC Group outlets. Live and fee-collecting from H2 2026 — RM 1/client/month across 226 outlets at launch.',
+    deps: ['+2 Devs onboarded (Aug 2026)', 'Inter-Company Service Agreement signed'],
+    risks: ['Dev team capacity in Q2 2026 before +2 Devs join', 'Outlet onboarding pace'] },
+
+  { id: 'p-helpdesk', lane: 'product', name: 'Helpdesk / Support', parent: 'p-franchise',
+    startY: 2026, startQ: 3, endY: 2026, endQ: 4, status: 'planned', owner: 'Devs',
+    desc: 'Internal & franchise-facing ticketing/support system nested under Franchise Module. Foundation for SLA tracking once external customers come online.',
+    deps: ['Franchise Module live'],
+    risks: ['Volume forecasting accuracy ahead of OMNI/HR launch'] },
+
+  { id: 'p-cashbook', lane: 'product', name: 'Cashbook (Finance lite)', parent: 'p-franchise',
+    startY: 2026, startQ: 4, endY: 2027, endQ: 1, status: 'planned', owner: 'Devs',
+    desc: 'Daily cashbook for outlet-level finance entry, nested under Franchise Module. Precursor to the full Finance module in 2029.',
+    deps: ['Franchise Module live'],
+    risks: ['Accounting standards alignment with QC Group finance team'] },
+
+  { id: 'p-omni', lane: 'product', name: 'OMNI Module — eCommerce / Inventory',
+    startY: 2026, startQ: 3, endY: 2027, endQ: 2, ms: true, status: 'planned', owner: 'Devs + IT Ops',
+    desc: 'Unified eCommerce & inventory platform. First module to be sold open-market alongside HR and Portrait.',
+    deps: ['+IT Ops hire (Jan 2027)', 'Cashbook foundation'],
+    risks: ['Inventory edge cases', 'Multi-tenant scaling'] },
+
+  { id: 'p-hr', lane: 'product', name: 'HR Module — open-market launch',
+    startY: 2027, startQ: 2, endY: 2027, endQ: 3, ms: true, status: 'planned', owner: 'Devs',
+    desc: 'HR module released to Malaysian SME market. Target: 5 customers in 2027 → 105 by 2031.',
+    deps: ['OMNI architecture', 'DPO appointed (PDPA)'],
+    risks: ['SME sales channel still unproven', 'Pricing calibration vs. competitors'] },
+
+  { id: 'p-portrait', lane: 'product', name: 'Portrait Module — open-market launch',
+    startY: 2027, startQ: 3, endY: 2028, endQ: 1, ms: true, status: 'planned', owner: 'Devs',
+    desc: 'Portrait module commercialised. Target: 7 organisations in 2027 → 72 by 2031.',
+    deps: ['HR launch learnings', 'DPO appointed'],
+    risks: ['Niche addressable market vs. HR'] },
+
+  { id: 'p-meet', lane: 'product', name: 'MEET Module',
+    startY: 2027, startQ: 4, endY: 2028, endQ: 2, status: 'planned', owner: 'Devs',
+    desc: 'Meeting / collaboration module — internal use first, open-market after MD Status.',
+    deps: ['HR & Portrait stabilised'],
+    risks: ['Crowded market segment'] },
+
+  { id: 'p-rasci', lane: 'product', name: 'RASCI Module',
+    startY: 2028, startQ: 1, endY: 2028, endQ: 3, status: 'planned', owner: 'Devs',
+    desc: 'Responsibility-assignment matrix tool for SMEs. Lighter ICP than Portrait/HR.',
+    deps: ['MEET launched'],
+    risks: ['Demand validation'] },
+
+  { id: 'p-finance', lane: 'product', name: 'Finance (full suite)',
+    startY: 2028, startQ: 3, endY: 2029, endQ: 4, status: 'planned', owner: 'Devs + IT Ops',
+    desc: 'Complete finance suite (GL, AR/AP, reporting) replacing Cashbook. Internal-first, open-market candidate later.',
+    deps: ['Cashbook usage data', '6th hire decision'],
+    risks: ['Accounting compliance scope creep'] },
+
+  { id: 'p-expansion', lane: 'product', name: 'Expansion framework',
+    startY: 2030, startQ: 1, endY: 2030, endQ: 4, status: 'planned', owner: 'CEO + DCEO',
+    desc: 'Architecture & operational framework for regional rollout (multi-tenant, multi-currency, multi-language).',
+    deps: ['ISO 27001 certified', '8 modules stable'],
+    risks: ['Premature regional commitment without local-market validation'] },
+
+  { id: 'p-suite', lane: 'product', name: '8-module suite — milestone',
+    startY: 2031, startQ: 4, endY: 2031, endQ: 4, ms: true, status: 'planned', owner: 'CEO',
+    desc: 'All 8 modules live and stable: Franchise, Helpdesk, Cashbook→Finance, OMNI, HR, Portrait, MEET, RASCI.',
+    deps: ['All prior modules launched'],
+    risks: ['Feature-debt accumulation'] },
+
+  // ─── PEOPLE ───
+  { id: 'pe-ceo', lane: 'people', name: 'CEO & DCEO appointed',
+    startY: 2026, startQ: 2, endY: 2026, endQ: 2, monthCallout: 'Jun 2026',
+    ms: true, status: 'done', owner: 'Board',
+    desc: 'CEO (Zain) and DCEO (Sufian) formally appointed at RM 3,000/mo base. Service agreement starts Jun 2026.',
+    deps: ['QCXIS incorporation', 'RM 100k paid-up capital'],
+    risks: [] },
+
+  { id: 'pe-devs', lane: 'people', name: '+2 Developers (Akmal, Iffat)',
+    startY: 2026, startQ: 3, endY: 2026, endQ: 3, monthCallout: 'Aug 2026',
+    ms: true, status: 'done', owner: 'CEO + DCEO',
+    desc: 'Two developers onboarded in Aug 2026. Brings team to 4 (CEO, DCEO, +2 Devs). Critical for module velocity from H2 2026.',
+    deps: ['Inter-Company Service Agreement', 'Tier-1 salary support'],
+    risks: ['Capacity bottleneck before Aug 2026 onboarding completes'] },
+
+  { id: 'pe-itops', lane: 'people', name: '+IT Operations hire',
+    startY: 2027, startQ: 1, endY: 2027, endQ: 1, monthCallout: 'Jan 2027',
+    status: 'planned', owner: 'CEO',
+    desc: 'IT Operations role added — brings team to 5. Focus: deployment pipelines, monitoring, customer onboarding.',
+    deps: ['Franchise stable', 'Revenue stream visibility'],
+    risks: ['Hiring competition for ops talent in KL/SG'] },
+
+  { id: 'pe-uplift1', lane: 'people', name: 'CEO/DCEO uplift to RM 3,900',
+    startY: 2027, startQ: 1, endY: 2027, endQ: 1, monthCallout: 'Mar 2027',
+    status: 'planned', owner: 'Board',
+    desc: 'Conditional uplift — fires when Rev_Total ≥ RM 30k for 2 consecutive months. Targeted Mar 2027 under Optimum scenario.',
+    deps: ['Revenue trigger met'],
+    risks: ['Trigger may slip if franchise onboarding lags'] },
+
+  { id: 'pe-md5k', lane: 'people', name: 'CEO/DCEO uplift to RM 5,000 (MD)',
+    startY: 2028, startQ: 3, endY: 2028, endQ: 3, monthCallout: 'Aug 2028',
+    ms: true, status: 'planned', owner: 'Board',
+    desc: 'MD Status uplift — required for ≥2 knowledge workers at ≥RM 5k/mo. Triggers on MD Status approval.',
+    deps: ['MD Status approved (Q2–Q3 2028)'],
+    risks: ['MDEC approval slip pushes uplift later'] },
+
+  { id: 'pe-incr', lane: 'people', name: '+5% annual increment',
+    startY: 2028, startQ: 1, endY: 2028, endQ: 1, status: 'planned', owner: 'Board',
+    desc: 'First annual cost-of-living adjustment across the team.',
+    deps: ['2027 financial close'],
+    risks: ['OPEX growth tracked against revenue'] },
+
+  { id: 'pe-6threview', lane: 'people', name: '6th hire — capacity review',
+    startY: 2028, startQ: 4, endY: 2028, endQ: 4, status: 'planned', owner: 'CEO',
+    desc: 'Decision gate on adding a 6th team member based on 2028 module load and revenue.',
+    deps: ['MD Status secured', 'Mgmt fee step-up'],
+    risks: ['Hire too early erodes margin; too late starves Finance module'] },
+
+  { id: 'pe-6thhire', lane: 'people', name: '6th hire (optional)',
+    startY: 2029, startQ: 1, endY: 2029, endQ: 2, status: 'planned', owner: 'CEO',
+    desc: 'Conditional hire — only if 2028 review approves. Likely Finance/Compliance specialist or additional Dev.',
+    deps: ['Capacity review approved'],
+    risks: ['Skill match'] },
+
+  { id: 'pe-salreview', lane: 'people', name: 'Salary review (market-rate)',
+    startY: 2030, startQ: 1, endY: 2030, endQ: 1, status: 'planned', owner: 'Board',
+    desc: 'Mid-roadmap salary calibration against KL market rates for software / SaaS roles.',
+    deps: ['MD Status active', 'Stable revenue base'],
+    risks: ['Retention if review delayed'] },
+
+  { id: 'pe-steady', lane: 'people', name: 'Steady-state team (6 FTE)',
+    startY: 2031, startQ: 1, endY: 2031, endQ: 4, status: 'planned', owner: 'CEO',
+    desc: 'Lean cross-functional team of 6 sustained across 2031. No further headcount additions planned within this window.',
+    deps: ['ISO 20000-1 cert (process maturity)'],
+    risks: ['Burnout if module load grows faster than process automation'] },
+
+  // ─── INFRA ───
+  { id: 'i-phase1', lane: 'infra', name: 'Phase 1 — pass-through model',
+    startY: 2026, startQ: 2, endY: 2026, endQ: 4, status: 'inprog', owner: 'QC Group + DCEO',
+    desc: 'QC Group procures and owns infra; QCXIS reimburses through service fees (no balance-sheet exposure for QCXIS).',
+    deps: ['Inter-Company Service Agreement'],
+    risks: ['Cost transparency between QC Group and QCXIS'] },
+
+  { id: 'i-review', lane: 'infra', name: 'Infrastructure review',
+    startY: 2027, startQ: 1, endY: 2027, endQ: 4, status: 'planned', owner: 'DCEO + IT Ops',
+    desc: 'End-to-end review of hosting, supplier contracts, and capacity planning ahead of Phase 2 transition.',
+    deps: ['+IT Ops hired'],
+    risks: ['Migration scope inflation'] },
+
+  { id: 'i-direct', lane: 'infra', name: 'Suppliers contracted directly',
+    startY: 2028, startQ: 3, endY: 2028, endQ: 3, monthCallout: 'Jul 2028',
+    ms: true, status: 'planned', owner: 'CEO',
+    desc: 'QCXIS takes over hosting/cloud/SaaS contracts directly. End of pass-through.',
+    deps: ['MD Status approved', 'Revenue base stable'],
+    risks: ['Vendor migration risk'] },
+
+  { id: 'i-repaid', lane: 'infra', name: 'Hardware fully repaid (Tier-2)',
+    startY: 2028, startQ: 3, endY: 2028, endQ: 4, monthCallout: 'Aug–Dec 2028',
+    warn: true, status: 'planned', owner: 'Finance',
+    desc: 'Final repayment of QC Group infra advances under Tier-2 schedule. RM 2k/mo × 8 months once Rev ≥ RM 45k × 2 mo. Buffer extends into Q4 2028 for delayed triggers.',
+    deps: ['Revenue trigger met (Rev ≥ RM 45k × 2mo)'],
+    risks: ['Trigger slip extends repayment further'] },
+
+  { id: 'i-cap20', lane: 'infra', name: 'Infra investment — RM 20k',
+    startY: 2029, startQ: 1, endY: 2029, endQ: 4, status: 'planned', owner: 'DCEO',
+    desc: 'First QCXIS-owned infra investment. Upgrades/replacements directly capitalised on QCXIS balance sheet.',
+    deps: ['Hardware repaid', 'Suppliers direct'],
+    risks: ['CAPEX timing vs. cash flow'] },
+
+  { id: 'i-cap30', lane: 'infra', name: 'Infra investment — RM 30k',
+    startY: 2030, startQ: 1, endY: 2030, endQ: 4, status: 'planned', owner: 'DCEO',
+    desc: 'Year-2 infra investment. Step-up reflects expanded customer base and reliability requirements for ISO 20000-1.',
+    deps: ['ISO 20000-1 scoping'],
+    risks: ['Vendor lock-in'] },
+
+  { id: 'i-cap40', lane: 'infra', name: 'Infra investment — RM 40k',
+    startY: 2031, startQ: 1, endY: 2031, endQ: 4, status: 'planned', owner: 'DCEO',
+    desc: 'Year-3 infra investment supporting steady-state scale and SEA review readiness.',
+    deps: ['ISO 20000-1 cert'],
+    risks: ['Over-provisioning if SEA expansion delayed'] },
+
+  { id: 'i-owned', lane: 'infra', name: 'All infrastructure owned by QCXIS',
+    startY: 2031, startQ: 4, endY: 2031, endQ: 4, ms: true, status: 'planned', owner: 'CEO',
+    desc: 'Strategic milestone: 100% of operating infrastructure on QCXIS balance sheet. Full operational independence from QC Group.',
+    deps: ['3 years of CAPEX waves complete'],
+    risks: [] },
+
+  // ─── COMPLIANCE & GROWTH ───
+  { id: 'c-dpo', lane: 'comply', name: 'DPO appointment · DPA signed',
+    startY: 2026, startQ: 2, endY: 2026, endQ: 3, status: 'planned', owner: 'CEO',
+    desc: 'Data Protection Officer appointed; Data Processing Agreements signed with QC Group and pilot customers per PDPA 2010.',
+    deps: ['Inter-Company Service Agreement'],
+    risks: ['DPO knowledge gap if internal hire'] },
+
+  { id: 'c-tm', lane: 'comply', name: 'Trademark application (MyIPO)',
+    startY: 2026, startQ: 4, endY: 2027, endQ: 4, status: 'planned', owner: 'CEO',
+    desc: 'QCXIS marks filed with MyIPO. Required for MD Status application and protects brand for HR/Portrait open-market launch.',
+    deps: ['Brand guidelines finalised'],
+    risks: ['Class conflicts requiring re-filing'] },
+
+  { id: 'c-mdcg', lane: 'comply', name: 'MDCG grant application',
+    startY: 2027, startQ: 1, endY: 2027, endQ: 3, status: 'planned', owner: 'CEO',
+    desc: 'Apply for the Malaysia Digital Catalytic Grant to subsidise hiring/R&D ahead of MD Status.',
+    deps: ['Trademark filed', '+IT Ops hired'],
+    risks: ['Grant criteria changes', 'Approval timelines'] },
+
+  { id: 'c-iso27001', lane: 'comply', name: 'ISO 27001 certification',
+    startY: 2027, startQ: 2, endY: 2027, endQ: 4, ms: true, status: 'planned', owner: 'CEO + DCEO',
+    desc: 'Information Security Management System certified. Strengthens MD Status case and unlocks enterprise deals for HR/Portrait.',
+    deps: ['DPO appointed', 'Documentation maturity'],
+    risks: ['Audit findings extending timeline'] },
+
+  { id: 'c-md', lane: 'comply', name: 'MD Status application & approval',
+    startY: 2028, startQ: 2, endY: 2028, endQ: 3, ms: true, status: 'planned', owner: 'CEO',
+    desc: 'Submit Malaysia Digital Status application Q2; target approval Q3. Unlocks tax incentives (<15% corporate tax).',
+    deps: ['ISO 27001 cert', '≥2 knowledge workers @ RM 5k', '≥RM 50k MD-qualifying OPEX'],
+    risks: ['MDEC review backlog', 'Knowledge-worker definition interpretation'] },
+
+  { id: 'c-500', lane: 'comply', name: '500 franchise outlets achieved',
+    startY: 2028, startQ: 4, endY: 2028, endQ: 4, monthCallout: 'Dec 2028',
+    ms: true, status: 'planned', owner: 'CEO + QC Group',
+    desc: 'Franchise platform reaches 500 outlets — Optimum scenario target. Triggers Mgmt fee step-up.',
+    deps: ['Franchise growth pace sustained'],
+    risks: ['Outlet churn', 'Onboarding bandwidth'] },
+
+  { id: 'c-mgmtfee', lane: 'comply', name: 'Mgmt fee step-up RM 1k → RM 3k',
+    startY: 2028, startQ: 3, endY: 2028, endQ: 3, monthCallout: 'Jul 2028',
+    status: 'planned', owner: 'Board',
+    desc: 'Inter-company management fee tier increases from RM 1,000/mo to RM 3,000/mo upon hitting 500-outlet threshold.',
+    deps: ['500 outlets', 'MD Status'],
+    risks: ['Threshold timing'] },
+
+  { id: 'c-iso20k-scope', lane: 'comply', name: 'ISO 20000-1 scoping',
+    startY: 2029, startQ: 2, endY: 2029, endQ: 4, status: 'planned', owner: 'DCEO + IT Ops',
+    desc: 'IT Service Management standard scoping begins. Differentiator for enterprise/government RFPs.',
+    deps: ['ISO 27001 in production', '6th hire decision'],
+    risks: ['Process documentation gap'] },
+
+  { id: 'c-hr35', lane: 'comply', name: 'HR 35 customers · Portrait 30',
+    startY: 2029, startQ: 4, endY: 2029, endQ: 4, monthCallout: 'Dec 2029',
+    status: 'planned', owner: 'CEO',
+    desc: 'Open-market growth target — HR module to 35 customers, Portrait to 30 organisations.',
+    deps: ['HR & Portrait stable', 'Sales motion validated'],
+    risks: ['SME sales conversion rate'] },
+
+  { id: 'c-iso20k-cert', lane: 'comply', name: 'ISO 20000-1 certification',
+    startY: 2030, startQ: 1, endY: 2030, endQ: 3, ms: true, status: 'planned', owner: 'DCEO',
+    desc: 'IT Service Management certified — opens enterprise procurement and government tender eligibility.',
+    deps: ['ISO 20000-1 scoping complete'],
+    risks: ['Audit gaps requiring remediation'] },
+
+  { id: 'c-iso27701-scope', lane: 'comply', name: 'ISO 27701 scoping (Privacy)',
+    startY: 2030, startQ: 2, endY: 2030, endQ: 4, status: 'planned', owner: 'DCEO',
+    desc: 'Privacy Information Management System scoping. Builds on ISO 27001 for stronger PDPA / regional privacy posture.',
+    deps: ['ISO 20000-1 cert'],
+    risks: ['Resource overlap with 20000-1 audit'] },
+
+  { id: 'c-hr65', lane: 'comply', name: 'HR 65 customers',
+    startY: 2030, startQ: 4, endY: 2030, endQ: 4, monthCallout: 'Dec 2030',
+    status: 'planned', owner: 'CEO',
+    desc: 'HR module customer count to 65. Portrait continues steady growth.',
+    deps: ['HR sales motion'],
+    risks: ['Pricing pressure as customer count rises'] },
+
+  { id: 'c-iso27701-cert', lane: 'comply', name: 'ISO 27701 certification',
+    startY: 2031, startQ: 1, endY: 2031, endQ: 3, ms: true, status: 'planned', owner: 'DCEO',
+    desc: 'PIMS certified. Combined with ISO 27001 + 20000-1 forms a strong enterprise/regional credential set.',
+    deps: ['ISO 27701 scoping'],
+    risks: [] },
+
+  { id: 'c-sea', lane: 'comply', name: 'SEA expansion review',
+    startY: 2031, startQ: 3, endY: 2031, endQ: 4, status: 'planned', owner: 'CEO + Board',
+    desc: 'Formal evaluation of regional expansion (Singapore / Indonesia / Vietnam) using Expansion Framework.',
+    deps: ['Expansion framework', 'All 3 ISO certs'],
+    risks: ['Premature commitment without local partner'] },
+
+  { id: 'c-hr105', lane: 'comply', name: 'HR 105 · Portrait 72',
+    startY: 2031, startQ: 4, endY: 2031, endQ: 4, monthCallout: 'Dec 2031',
+    status: 'planned', owner: 'CEO',
+    desc: 'Open-market end-state: HR 105 customers, Portrait 72 organisations. ~0.03% of addressable SME market — runway remains.',
+    deps: ['Sustained sales motion'],
+    risks: ['Market saturation underestimated'] },
+
+  // ─── REVENUE STREAM ACTIVATIONS ───
+  { id: 'r-franchise', lane: 'revenue', name: 'Franchise fee collection start',
+    startY: 2026, startQ: 2, endY: 2026, endQ: 3, monthCallout: 'Jun–Jul 2026 start',
+    ms: true, status: 'planned', owner: 'CEO',
+    desc: 'First QCXIS revenue stream — RM 1/client/month across 226 outlets. Optimum start in June 2026, with buffer into July if onboarding slips. Step-up to RM 3k/mo mgmt fee at 500 outlets.',
+    deps: ['Franchise Module live', 'Inter-Company Service Agreement'],
+    risks: ['Outlet adoption lag pushing collection from Jun into Jul'] },
+
+  { id: 'r-hrfee', lane: 'revenue', name: 'HR fee start (open market)',
+    startY: 2027, startQ: 2, endY: 2027, endQ: 2, ms: true, status: 'planned', owner: 'CEO',
+    desc: 'First open-market revenue. Target: 5 HR customers in 2027. Marks transition from QC-Group-only to commercial SaaS.',
+    deps: ['HR module launched', 'Sales motion ready'],
+    risks: ['Sales-cycle length for SMEs'] },
+
+  // ─── CAPITAL EVENTS ───
+  { id: 'k-paidup', lane: 'capital', name: 'RM 100k paid-up capital',
+    startY: 2026, startQ: 2, endY: 2026, endQ: 2, ms: true, status: 'done', owner: 'Board',
+    desc: 'QCXIS Sdn Bhd incorporated with RM 100,000 paid-up capital. On balance sheet from day 1.',
+    deps: ['Incorporation'],
+    risks: [] },
+
+  { id: 'k-isa', lane: 'capital', name: 'Inter-Company Service Agreement',
+    startY: 2026, startQ: 2, endY: 2026, endQ: 2, status: 'planned', owner: 'CEO + QC Group Legal',
+    desc: 'Master service agreement governing pass-through infra costs, management fees, and IP ownership between QC Group and QCXIS.',
+    deps: ['Incorporation'],
+    risks: ['Transfer-pricing scrutiny'] },
+
+  { id: 'k-tier1', lane: 'capital', name: 'Tier-1 salary support window',
+    startY: 2026, startQ: 2, endY: 2027, endQ: 4, status: 'planned', owner: 'QC Group',
+    desc: 'QC Group covers shortfall in QCXIS salaries until revenue self-sustains. No hardware repayment during this window — Jun 2026 → Dec 2027.',
+    deps: ['Service Agreement'],
+    risks: ['Window extension if revenue lags'] },
+
+  { id: 'k-tier2', lane: 'capital', name: 'Tier-2 hardware repayment window',
+    startY: 2028, startQ: 1, endY: 2028, endQ: 3, status: 'planned', owner: 'Finance',
+    desc: 'RM 2,000/month repayment of QC Group hardware advances — fires when Rev ≥ RM 45k × 2mo. Jan→Aug 2028, total RM 16k.',
+    deps: ['Revenue trigger met'],
+    risks: ['Trigger slip pushes window into 2029'] }
+];
+
+// ════════════════════════════════════════════════════════════
+// HELPERS
+// ════════════════════════════════════════════════════════════
+const Q_TO_MONTH = { 1: 'Q1 (Jan–Mar)', 2: 'Q2 (Apr–Jun)', 3: 'Q3 (Jul–Sep)', 4: 'Q4 (Oct–Dec)' };
+function fmtDate(y, q, monthCallout) {
+  if (monthCallout) return monthCallout;
+  return `${Q_TO_MONTH[q].split(' ')[0]} ${y}`;
+}
+function gridCol(y, q) {
+  // Returns 1-indexed track column (Q1 2026 is hidden, so 2026 starts at Q2 = col 1)
+  if (y === 2026) return q - 1; // Q2→1, Q3→2, Q4→3
+  return 3 + (y - 2027) * 4 + q; // 2027 Q1 → 4 … 2031 Q4 → 23
+}
+function gridSpan(item) {
+  const start = gridCol(item.startY, item.startQ);
+  const end = gridCol(item.endY, item.endQ);
+  return { start, span: end - start + 1 };
+}
+
+// ════════════════════════════════════════════════════════════
+// RENDER QUARTER HEADERS
+// ════════════════════════════════════════════════════════════
+(function renderQHeaders() {
+  const c = document.getElementById('qHeaders');
+  let html = '';
+  for (let y = 2026; y <= 2031; y++) {
+    for (let q = 1; q <= 4; q++) {
+      if (y === 2026 && q === 1) continue; // Q1 2026 hidden
+      html += `<div class="g-q-cell q${q}">Q${q}</div>`;
+    }
+  }
+  c.innerHTML = html;
+})();
+
+// ════════════════════════════════════════════════════════════
+// RENDER GANTT
+// Auto-stack items into sub-rows so concurrent bars don't collide.
+// ════════════════════════════════════════════════════════════
+const Q_SHORT = ['Q1', 'Q2', 'Q3', 'Q4'];
+const M_SHORT = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+function startLabel(item) {
+  if (item.monthCallout && item.startY === item.endY && item.startQ === item.endQ) return item.monthCallout;
+  return `${Q_SHORT[item.startQ-1]} ${String(item.startY).slice(-2)}`;
+}
+function endLabel(item) {
+  if (item.monthCallout) return item.monthCallout;
+  return `${Q_SHORT[item.endQ-1]} ${String(item.endY).slice(-2)}`;
+}
+function dateRangeLabel(item) {
+  // Single-quarter items: just show the single label
+  if (item.startY === item.endY && item.startQ === item.endQ) {
+    return item.monthCallout || `${Q_SHORT[item.startQ-1]} ${item.startY}`;
+  }
+  return `${startLabel(item)} → ${endLabel(item)}`;
+}
+
+// Pack items in a lane into sub-rows (greedy first-fit).
+// Children with `parent` are forced onto a row strictly below their parent.
+function packLane(items) {
+  // Sort: parents first, then any children grouped right after their parent
+  const byId = Object.fromEntries(items.map(i => [i.id, i]));
+  const ordered = [];
+  const seen = new Set();
+  items.forEach(item => {
+    if (item.parent) return; // place children later via parent loop
+    if (seen.has(item.id)) return;
+    ordered.push(item); seen.add(item.id);
+    items.filter(c => c.parent === item.id).forEach(c => {
+      if (!seen.has(c.id)) { ordered.push(c); seen.add(c.id); }
+    });
+  });
+  // Append any orphan children (parent not in lane) at the end
+  items.forEach(i => { if (!seen.has(i.id)) { ordered.push(i); seen.add(i.id); } });
+
+  const rows = []; // each row: array of {start, end}
+  const placedById = {};
+  const placed = ordered.map(item => {
+    const start = gridCol(item.startY, item.startQ);
+    const span = gridCol(item.endY, item.endQ) - start + 1;
+    const end = start + span - 1;
+    const minRow = (item.parent && placedById[item.parent]) ? placedById[item.parent].rowIdx + 1 : 0;
+    let rowIdx = -1;
+    for (let r = minRow; r < rows.length; r++) {
+      const fits = rows[r].every(b => end < b.start || start > b.end);
+      if (fits) { rowIdx = r; break; }
+    }
+    if (rowIdx === -1) { rowIdx = Math.max(rows.length, minRow); }
+    while (rows.length <= rowIdx) rows.push([]);
+    rows[rowIdx].push({ start, end });
+    const placedItem = { item, start, span, rowIdx };
+    placedById[item.id] = placedItem;
+    return placedItem;
+  });
+  return { placed, rowCount: Math.max(1, rows.length) };
+}
+
+(function renderGantt() {
+  const c = document.getElementById('ganttRows');
+  let html = '';
+  LANE_ORDER.forEach(lane => {
+    const meta = LANES[lane];
+    const laneItems = ITEMS.filter(i => i.lane === lane);
+    const { placed, rowCount } = packLane(laneItems);
+    html += `<div class="g-row" data-lane="${lane}">
+      <div class="g-lane-label">
+        <span class="g-lane-icon i-${lane}" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${meta.icon}</svg>
+        </span>
+        <span class="g-lane-label-text">
+          <span>${meta.label}</span>
+          <span class="g-lane-tag">${meta.tag} · ${laneItems.length}</span>
+        </span>
+      </div>
+      <div class="g-track" style="grid-template-rows: repeat(${rowCount}, 44px);">`;
+    placed.forEach(({ item, start, span, rowIdx }) => {
+      const isPoint = span === 1 && (item.ms || item.warn);
+      const cls = [
+        'g-bar',
+        `lane-${lane}`,
+        item.parent ? 'child' : '',
+        item.ms ? 'ms' : '',
+        item.warn ? 'warn' : '',
+        item.status === 'done' ? 'done' : item.status === 'inprog' ? 'inprog' : '',
+        isPoint ? 'point' : ''
+      ].filter(Boolean).join(' ');
+      const minStart = Math.max(1, start);
+      html += `<div class="${cls}" data-id="${item.id}"
+        style="grid-column: ${minStart} / span ${span}; grid-row: ${rowIdx + 1};"
+        title="${item.name} · ${dateRangeLabel(item)}">
+        <span class="g-bar-status"></span>
+        <span class="g-bar-name">${item.name}</span>
+        <span class="g-bar-dates">${dateRangeLabel(item)}</span>
+      </div>`;
+    });
+    html += `</div></div>`;
+  });
+  c.innerHTML = html;
+})();
+
+// ════════════════════════════════════════════════════════════
+// UPCOMING — May 2026 → Jan 2027 month-by-month plan
+// ════════════════════════════════════════════════════════════
+const UPCOMING = [
+  { month: 'May', year: 2026, tag: 'Prep', cls: '',
+    items: [
+      { lane: 'people', text: '<strong>Prepare CEO & DCEO employment transfer</strong>', note: 'Offer letters, terminations from QC Group, and acceptance docs prepared.' },
+      { lane: 'capital', text: '<strong>Inter-Company Service Agreement drafting</strong>', note: 'If agreed: QC Group handles QCXIS Admin & Finance work in exchange for a Management Fee.' }
+    ]},
+  { month: 'Jun', year: 2026, tag: 'Launch', cls: 'milestone',
+    items: [
+      { lane: 'people', text: '<strong>CEO & DCEO formally transfer to QCXIS</strong>', note: 'New employment effective; salaries booked under QCXIS payroll.' },
+      { lane: 'revenue', text: '<strong>Franchise fee collection begins</strong>', note: 'Optimum start month — RM 1/client/mo across 226 outlets.' },
+      { lane: 'capital', text: '<strong>RM 100k paid-up capital on the books</strong>', note: 'On QCXIS balance sheet from incorporation.' },
+      { lane: 'infra', text: '<strong>DC migration (QC overhead)</strong>', note: 'Hosting handover under pass-through model — QC Group covers cost.' }
+    ]},
+  { month: 'Jul', year: 2026, tag: 'Buffer', cls: 'milestone-warm',
+    items: [
+      { lane: 'revenue', text: '<strong>Franchise fee collection (delayed scenario)</strong>', note: 'Buffer month — collection starts here if June onboarding slips.' },
+      { lane: 'product', text: '<strong>Post-launch support</strong>', note: 'Stabilise Franchise Module, address early-outlet issues.' },
+      { lane: 'people', text: '<strong>August hiring preparation</strong>', note: 'Interviews and offer prep for the +2 Devs.' }
+    ]},
+  { month: 'Aug', year: 2026, tag: 'Hire', cls: 'milestone',
+    items: [
+      { lane: 'people', text: '<strong>+2 IT Developers onboarded</strong>', note: 'Akmal & Iffat join — team grows from 2 to 4.' },
+      { lane: 'product', text: '<strong>Continue OMNI Module development</strong>', note: 'Sprint cycle ramps up with full dev team.' }
+    ]},
+  { month: 'Sep', year: 2026, tag: 'Q3 Review', cls: 'review',
+    items: [
+      { lane: 'product', text: '<strong>Pre-KHOME support plans</strong>', note: 'Onboarding playbook & SLAs prepped for KHOME entry.' },
+      { lane: 'product', text: '<strong>OMNI launch</strong>', note: 'OMNI Module goes live for QC Group internal use.' },
+      { lane: 'comply', text: '<strong>Q3 review</strong>', note: 'Quarterly checkpoint — outlet count, revenue trajectory, hiring fit.' }
+    ]},
+  { month: 'Oct', year: 2026, tag: 'Expand', cls: '',
+    items: [
+      { lane: 'product', text: '<strong>KHOME live</strong>', note: 'KHOME vertical onboarded onto the platform.' },
+      { lane: 'product', text: '<strong>Helpdesk / Support Module launch</strong>', note: 'Launches in October (originally planned for Q3) — supports KHOME volume.' }
+    ]},
+  { month: 'Nov', year: 2026, tag: 'Filing', cls: '',
+    items: [
+      { lane: 'comply', text: '<strong>Trademark application (MyIPO)</strong>', note: 'Filed to protect brand ahead of HR/Portrait open-market launches.' },
+      { lane: 'comply', text: '<strong>Grant eligibility review</strong>', note: 'Assess MDCG / other grants ahead of 2027 application window.' }
+    ]},
+  { month: 'Dec', year: 2026, tag: 'Year-end', cls: 'year-end',
+    items: [
+      { lane: 'infra', text: '<strong>Infrastructure review</strong>', note: 'Capacity, supplier contracts, and Phase-2 transition scoping.' },
+      { lane: 'comply', text: '<strong>Strategic planning for 2027</strong>', note: 'Lock OKRs: ISO 27001, MDCG, +IT Ops hire, OMNI fee, HR/Portrait launches.' }
+    ]},
+  { month: 'Jan', year: 2027, tag: 'Kickoff', cls: 'milestone',
+    items: [
+      { lane: 'people', text: '<strong>+IT Operations hire</strong>', note: 'Team grows to 5 — focus on deployment pipelines & customer onboarding.' },
+      { lane: 'comply', text: '<strong>2027 plan execution begins</strong>', note: 'Kickoff for ISO 27001 cert track and MDCG application.' }
+    ]}
+];
+
+(function renderUpcoming() {
+  const c = document.getElementById('upcomingMonths');
+  let html = '';
+  UPCOMING.forEach(m => {
+    html += `<div class="month-card ${m.cls}">
+      <div class="month-head">
+        <div class="month-head-l">
+          <div class="month-num">${m.month}</div>
+          <div class="month-year">${m.year}</div>
+        </div>
+        <span class="month-tag">${m.tag}</span>
+      </div>
+      <ul class="month-list">`;
+    m.items.forEach(it => {
+      const initial = it.lane.charAt(0).toUpperCase();
+      html += `<li class="month-item">
+        <span class="month-item-icon lane-${it.lane}" title="${LANES[it.lane].label}">${initial}</span>
+        <div class="month-item-text">${it.text}${it.note ? `<span class="note">${it.note}</span>` : ''}</div>
+      </li>`;
+    });
+    html += `</ul></div>`;
+  });
+  c.innerHTML = html;
+})();
+
+// ════════════════════════════════════════════════════════════
+// FILTERS
+// ════════════════════════════════════════════════════════════
+const activeLanes = new Set(LANE_ORDER);
+const activeYears = new Set([2026, 2027, 2028, 2029, 2030, 2031]);
+
+document.querySelectorAll('.chip[data-lane]').forEach(chip => {
+  chip.addEventListener('click', () => {
+    const lane = chip.dataset.lane;
+    if (activeLanes.has(lane)) {
+      activeLanes.delete(lane);
+      chip.classList.remove('active');
+    } else {
+      activeLanes.add(lane);
+      chip.classList.add('active');
+    }
+    applyFilters();
+  });
+});
+document.querySelectorAll('.chip[data-year]').forEach(chip => {
+  chip.addEventListener('click', () => {
+    const y = parseInt(chip.dataset.year, 10);
+    if (activeYears.has(y)) {
+      activeYears.delete(y);
+      chip.classList.remove('active');
+    } else {
+      activeYears.add(y);
+      chip.classList.add('active');
+    }
+    applyFilters();
+  });
+});
+document.getElementById('resetFilters').addEventListener('click', () => {
+  LANE_ORDER.forEach(l => activeLanes.add(l));
+  [2026, 2027, 2028, 2029, 2030, 2031].forEach(y => activeYears.add(y));
+  document.querySelectorAll('.chip').forEach(c => c.classList.add('active'));
+  applyFilters();
+});
+
+function applyFilters() {
+  let visible = 0;
+  document.querySelectorAll('.g-bar').forEach(bar => {
+    const id = bar.dataset.id;
+    const item = ITEMS.find(i => i.id === id);
+    const laneOk = activeLanes.has(item.lane);
+    let yearOk = false;
+    for (let y = item.startY; y <= item.endY; y++) {
+      if (activeYears.has(y)) { yearOk = true; break; }
+    }
+    const show = laneOk && yearOk;
+    bar.classList.toggle('hidden', !show);
+    if (show) visible++;
+  });
+
+  // Hide a lane row entirely if all its bars are filtered out
+  document.querySelectorAll('.g-row[data-lane]').forEach(row => {
+    const lane = row.dataset.lane;
+    const laneOk = activeLanes.has(lane);
+    const anyVisible = laneOk && Array.from(row.querySelectorAll('.g-bar')).some(b => !b.classList.contains('hidden'));
+    row.style.display = anyVisible ? '' : 'none';
+  });
+
+  document.getElementById('fcVisible').textContent = visible;
+}
+document.getElementById('fcTotal').textContent = ITEMS.length;
+applyFilters();
+
+// ════════════════════════════════════════════════════════════
+// MODAL
+// ════════════════════════════════════════════════════════════
+const modal = document.getElementById('modal');
+function openModal(id) {
+  const item = ITEMS.find(i => i.id === id);
+  if (!item) return;
+  const lane = LANES[item.lane];
+  const statusLabel = item.status === 'done' ? 'Done' : item.status === 'inprog' ? 'In Progress' : 'Planned';
+
+  document.getElementById('mEyebrow').innerHTML =
+    `<span class="pill lane-${item.lane}">${lane.label}</span>` +
+    (item.ms ? `<span class="pill" style="background:var(--accent-l);color:var(--accent)">Milestone</span>` : '') +
+    (item.warn ? `<span class="pill" style="background:var(--warn-l);color:var(--warn)">Critical</span>` : '');
+  document.getElementById('mTitle').textContent = item.name;
+  document.getElementById('mStart').textContent = item.monthCallout && item.startY === item.endY && item.startQ === item.endQ
+    ? item.monthCallout
+    : `Q${item.startQ} ${item.startY}`;
+  document.getElementById('mEnd').textContent = item.monthCallout && item.startY === item.endY && item.startQ === item.endQ
+    ? item.monthCallout
+    : `Q${item.endQ} ${item.endY}`;
+  document.getElementById('mStatus').innerHTML = `<span class="status-pill ${item.status}">${statusLabel}</span>`;
+  document.getElementById('mDesc').textContent = item.desc;
+
+  const depsSec = document.getElementById('mDepsSection');
+  const depsList = document.getElementById('mDeps');
+  if (item.deps && item.deps.length) {
+    depsSec.style.display = '';
+    depsList.innerHTML = item.deps.map(d => `<li>${d}</li>`).join('');
+  } else { depsSec.style.display = 'none'; }
+
+  const risksSec = document.getElementById('mRisksSection');
+  const risksList = document.getElementById('mRisks');
+  if (item.risks && item.risks.length) {
+    risksSec.style.display = '';
+    risksList.innerHTML = item.risks.map(r => `<li>${r}</li>`).join('');
+  } else { risksSec.style.display = 'none'; }
+
+  modal.classList.add('open');
+}
+window.openModal = openModal;
+
+document.getElementById('mClose').addEventListener('click', () => modal.classList.remove('open'));
+modal.addEventListener('click', e => { if (e.target === modal) modal.classList.remove('open'); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') modal.classList.remove('open'); });
+
+// Click-through on Gantt bars
+document.addEventListener('click', e => {
+  const bar = e.target.closest('.g-bar');
+  if (bar && bar.dataset.id) openModal(bar.dataset.id);
+});
+</script>
+</body>
+</html>

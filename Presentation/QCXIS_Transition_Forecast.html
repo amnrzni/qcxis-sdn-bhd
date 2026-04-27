@@ -1,0 +1,1322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QCXIS Sdn Bhd — Transition & P&L Forecast</title>
+<link rel="icon" type="image/png" href="../cx-01.png">
+<link rel="shortcut icon" type="image/png" href="../cx-01.png">
+<link rel="apple-touch-icon" href="../cx-01.png">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,600&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+/* ══════════════════════════════════════════════════════════════
+   DESIGN TOKENS (mirrors QCXIS_Presentation.html)
+   ══════════════════════════════════════════════════════════════ */
+:root {
+  --bg: #f5f6f8; --white: #fff; --border: #dfe2e8; --border2: #cdd2db;
+  --text: #161b2e; --body: #3b4460; --muted: #8590a6;
+  --accent: #0a7b6c; --accent-l: #e6f4f2;
+  --accent2: #1d4ed8; --accent2-l: #eff4ff;
+  --warn: #b45309; --warn-l: #fef3e2;
+  --cost-text: #991b1b; --cost-bg: #fef2f2;
+  --net-text: #065f46; --net-bg: #ecfdf5;
+  --staff: #7c3aed; --staff-l: #f5f3ff;
+  --hr: #0891b2; --hr-l: #ecfeff;
+  --y26: #1d4ed8; --y27: #b45309; --y28: #0a7b6c;
+  --y29: #7c3aed; --y30: #dc2626; --y31: #0891b2;
+  /* Scenario palette */
+  --opt: #0a7b6c; --opt-l: #e6f4f2;
+  --del: #b45309; --del-l: #fef3e2;
+  --wst: #991b1b; --wst-l: #fef2f2;
+  /* Salary tier shading */
+  --t1-bg: #f1f5f9; --t1-bd: #cbd5e1;
+  --t2-bg: #eff4ff; --t2-bd: #93c5fd;
+  --t3-bg: #e6f4f2; --t3-bd: #5eead4;
+  --t4-bg: #f5f3ff; --t4-bd: #c4b5fd;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   RESET & DECK SHELL
+   ══════════════════════════════════════════════════════════════ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg); font-family: 'DM Sans', sans-serif; color: var(--text); }
+.deck { position: relative; width: 100%; height: 100%; overflow: hidden; }
+
+.slide {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  justify-content: safe center; align-items: center;
+  opacity: 0; pointer-events: none; transform: translateX(40px);
+  transition: opacity .35s ease, transform .35s ease;
+  overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch;
+  padding: 48px 40px 100px;
+}
+@supports not (justify-content: safe center) {
+  .slide { justify-content: flex-start; }
+  .slide > .s-inner { margin-top: auto; margin-bottom: auto; }
+}
+.slide.active { opacity: 1; pointer-events: all; transform: translateX(0); }
+.slide.exit-left { opacity: 0; transform: translateX(-40px); }
+.s-inner { width: 100%; max-width: 1100px; margin: 0 auto; }
+
+/* Nav bar */
+.nav-bar {
+  position: fixed; bottom: 0; left: 0; right: 0; height: 64px;
+  background: var(--white); border-top: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 32px; z-index: 100;
+}
+.nav-btn {
+  display: flex; align-items: center; gap: 6px;
+  font: 700 11px/1 'DM Sans', sans-serif; letter-spacing: .06em; text-transform: uppercase;
+  color: var(--text); background: none; border: 1px solid var(--border);
+  border-radius: 4px; padding: 8px 16px; cursor: pointer; transition: all .18s;
+}
+.nav-btn:hover { background: var(--text); color: #fff; border-color: var(--text); }
+.nav-btn:disabled { opacity: .25; cursor: not-allowed; }
+.nav-btn:disabled:hover { background: none; color: var(--text); }
+.nav-mid { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.nav-counter { font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.dots { display: flex; gap: 6px; align-items: center; }
+.dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border2); cursor: pointer; transition: all .2s; }
+.dot.active { background: var(--text); width: 18px; border-radius: 3px; }
+
+/* Shared */
+.eyebrow { font-size: 12px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+.slide-title { font-family: 'Playfair Display', serif; font-size: clamp(30px, 4.6vw, 44px); line-height: 1.15; margin-bottom: 8px; }
+.slide-title em { font-style: italic; color: var(--accent); }
+.slide-sub { font-size: 15px; color: var(--muted); margin-bottom: 24px; }
+.section-rule { border: none; border-top: 2px solid var(--text); margin-bottom: 24px; }
+.card { background: var(--white); border: 1px solid var(--border); border-radius: 7px; padding: 18px 20px; }
+.tag { display: inline-block; font-size: 9px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: 3px 9px; border-radius: 3px; }
+.tag-accent { background: var(--accent-l); color: var(--accent); }
+.tag-blue   { background: var(--accent2-l); color: var(--accent2); }
+.tag-warn   { background: var(--warn-l); color: var(--warn); }
+.tag-staff  { background: var(--staff-l); color: var(--staff); }
+.tag-muted  { background: var(--bg); color: var(--muted); border: 1px solid var(--border); }
+
+/* ══════════════════════════════════════════════════════════════
+   SLIDE 1 — COVER
+   ══════════════════════════════════════════════════════════════ */
+#slide-1 { background: var(--text); }
+#slide-1 .eyebrow { color: rgba(255,255,255,.45); }
+#slide-1 .slide-title { color: #fff; font-size: clamp(32px, 5vw, 52px); }
+#slide-1 .slide-title em { color: #5de8d6; }
+#slide-1 .slide-sub { color: rgba(255,255,255,.55); font-size: 15px; margin-bottom: 36px; }
+#slide-1 .s-inner { text-align: center; }
+.cover-brand {
+  width: 104px; height: 104px; border-radius: 50%;
+  background: #fff; border: 1px solid rgba(255,255,255,.15);
+  box-shadow: 0 6px 22px rgba(0,0,0,.35);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 28px; overflow: hidden;
+}
+.cover-brand img { width: 72px; height: 72px; object-fit: contain; }
+.cover-divider { width: 60px; height: 2px; background: rgba(255,255,255,.18); margin: 24px auto; }
+.cover-meta { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
+.cover-pill {
+  font-size: 9.5px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+  padding: 5px 12px; border-radius: 3px; color: rgba(255,255,255,.7);
+  border: 1px solid rgba(255,255,255,.15);
+}
+#slide-1 .nav-bar { background: #0e1322; border-color: rgba(255,255,255,.08); }
+#slide-1 .nav-btn { color: rgba(255,255,255,.7); border-color: rgba(255,255,255,.15); }
+#slide-1 .nav-btn:hover { background: #fff; color: var(--text); }
+#slide-1 .nav-counter { color: rgba(255,255,255,.4); }
+#slide-1 .dot { background: rgba(255,255,255,.2); }
+#slide-1 .dot.active { background: #fff; }
+
+/* ══════════════════════════════════════════════════════════════
+   SLIDE 2 — TOC
+   ══════════════════════════════════════════════════════════════ */
+.toc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 20px; }
+.toc-item {
+  display: flex; align-items: center; gap: 14px; padding: 12px 16px;
+  background: var(--white); border: 1px solid var(--border);
+  border-left: 3px solid var(--border2); border-radius: 6px;
+  cursor: pointer; transition: all .18s; text-decoration: none; color: inherit;
+}
+.toc-item:hover { border-left-color: var(--accent); background: var(--accent-l); transform: translateX(2px); }
+.toc-n {
+  font-family: 'Playfair Display', serif; font-size: 22px; color: var(--muted);
+  font-weight: 600; min-width: 30px; text-align: center;
+}
+.toc-item:hover .toc-n { color: var(--accent); }
+.toc-body { flex: 1; min-width: 0; }
+.toc-t { font-weight: 600; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+.toc-s { font-size: 11.5px; color: var(--muted); }
+
+/* ══════════════════════════════════════════════════════════════
+   SLIDE 3 — TRANSITION GANTT
+   ══════════════════════════════════════════════════════════════ */
+.gantt-card { padding: 18px 18px 14px; }
+.gantt-legend {
+  display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 14px;
+  font-size: 10.5px; color: var(--body);
+}
+.gantt-legend .lg-item { display: flex; align-items: center; gap: 6px; }
+.gantt-legend .lg-swatch { width: 16px; height: 10px; border-radius: 2px; border: 1px solid var(--border2); }
+.lg-t1 { background: var(--t1-bg); border-color: var(--t1-bd); }
+.lg-t2 { background: var(--t2-bg); border-color: var(--t2-bd); }
+.lg-t3 { background: var(--t3-bg); border-color: var(--t3-bd); }
+.lg-t4 { background: var(--t4-bg); border-color: var(--t4-bd); }
+
+.gantt {
+  display: grid;
+  grid-template-columns: 150px repeat(31, minmax(18px, 1fr));
+  gap: 0; border-top: 1px solid var(--border); border-left: 1px solid var(--border);
+}
+.gantt-cell {
+  border-right: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  min-height: 28px; position: relative;
+}
+.gantt-row-label {
+  border-right: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  padding: 6px 10px; font-size: 11.5px; font-weight: 600; color: var(--text);
+  display: flex; align-items: center; background: var(--bg);
+}
+.gantt-row-label .role-sub { font-size: 9.5px; font-weight: 500; color: var(--muted); margin-left: 4px; }
+.gantt-mhead {
+  border-right: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  font-size: 8.5px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase;
+  color: var(--muted); text-align: center; padding: 4px 0; background: var(--bg);
+  white-space: nowrap;
+}
+.gantt-mhead.year-start { border-left: 2px solid var(--text); }
+.gantt-yhead {
+  border-bottom: 1px solid var(--border); padding: 4px 0;
+  font: 700 10px 'DM Sans', sans-serif; letter-spacing: .08em; text-transform: uppercase;
+  text-align: center; color: #fff;
+}
+.y-2026 { background: var(--y26); }
+.y-2027 { background: var(--y27); }
+.y-2028 { background: var(--y28); }
+
+/* Bars: absolute spans inside the row */
+.gantt-row { display: contents; }
+.gantt-bar-cell {
+  position: relative;
+}
+.bar {
+  position: absolute; top: 6px; bottom: 6px; left: 0; right: 0;
+  border-radius: 3px; padding: 0 8px;
+  display: flex; align-items: center;
+  font-size: 10px; font-weight: 600; color: var(--text);
+  white-space: nowrap; overflow: hidden;
+  border: 1px solid;
+}
+.bar.t1 { background: var(--t1-bg); border-color: var(--t1-bd); color: var(--body); }
+.bar.t2 { background: var(--t2-bg); border-color: var(--t2-bd); color: var(--accent2); }
+.bar.t3 { background: var(--t3-bg); border-color: var(--t3-bd); color: var(--accent); }
+.bar.t4 { background: var(--t4-bg); border-color: var(--t4-bd); color: var(--staff); }
+.bar.muted { background: var(--bg); border-color: var(--border2); color: var(--muted); font-style: italic; }
+
+.gantt-milestones {
+  display: grid;
+  grid-template-columns: 150px repeat(31, minmax(18px, 1fr));
+  margin-top: 10px;
+  font-size: 10.5px;
+}
+.gm-label { padding-right: 10px; text-align: right; font-weight: 700; color: var(--muted); letter-spacing: .06em; text-transform: uppercase; font-size: 9px; }
+.gm-cell { position: relative; }
+.gm-marker {
+  position: absolute; top: 0; left: -1px;
+  width: 2px; height: 18px; background: var(--accent);
+}
+.gm-tag {
+  position: absolute; top: 22px; left: -50px; width: 100px; text-align: center;
+  font-size: 9px; font-weight: 700; color: var(--accent); line-height: 1.2;
+}
+.gm-marker.warn { background: var(--warn); }
+.gm-tag.warn { color: var(--warn); }
+.gm-marker.staff { background: var(--staff); }
+.gm-tag.staff { color: var(--staff); }
+
+.gantt-foot {
+  margin-top: 38px; font-size: 11px; color: var(--body); line-height: 1.55;
+  background: var(--accent-l); border-left: 3px solid var(--accent);
+  padding: 10px 14px; border-radius: 4px;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   SLIDE 4 — SALARY TIERS
+   ══════════════════════════════════════════════════════════════ */
+.tier-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 18px; }
+.tier-card { padding: 18px 20px; }
+.tier-card.t1 { border-top: 3px solid var(--t1-bd); }
+.tier-card.t2 { border-top: 3px solid var(--accent2); }
+.tier-card.t3 { border-top: 3px solid var(--accent); }
+.tier-num { font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.tier-amt { font-family: 'Playfair Display', serif; font-size: 30px; line-height: 1; margin: 6px 0 4px; color: var(--text); }
+.tier-name { font-size: 12px; color: var(--body); margin-bottom: 12px; font-weight: 500; }
+.tier-trigger {
+  background: var(--bg); border: 1px solid var(--border); border-radius: 5px;
+  padding: 8px 10px; font-size: 11px; color: var(--body); margin-bottom: 10px; line-height: 1.45;
+}
+.tier-trigger strong { color: var(--text); display: block; margin-bottom: 2px; font-size: 9.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.tier-fires { list-style: none; }
+.tier-fires li { font-size: 11.5px; padding: 5px 0; border-bottom: 1px dashed var(--border); display: flex; justify-content: space-between; }
+.tier-fires li:last-child { border-bottom: none; }
+.tier-fires li b { font-weight: 600; }
+.tier-fires .sc-opt { color: var(--opt); }
+.tier-fires .sc-del { color: var(--del); }
+.tier-fires .sc-wst { color: var(--wst); }
+
+.tier-note { font-size: 11.5px; color: var(--body); line-height: 1.6; background: var(--white); border: 1px solid var(--border); border-left: 3px solid var(--accent2); border-radius: 5px; padding: 12px 16px; }
+.tier-note strong { color: var(--text); }
+
+/* ══════════════════════════════════════════════════════════════
+   SLIDE 5 — BENEFITS / CTC TABLE
+   ══════════════════════════════════════════════════════════════ */
+.ctc-table { width: 100%; border-collapse: collapse; font-size: 11.5px; background: var(--white); border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
+.ctc-table th {
+  font-size: 9.5px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+  color: var(--muted); padding: 9px 8px; background: var(--bg);
+  text-align: right; border-bottom: 1px solid var(--border2); white-space: nowrap;
+}
+.ctc-table th:first-child, .ctc-table th.left { text-align: left; }
+.ctc-table td { padding: 8px 8px; border-bottom: 1px solid var(--border); text-align: right; color: var(--body); white-space: nowrap; }
+.ctc-table td:first-child { text-align: left; color: var(--text); font-weight: 500; }
+.ctc-table td .role-tier { display: block; font-size: 9.5px; color: var(--muted); font-weight: 500; margin-top: 1px; }
+.ctc-table tr.tier-row td { background: var(--bg); font-size: 9.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); padding: 5px 8px; }
+.ctc-table tr.total td { background: var(--accent-l); font-weight: 700; color: var(--accent); border-top: 2px solid var(--accent); }
+.ctc-table td.ctc { font-weight: 700; color: var(--text); background: rgba(10,123,108,.04); }
+
+.ctc-foot { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-top: 12px; }
+.ctc-mile { background: var(--white); border: 1px solid var(--border); border-top: 3px solid var(--accent2); border-radius: 5px; padding: 10px 12px; }
+.ctc-mile .l { font-size: 9.5px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: var(--muted); }
+.ctc-mile .v { font-family: 'Playfair Display', serif; font-size: 18px; color: var(--text); margin-top: 2px; }
+.ctc-mile .n { font-size: 10px; color: var(--muted); margin-top: 2px; }
+
+.ctc-formula { margin-top: 12px; font-size: 11px; color: var(--body); background: var(--bg); border: 1px solid var(--border); border-left: 3px solid var(--staff); border-radius: 5px; padding: 12px 16px; line-height: 1.6; }
+.ctc-formula code { font-family: 'DM Sans', sans-serif; font-weight: 700; color: var(--text); background: var(--white); padding: 1px 6px; border-radius: 3px; border: 1px solid var(--border); }
+.ctc-formula strong { color: var(--text); }
+
+/* ══════════════════════════════════════════════════════════════
+   SLIDE 6 — POLICY MILESTONES YEAR-GRID
+   ══════════════════════════════════════════════════════════════ */
+.tl-wrap {
+  display: grid; grid-template-columns: 160px repeat(6, 1fr); gap: 0;
+  background: var(--white); border: 1px solid var(--border); border-radius: 6px; overflow: hidden;
+}
+.tl-row { display: contents; }
+.tl-cell { padding: 10px 8px; border-bottom: 1px solid var(--border); border-right: 1px solid var(--border); display: flex; flex-direction: column; gap: 4px; min-height: 64px; }
+.tl-lane-label { padding: 12px 14px; border-right: 1px solid var(--border2); border-bottom: 1px solid var(--border); display: flex; align-items: center; background: var(--bg); }
+.tl-lane-name { font: 600 12.5px 'Playfair Display', serif; font-style: italic; color: var(--text); }
+.tl-year { padding: 6px 0; text-align: center; font: 700 10px 'DM Sans', sans-serif; letter-spacing: .08em; text-transform: uppercase; color: #fff; border-right: 1px solid var(--border); }
+.tl-year.y26 { background: var(--y26); }
+.tl-year.y27 { background: var(--y27); }
+.tl-year.y28 { background: var(--y28); }
+.tl-year.y29 { background: var(--y29); }
+.tl-year.y30 { background: var(--y30); }
+.tl-year.y31 { background: var(--y31); }
+.tl-pill { font-size: 10.5px; padding: 5px 8px; border-radius: 3px; border: 1px solid var(--border2); background: var(--bg); color: var(--body); line-height: 1.35; }
+.tl-pill.ms { background: var(--accent-l); border-color: var(--accent); color: var(--accent); font-weight: 700; }
+.tl-pill.warn { background: var(--warn-l); border-color: var(--warn); color: var(--warn); }
+.tl-pill.staff { background: var(--staff-l); border-color: var(--staff); color: var(--staff); }
+
+/* ══════════════════════════════════════════════════════════════
+   SLIDE 7 — P&L SCENARIOS
+   ══════════════════════════════════════════════════════════════ */
+.scenario-toggle {
+  display: inline-flex; background: var(--white); border: 1px solid var(--border);
+  border-radius: 6px; padding: 3px; margin-bottom: 14px; gap: 2px;
+}
+.sc-btn {
+  font: 700 11px 'DM Sans', sans-serif; letter-spacing: .06em; text-transform: uppercase;
+  padding: 8px 16px; border: none; background: none; cursor: pointer; border-radius: 4px;
+  color: var(--muted); transition: all .18s;
+}
+.sc-btn.active.opt { background: var(--opt-l); color: var(--opt); }
+.sc-btn.active.del { background: var(--del-l); color: var(--del); }
+.sc-btn.active.wst { background: var(--wst-l); color: var(--wst); }
+.sc-btn:hover:not(.active) { color: var(--text); }
+.sc-btn .sc-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; margin-right: 6px; vertical-align: middle; background: currentColor; }
+
+.kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 12px; }
+.kpi { background: var(--white); border: 1px solid var(--border); border-radius: 6px; padding: 12px 14px; border-top: 3px solid var(--border2); }
+.kpi.kpi-rev  { border-top-color: var(--accent2); }
+.kpi.kpi-opex { border-top-color: var(--cost-text); }
+.kpi.kpi-net  { border-top-color: var(--accent); }
+.kpi.kpi-cash { border-top-color: var(--staff); }
+.kpi-label { font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.kpi-value { font-family: 'Playfair Display', serif; font-size: 24px; line-height: 1; color: var(--text); }
+.kpi-note  { font-size: 10.5px; color: var(--muted); margin-top: 3px; }
+.kpi-delta { font-size: 10px; font-weight: 700; margin-top: 4px; }
+.kpi-delta.up { color: var(--net-text); }
+.kpi-delta.down { color: var(--cost-text); }
+
+.chart-card { padding: 16px 18px; }
+.chart-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
+.chart-title { font-family: 'Playfair Display', serif; font-size: 16px; color: var(--text); }
+.chart-sub   { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.chart-wrap  { position: relative; height: 280px; }
+.chart-legend { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 10px; }
+.cl-item { display: flex; align-items: center; gap: 6px; font-size: 10px; color: var(--body); }
+.cl-line { width: 14px; height: 2px; border-radius: 2px; }
+.cl-bar { width: 12px; height: 8px; border-radius: 2px; border: 1px solid; }
+.cl-dash { width: 16px; height: 0; border-top: 2px dashed var(--staff); }
+
+.scenario-detail {
+  margin-top: 14px; font-size: 11.5px; line-height: 1.55; color: var(--body);
+  background: var(--bg); border: 1px solid var(--border); border-left: 3px solid;
+  border-radius: 5px; padding: 12px 16px;
+}
+.scenario-detail.opt { border-left-color: var(--opt); }
+.scenario-detail.del { border-left-color: var(--del); }
+.scenario-detail.wst { border-left-color: var(--wst); }
+.scenario-detail strong { color: var(--text); }
+.scenario-detail .sd-tag { font-weight: 700; text-transform: uppercase; letter-spacing: .06em; font-size: 10px; }
+.scenario-detail.opt .sd-tag { color: var(--opt); }
+.scenario-detail.del .sd-tag { color: var(--del); }
+.scenario-detail.wst .sd-tag { color: var(--wst); }
+
+/* ══════════════════════════════════════════════════════════════
+   SLIDE 8 — COMPARISON & APPROVAL
+   ══════════════════════════════════════════════════════════════ */
+.cmp-table { width: 100%; border-collapse: collapse; font-size: 12px; background: var(--white); border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
+.cmp-table th { padding: 10px 12px; font: 700 10px 'DM Sans', sans-serif; letter-spacing: .07em; text-transform: uppercase; color: var(--muted); text-align: right; background: var(--bg); border-bottom: 1px solid var(--border2); }
+.cmp-table th:first-child, .cmp-table th.left { text-align: left; }
+.cmp-table th.col-opt { color: var(--opt); }
+.cmp-table th.col-del { color: var(--del); }
+.cmp-table th.col-wst { color: var(--wst); }
+.cmp-table td { padding: 9px 12px; border-bottom: 1px solid var(--border); text-align: right; color: var(--body); }
+.cmp-table td:first-child { text-align: left; color: var(--text); font-weight: 500; }
+.cmp-table tr.headline td { background: var(--accent-l); font-family: 'Playfair Display', serif; font-size: 16px; color: var(--text); }
+.cmp-table tr.headline td.col-opt { color: var(--opt); }
+.cmp-table tr.headline td.col-del { color: var(--del); }
+.cmp-table tr.headline td.col-wst { color: var(--wst); }
+
+.appr-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 16px; }
+.appr-card { background: var(--white); border: 1px solid var(--border); border-radius: 6px; padding: 14px 16px; }
+.appr-card.a1 { border-top: 3px solid var(--accent); }
+.appr-card.a2 { border-top: 3px solid var(--accent2); }
+.appr-card.a3 { border-top: 3px solid var(--staff); }
+.appr-title { font: 600 13px 'Playfair Display', serif; margin-bottom: 8px; color: var(--text); }
+.appr-list { list-style: none; }
+.appr-list li { font-size: 11.5px; color: var(--body); padding: 4px 0; display: flex; gap: 8px; line-height: 1.45; }
+.appr-list li::before { content: '→'; color: var(--muted); flex-shrink: 0; }
+
+/* ══════════════════════════════════════════════════════════════
+   RESPONSIVE
+   ══════════════════════════════════════════════════════════════ */
+@media (max-width: 960px) {
+  .kpi-row { grid-template-columns: repeat(2, 1fr); }
+  .tier-grid { grid-template-columns: 1fr; }
+  .ctc-foot { grid-template-columns: repeat(2, 1fr); }
+  .gantt, .gantt-milestones { grid-template-columns: 110px repeat(31, minmax(14px, 1fr)); font-size: 9px; }
+  .appr-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 680px) {
+  .toc-grid { grid-template-columns: 1fr; }
+  .kpi-row { grid-template-columns: 1fr 1fr; }
+  .tl-wrap { grid-template-columns: 110px repeat(6, 1fr); font-size: 10px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .slide { transition: none; }
+}
+@media print {
+  html, body { overflow: visible; height: auto; }
+  .slide { position: relative; opacity: 1; transform: none; pointer-events: all; page-break-after: always; min-height: 100vh; }
+  .nav-bar { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="deck" id="deck">
+
+  <!-- ════════ SLIDE 1 — COVER ════════ -->
+  <section class="slide" id="slide-1">
+    <div class="s-inner">
+      <div class="cover-brand"><div class="cover-initials">QCXIS</div></div>
+      <div class="eyebrow">QCXIS Sdn Bhd · Internal Briefing</div>
+      <h1 class="slide-title">Transition Plan & <em>P&amp;L Forecast</em></h1>
+      <p class="slide-sub">Hiring · Salary Tiers · Statutory Benefits · Three-Scenario P&amp;L</p>
+      <div class="cover-divider"></div>
+      <div class="cover-meta">
+        <span class="cover-pill">Prepared For Admin &amp; Finance</span>
+        <span class="cover-pill">Apr 2026 Refresh</span>
+        <span class="cover-pill">Optimum · Delayed · Worst</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ SLIDE 2 — TOC ════════ -->
+  <section class="slide" id="slide-2">
+    <div class="s-inner">
+      <div class="eyebrow">Section Index</div>
+      <h2 class="slide-title">Contents</h2>
+      <hr class="section-rule">
+      <div class="toc-grid">
+        <a class="toc-item" data-go="3"><div class="toc-n">01</div><div class="toc-body"><div class="toc-t">Hiring &amp; Salary Gantt</div><div class="toc-s">31-month transition view (Jun-26 → Dec-28)</div></div></a>
+        <a class="toc-item" data-go="4"><div class="toc-n">02</div><div class="toc-body"><div class="toc-t">Salary Tier Detail</div><div class="toc-s">RM 3,000 → RM 3,900 → RM 5,000 milestones</div></div></a>
+        <a class="toc-item" data-go="5"><div class="toc-n">03</div><div class="toc-body"><div class="toc-t">Benefits &amp; CTC Breakdown</div><div class="toc-s">EPF · SOCSO · EIS · HRDF · Insurance</div></div></a>
+        <a class="toc-item" data-go="6"><div class="toc-n">04</div><div class="toc-body"><div class="toc-t">Policy Milestones</div><div class="toc-s">HR · Compliance · Reviews (2026 → 2031)</div></div></a>
+        <a class="toc-item" data-go="7"><div class="toc-n">05</div><div class="toc-body"><div class="toc-t">P&amp;L Scenario Forecast</div><div class="toc-s">Optimum · Delayed · Worst — interactive</div></div></a>
+        <a class="toc-item" data-go="8"><div class="toc-n">06</div><div class="toc-body"><div class="toc-t">Monthly Cashflow Trajectory</div><div class="toc-s">All scenarios · Jun-26 → Dec-31 · 67 months</div></div></a>
+        <a class="toc-item" data-go="9"><div class="toc-n">07</div><div class="toc-body"><div class="toc-t">Comparison &amp; Approval</div><div class="toc-s">Side-by-side outcomes &amp; sign-off</div></div></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ SLIDE 3 — TRANSITION GANTT ════════ -->
+  <section class="slide" id="slide-3">
+    <div class="s-inner">
+      <div class="eyebrow">01 · Hiring &amp; Salary Transition</div>
+      <h2 class="slide-title">Transition <em>Gantt</em></h2>
+      <p class="slide-sub">Jun 2026 → Dec 2028 · Optimum scenario hire dates · CTC bands shaded by salary tier</p>
+      <hr class="section-rule">
+
+      <div class="card gantt-card">
+        <div class="gantt-legend">
+          <div class="lg-item"><span class="lg-swatch lg-t1"></span> Tier 1 — Base RM 3,000 (CEO/DCEO) · pre-trigger</div>
+          <div class="lg-item"><span class="lg-swatch lg-t2"></span> Tier 2 — RM 3,900 (Rev ≥ RM 27k × 2 mo)</div>
+          <div class="lg-item"><span class="lg-swatch lg-t3"></span> Tier 3 — RM 5,000 (Rev ≥ RM 40k × 2 mo · MD-Status)</div>
+          <div class="lg-item"><span class="lg-swatch lg-t4"></span> Annual +5% uplift (Jan-28 onward)</div>
+        </div>
+
+        <div id="ganttGrid" class="gantt"></div>
+
+        <div id="ganttMilestones" class="gantt-milestones"></div>
+
+        <div class="gantt-foot">
+          <strong>Reading the chart:</strong> bars represent active payroll periods coloured by salary tier. Vertical markers below the grid pinpoint hiring &amp; uplift events under the <strong>Optimum</strong> scenario. Devs &amp; IT-Ops join later under Delayed (Jan-27) and Worst (Apr-27); see slide 4 for tier-fire dates per scenario.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ SLIDE 4 — SALARY TIERS ════════ -->
+  <section class="slide" id="slide-4">
+    <div class="s-inner">
+      <div class="eyebrow">02 · Salary Tier Detail</div>
+      <h2 class="slide-title">CEO &amp; DCEO <em>Tier Triggers</em></h2>
+      <p class="slide-sub">Revenue-driven tier escalation · sustained 2-month rolling threshold · MD-Status filing at Tier 3</p>
+      <hr class="section-rule">
+
+      <div class="tier-grid">
+        <div class="tier-card t1 card">
+          <div class="tier-num">Tier 1</div>
+          <div class="tier-amt">RM 3,000</div>
+          <div class="tier-name">Founding base · pre-revenue runway</div>
+          <div class="tier-trigger"><strong>Trigger</strong>Default starting base for CEO &amp; DCEO from Jun-2026; preserves cash runway during initial outlet ramp.</div>
+          <ul class="tier-fires">
+            <li><span>Optimum</span><b class="sc-opt">Jun-26 → Feb-27</b></li>
+            <li><span>Delayed</span><b class="sc-del">Jun-26 → Feb-27</b></li>
+            <li><span>Worst Case</span><b class="sc-wst">Jun-26 → Jun-27</b></li>
+          </ul>
+        </div>
+
+        <div class="tier-card t2 card">
+          <div class="tier-num">Tier 2</div>
+          <div class="tier-amt">RM 3,900</div>
+          <div class="tier-name">Stabilised revenue · sustainability proven</div>
+          <div class="tier-trigger"><strong>Trigger</strong>Rev_Total ≥ <b>RM 27,000</b> sustained for two consecutive months. Indicates franchise base + early modules covering full payroll.</div>
+          <ul class="tier-fires">
+            <li><span>Optimum</span><b class="sc-opt">Mar-27 (col 9)</b></li>
+            <li><span>Delayed</span><b class="sc-del">Mar-27 (col 9)</b></li>
+            <li><span>Worst Case</span><b class="sc-wst">Jul-27 (col 13)</b></li>
+          </ul>
+        </div>
+
+        <div class="tier-card t3 card">
+          <div class="tier-num">Tier 3</div>
+          <div class="tier-amt">RM 5,000</div>
+          <div class="tier-name">MD-Status compliant · knowledge-worker rate</div>
+          <div class="tier-trigger"><strong>Trigger</strong>Rev_Total ≥ <b>RM 40,000</b> sustained for two consecutive months. Satisfies MSC Malaysia Digital MD-Status knowledge-worker minimum salary requirement.</div>
+          <ul class="tier-fires">
+            <li><span>Optimum</span><b class="sc-opt">Aug-27 (col 14)</b></li>
+            <li><span>Delayed</span><b class="sc-del">Mar-28 (col 21)</b></li>
+            <li><span>Worst Case</span><b class="sc-wst">Mar-29 (col 33)</b></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tier-note">
+        <strong>Note for Finance:</strong> CTC at each tier follows a single formula — base + RM 450 fixed allowance, multiplied by the 14.95% statutory loading (EPF 13% employer + SOCSO 1.75% + EIS 0.2%), plus RM 150 group medical insurance. From <strong>Jan-2028</strong> all roles are eligible for a <strong>+5% annual uplift</strong>, but the uplift is now <strong>profit-gated</strong>: it fires on 1 January only if the prior calendar year closed with a positive pre-tax Net. A loss year freezes the multiplier; the next profitable year resumes +5% on top of the last applied. Tier-3 base of RM 5,000 specifically meets the MSC Digital MD-Status knowledge-worker monthly salary floor; achievement unlocks Portrait module 14% concessionary tax (vs the 15/17/24% SME graduated bands).
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ SLIDE 5 — BENEFITS / CTC ════════ -->
+  <section class="slide" id="slide-5">
+    <div class="s-inner">
+      <div class="eyebrow">03 · Benefits &amp; CTC Breakdown</div>
+      <h2 class="slide-title">Statutory <em>Cost-To-Company</em></h2>
+      <p class="slide-sub">Per-role monthly outflow for Admin/Finance ledger entry · Malaysian statutory rates · 2026 baseline</p>
+      <hr class="section-rule">
+
+      <table class="ctc-table">
+        <thead>
+          <tr>
+            <th class="left">Role · Tier</th>
+            <th>Base</th>
+            <th>Allowance</th>
+            <th>EPF Empl. 13%</th>
+            <th>SOCSO 1.75%</th>
+            <th>EIS 0.2%</th>
+            <th>HRDF 1%</th>
+            <th>Insurance</th>
+            <th>CTC / mo</th>
+          </tr>
+        </thead>
+        <tbody id="ctcTableBody"><!-- populated by JS --></tbody>
+      </table>
+
+      <div class="ctc-foot" id="ctcMilestones"><!-- populated by JS --></div>
+
+      <div class="ctc-formula">
+        <strong>CTC formula (per role, per month):</strong>
+        &nbsp;<code>CTC = (Base + RM 450) × 1.1495 + RM 150</code>
+        &nbsp;— where 1.1495 captures EPF employer 13% + SOCSO 1.75% + EIS 0.2% (= 14.95% combined). HRDF 1% (HRD Corp levy) shown separately for budgeting; applies once headcount ≥ 10 — currently absorbed in Cost_Mgmt_Contingency. Group medical insurance is a flat RM 150/employee/month.
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ SLIDE 6 — POLICY MILESTONES ════════ -->
+  <section class="slide" id="slide-6">
+    <div class="s-inner">
+      <div class="eyebrow">04 · HR Policy &amp; Compliance Calendar</div>
+      <h2 class="slide-title">Policy <em>Milestones</em> · 2026 → 2031</h2>
+      <p class="slide-sub">Recurring statutory cycles · review windows · key compliance filings</p>
+      <hr class="section-rule">
+
+      <div class="tl-wrap">
+        <!-- Header row -->
+        <div class="tl-lane-label" style="background:var(--text); color:#fff;"><div class="tl-lane-name" style="color:#fff;">Lane</div></div>
+        <div class="tl-year y26">2026</div>
+        <div class="tl-year y27">2027</div>
+        <div class="tl-year y28">2028</div>
+        <div class="tl-year y29">2029</div>
+        <div class="tl-year y30">2030</div>
+        <div class="tl-year y31">2031</div>
+
+        <!-- HR Policy lane -->
+        <div class="tl-lane-label"><div class="tl-lane-name">HR Policy</div></div>
+        <div class="tl-cell"><span class="tl-pill ms">Jun · Founding handbook</span></div>
+        <div class="tl-cell"><span class="tl-pill">Jan · Leave &amp; conduct review</span></div>
+        <div class="tl-cell"><span class="tl-pill ms">Jul · Remote &amp; AI-tooling policy</span></div>
+        <div class="tl-cell"><span class="tl-pill">Annual review</span></div>
+        <div class="tl-cell"><span class="tl-pill">Annual review</span></div>
+        <div class="tl-cell"><span class="tl-pill">Annual review</span></div>
+
+        <!-- Statutory Compliance lane -->
+        <div class="tl-lane-label"><div class="tl-lane-name">Statutory Compliance</div></div>
+        <div class="tl-cell"><span class="tl-pill warn">EPF · SOCSO · EIS registration (Jul)</span></div>
+        <div class="tl-cell"><span class="tl-pill warn">Form E + EA · Tax YA-26 (Mar)</span><span class="tl-pill ms">Aug · MD-Status filing</span></div>
+        <div class="tl-cell"><span class="tl-pill warn">Form E/EA · YA-27</span><span class="tl-pill">HRDF activation review</span></div>
+        <div class="tl-cell"><span class="tl-pill warn">Form E/EA · YA-28</span></div>
+        <div class="tl-cell"><span class="tl-pill warn">Form E/EA · YA-29</span></div>
+        <div class="tl-cell"><span class="tl-pill warn">Form E/EA · YA-30</span></div>
+
+        <!-- Insurance / Benefits lane -->
+        <div class="tl-lane-label"><div class="tl-lane-name">Insurance &amp; Benefits</div></div>
+        <div class="tl-cell"><span class="tl-pill staff">Group medical · RM 150/mo/head</span></div>
+        <div class="tl-cell"><span class="tl-pill staff">Renewal · Q1</span></div>
+        <div class="tl-cell"><span class="tl-pill staff">Renewal · uplift to RM 200 (review)</span></div>
+        <div class="tl-cell"><span class="tl-pill staff">Renewal</span></div>
+        <div class="tl-cell"><span class="tl-pill staff">Renewal</span></div>
+        <div class="tl-cell"><span class="tl-pill staff">Renewal</span></div>
+
+        <!-- Reviews & Bonuses lane -->
+        <div class="tl-lane-label"><div class="tl-lane-name">Reviews &amp; Bonuses</div></div>
+        <div class="tl-cell"><span class="tl-pill">No formal review (founding 6 mo)</span></div>
+        <div class="tl-cell"><span class="tl-pill ms">Aug · Tier-3 trigger (Optimum)</span></div>
+        <div class="tl-cell"><span class="tl-pill ms">Jan · +5% uplift baseline</span></div>
+        <div class="tl-cell"><span class="tl-pill ms">Jan · +5% uplift</span></div>
+        <div class="tl-cell"><span class="tl-pill ms">Jan · +5% uplift</span></div>
+        <div class="tl-cell"><span class="tl-pill ms">Jan · +5% uplift</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ SLIDE 7 — P&L SCENARIOS ════════ -->
+  <section class="slide" id="slide-7">
+    <div class="s-inner">
+      <div class="eyebrow">05 · Three-Scenario P&amp;L Forecast</div>
+      <h2 class="slide-title">P&amp;L <em>Forecast</em> · Scenario Toggle</h2>
+      <p class="slide-sub">Annual aggregates · revenue · OPEX · post-tax net · year-end cash · 2026 → 2031</p>
+      <hr class="section-rule">
+
+      <div class="scenario-toggle" role="tablist">
+        <button class="sc-btn opt active" data-sc="opt"><span class="sc-dot"></span>Optimum</button>
+        <button class="sc-btn del"        data-sc="del"><span class="sc-dot"></span>Delayed</button>
+        <button class="sc-btn wst"        data-sc="wst"><span class="sc-dot"></span>Worst Case</button>
+      </div>
+
+      <div class="kpi-row" id="kpiRow">
+        <div class="kpi kpi-rev"><div class="kpi-label">Revenue 2031</div><div class="kpi-value" id="kpiRev">—</div><div class="kpi-note" id="kpiRevNote">vs Optimum</div></div>
+        <div class="kpi kpi-opex"><div class="kpi-label">OPEX 2031</div><div class="kpi-value" id="kpiOpex">—</div><div class="kpi-note" id="kpiOpexNote">incl. tax</div></div>
+        <div class="kpi kpi-net"><div class="kpi-label">Net Profit 2031</div><div class="kpi-value" id="kpiNet">—</div><div class="kpi-note" id="kpiNetNote">post-tax</div></div>
+        <div class="kpi kpi-cash"><div class="kpi-label">Cash · Dec-31</div><div class="kpi-value" id="kpiCash">—</div><div class="kpi-note" id="kpiCashNote">closing balance</div></div>
+      </div>
+
+      <div class="card chart-card">
+        <div class="chart-head">
+          <div>
+            <div class="chart-title">Revenue · OPEX · Net Profit · Cash Balance</div>
+            <div class="chart-sub" id="chartSub">Scenario: Optimum — Devs Aug-26, ramp ends Dec-28, full module revenue, 88% realisation</div>
+          </div>
+        </div>
+        <div class="chart-wrap"><canvas id="forecastChart"></canvas></div>
+        <div class="chart-legend">
+          <div class="cl-item"><span class="cl-bar" style="background: rgba(29,78,216,.15); border-color:#1d4ed8;"></span> Revenue</div>
+          <div class="cl-item"><span class="cl-bar" style="background: rgba(153,27,27,.12); border-color:#991b1b;"></span> OPEX (pre-tax)</div>
+          <div class="cl-item"><span class="cl-line" style="background:#0a7b6c;"></span> Net Profit (post-tax)</div>
+          <div class="cl-item"><span class="cl-dash"></span> Cash Balance (right axis)</div>
+        </div>
+      </div>
+
+      <div class="scenario-detail opt" id="scenarioDetail">
+        <span class="sd-tag">Optimum scenario</span> · Devs hired <strong>Aug-2026</strong>; IT Operations <strong>Jan-2027</strong>; franchise &amp; OHXEM ramps complete <strong>Dec-2028</strong>; <strong>500</strong> outlets at peak with <strong>88%</strong> revenue realisation; full HR &amp; Portrait module revenue; MD-Status filed Aug-2027 → 14% Portrait tax from H2-2028.
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ SLIDE 8 — MONTHLY CASHFLOW TRAJECTORY ════════ -->
+  <section class="slide" id="slide-8">
+    <div class="s-inner" style="max-width: 1180px;">
+      <div class="eyebrow">06 · Monthly Cash Trajectory</div>
+      <h2 class="slide-title">Monthly <em>Cashflow</em> · Jun 2026 → Dec 2031</h2>
+      <p class="slide-sub">All three scenarios overlaid · 67-month horizon · RM 100,000 paid-up capital baseline</p>
+      <hr class="section-rule">
+
+      <div class="kpi-row" style="grid-template-columns: repeat(4, 1fr);">
+        <div class="kpi" style="border-top-color: #94a3b8;"><div class="kpi-label">Paid-up Capital</div><div class="kpi-value">RM 100k</div><div class="kpi-note">baseline reference</div></div>
+        <div class="kpi" style="border-top-color: var(--opt);"><div class="kpi-label">Optimum · Dec-31</div><div class="kpi-value">RM 2.69M</div><div class="kpi-note">+26.9× capital</div></div>
+        <div class="kpi" style="border-top-color: var(--del);"><div class="kpi-label">Delayed · Dec-31</div><div class="kpi-value">RM 2.42M</div><div class="kpi-note">+24.2× capital</div></div>
+        <div class="kpi" style="border-top-color: var(--wst);"><div class="kpi-label">Worst · Dec-31</div><div class="kpi-value">RM 1.03M</div><div class="kpi-note">+10.3× capital</div></div>
+      </div>
+
+      <div class="card chart-card" style="margin-top: 12px;">
+        <div class="chart-head">
+          <div>
+            <div class="chart-title">Closing Cash Balance · Per Month</div>
+            <div class="chart-sub">Hover any point for exact value · click legend swatch to isolate a scenario</div>
+          </div>
+        </div>
+        <div class="chart-wrap" style="height: 340px;"><canvas id="cashflowChart"></canvas></div>
+        <div class="chart-legend" style="margin-top: 12px;">
+          <div class="cl-item"><span class="cl-line" style="background: var(--opt); height: 3px;"></span> Optimum</div>
+          <div class="cl-item"><span class="cl-line" style="background: var(--del); height: 3px;"></span> Delayed</div>
+          <div class="cl-item"><span class="cl-line" style="background: var(--wst); height: 3px;"></span> Worst Case</div>
+          <div class="cl-item"><span class="cl-dash" style="border-top-color: #94a3b8;"></span> RM 100k Paid-up Capital</div>
+        </div>
+      </div>
+
+      <div class="scenario-detail opt" style="margin-top: 14px; border-left-color: #94a3b8;">
+        <span class="sd-tag" style="color: var(--text);">Reading the chart</span> · The dashed grey line at <strong>RM 100,000</strong> marks the founding paid-up capital — every scenario stays above this floor for the full horizon. Cash dips appear at <strong>Dec each year</strong> (corporate tax payment) and at <strong>Sep-2027</strong> (RM 5,000 MD-Status filing under Optimum). All three scenarios bottom-out at the same <strong>RM 109,518</strong> point in <strong>Jun-2026</strong> immediately after seed-month outflows, then diverge as franchise &amp; module revenue ramps differ.
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ SLIDE 9 — COMPARISON & APPROVAL ════════ -->
+  <section class="slide" id="slide-9">
+    <div class="s-inner">
+      <div class="eyebrow">07 · Board Comparison &amp; Approval</div>
+      <h2 class="slide-title">Side-by-Side <em>Outcomes</em></h2>
+      <p class="slide-sub">Six-year roll-up across all three scenarios · key decision metrics</p>
+      <hr class="section-rule">
+
+      <table class="cmp-table">
+        <thead>
+          <tr>
+            <th class="left">Metric</th>
+            <th class="col-opt">Optimum</th>
+            <th class="col-del">Delayed</th>
+            <th class="col-wst">Worst Case</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Devs hire month</td><td class="col-opt">Aug 2026</td><td class="col-del">Jan 2027</td><td class="col-wst">Apr 2027</td></tr>
+          <tr><td>IT Operations hire</td><td class="col-opt">Jan 2027</td><td class="col-del">Jan 2027</td><td class="col-wst">Apr 2027</td></tr>
+          <tr><td>Franchise + OHXEM ramp ends</td><td class="col-opt">Dec 2028</td><td class="col-del">Dec 2029</td><td class="col-wst">Dec 2030</td></tr>
+          <tr><td>Peak outlets · realisation</td><td class="col-opt">500 · 88%</td><td class="col-del">500 · 88%</td><td class="col-wst">400 · 70%</td></tr>
+          <tr><td>OHXEM peak outlets</td><td class="col-opt">50</td><td class="col-del">50</td><td class="col-wst">30</td></tr>
+          <tr><td>Module revenue scaling</td><td class="col-opt">100%</td><td class="col-del">100%</td><td class="col-wst">70%</td></tr>
+          <tr><td>MD-Status (Tier 3) achieved</td><td class="col-opt">Aug 2027</td><td class="col-del">Mar 2028</td><td class="col-wst">Mar 2029</td></tr>
+          <tr class="headline"><td>Revenue 2031</td><td class="col-opt">RM 1.42M</td><td class="col-del">RM 1.42M</td><td class="col-wst">RM 0.92M</td></tr>
+          <tr class="headline"><td>Net Profit 2031 (post-tax)</td><td class="col-opt">RM 752k</td><td class="col-del">RM 752k</td><td class="col-wst">RM 372k</td></tr>
+          <tr class="headline"><td>Cash · Dec-31 closing</td><td class="col-opt">RM 2.69M</td><td class="col-del">RM 2.42M</td><td class="col-wst">RM 1.03M</td></tr>
+          <tr><td>Cumulative Net 2026–2031</td><td class="col-opt">RM 2.59M</td><td class="col-del">RM 2.32M</td><td class="col-wst">RM 0.93M</td></tr>
+          <tr><td>Cash floor (lowest in horizon)</td><td class="col-opt">RM 109,517 (Jun-26)</td><td class="col-del">RM 109,517 (Jun-26)</td><td class="col-wst">RM 109,517 (Jun-26)</td></tr>
+          <tr><td>% vs Optimum (Net 2031)</td><td class="col-opt">100%</td><td class="col-del">100%</td><td class="col-wst">49%</td></tr>
+        </tbody>
+      </table>
+
+      <div class="appr-grid">
+        <div class="appr-card a1">
+          <div class="appr-title">Approval Sought</div>
+          <ul class="appr-list">
+            <li>Hiring schedule per Optimum (Akmal RM 2,300 &amp; Iffat RM 2,100 from Aug-2026; IT Ops Jan-2027)</li>
+            <li>Salary tier framework (RM 3,000 → 3,900 → 5,000) with revenue-driven triggers</li>
+            <li>Profit-gated +5% annual uplift from Jan-2028 (CEO/DCEO/Ops) and Feb-2028 (Devs, one-month lag)</li>
+            <li>Group medical insurance RM 150/mo/head from Day 1</li>
+          </ul>
+        </div>
+        <div class="appr-card a2">
+          <div class="appr-title">Finance Considerations</div>
+          <ul class="appr-list">
+            <li>Statutory CTC loading 14.95% (EPF 13% + SOCSO 1.75% + EIS 0.2%)</li>
+            <li>HRDF 1% activates at headcount ≥ 10 — held in contingency</li>
+            <li>MD-Status filing budget RM 5,000 (Jun-2027 corporate one-off)</li>
+            <li>Portrait IP royalty 30% of Portrait module revenue (Protrait Sdn Bhd)</li>
+          </ul>
+        </div>
+        <div class="appr-card a3">
+          <div class="appr-title">Risk Posture</div>
+          <ul class="appr-list">
+            <li>All three scenarios maintain positive cash with RM 100,000 paid-up capital</li>
+            <li>Worst Case still yields RM 1.03M closing cash &amp; RM 372k Net 2031</li>
+            <li>Cash floor RM 109,517 (Jun-26 immediately after capital injection)</li>
+            <li>Tier escalations are revenue-gated; salary uplifts are profit-gated — auto-defer if either lags</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /deck -->
+
+<!-- ════════ NAV BAR ════════ -->
+<div class="nav-bar" id="navBar">
+  <button class="nav-btn" id="prevBtn">‹ Prev</button>
+  <div class="nav-mid">
+    <div class="nav-counter" id="navCounter">01 / 08</div>
+    <div class="dots" id="dots"></div>
+  </div>
+  <button class="nav-btn" id="nextBtn">Next ›</button>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════
+// SCENARIO DATA — annual aggregates from _recalc.ps1 (Apr-26 refresh)
+// Captured: 2026..2031 (6 years)
+// ═══════════════════════════════════════════════════════════════
+const YEARS = ['2026','2027','2028','2029','2030','2031'];
+const DATA = {
+  opt: {
+    label: 'Optimum',
+    color: '#0a7b6c',
+    rev:  [172893, 488415, 850592, 1122684, 1253760, 1416228],
+    opex: [123181, 313835, 377377,  408103,  452493,  501648],
+    tax:  [7457,    26679,  77226,  122517,  139848,  162615],
+    net:  [42255,  147902, 395990,  592064,  661419,  751965],
+    cum:  [42255,  190157, 586147, 1178211, 1839630, 2591595],
+    cash: [142255, 290157, 686147, 1278211, 1939630, 2691594],
+    detail: 'Devs hired <strong>Aug-2026</strong> (Akmal RM 2,300 · Iffat RM 2,100); IT Operations <strong>Jan-2027</strong>; franchise &amp; OHXEM ramps complete <strong>Dec-2028</strong>; <strong>500</strong> outlets at peak with <strong>88%</strong> revenue realisation; full HR &amp; Portrait module revenue; MD-Status filed Aug-2027 → 14% Portrait tax from H2-2028. Profit-gated +5% uplifts fire every year (all 6 years profitable).',
+    sub: 'Scenario: Optimum — Devs Aug-26, ramp ends Dec-28, full module revenue, 88% realisation'
+  },
+  del: {
+    label: 'Delayed',
+    color: '#b45309',
+    rev:  [166474, 427572, 650525,  999622, 1253760, 1416228],
+    opex: [88023,  299926, 371535,  408103,  452493,  501648],
+    tax:  [11768,   19147,  44305,   96498,  139848,  162615],
+    net:  [66683,  108499, 234685,  495021,  661419,  751965],
+    cum:  [66683,  175183, 409867,  904888, 1566307, 2318272],
+    cash: [166683, 275183, 509867, 1004888, 1666307, 2418272],
+    detail: 'Devs hired <strong>Jan-2027</strong> (5-month slip); IT Operations <strong>Jan-2027</strong>; franchise &amp; OHXEM ramps complete <strong>Dec-2029</strong>; <strong>500</strong> outlets at peak; <strong>88%</strong> realisation; full module revenue; MD-Status reached Mar-2028 (later 14% concession start). All uplifts fire — every year profitable.',
+    sub: 'Scenario: Delayed — Devs Jan-27, ramp ends Dec-29, full module revenue, 88% realisation'
+  },
+  wst: {
+    label: 'Worst Case',
+    color: '#991b1b',
+    rev:  [155562, 323716, 408409,  537740,  746684,  917776],
+    opex: [88023,  258712, 336008,  393666,  435081,  475405],
+    tax:  [10131,    9751,  11128,   21491,   49137,   70680],
+    net:  [57408,   55254,  61273,  122582,  262466,  371691],
+    cum:  [57408,  112662, 173935,  296517,  558984,  930674],
+    cash: [157408, 212662, 273935,  396517,  658984, 1030674],
+    detail: 'Devs &amp; IT Ops both delayed to <strong>Apr-2027</strong>; franchise &amp; OHXEM ramps complete <strong>Dec-2030</strong>; only <strong>400</strong> outlets at peak with <strong>70%</strong> realisation; OHXEM peak <strong>30</strong> outlets; HR + Portrait module revenue scaled to <strong>70%</strong>; MD-Status delayed to Mar-2029. All uplifts still fire — slim but positive every year.',
+    sub: 'Scenario: Worst Case — Devs Apr-27, ramp ends Dec-30, 400 outlets × 70%, OHXEM 30, modules ×70%'
+  }
+};
+
+// ═══════════════════════════════════════════════════════════════
+// FORMATTERS
+// ═══════════════════════════════════════════════════════════════
+function rm(v) {
+  if (v == null) return '—';
+  if (Math.abs(v) >= 1000000) return 'RM ' + (v / 1000000).toFixed(2) + 'M';
+  if (Math.abs(v) >= 1000)    return 'RM ' + (v / 1000).toFixed(1) + 'k';
+  return 'RM ' + Math.round(v).toLocaleString();
+}
+function rmExact(v) { return 'RM ' + Math.round(v).toLocaleString(); }
+
+// ═══════════════════════════════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════════════════════════════
+const TOTAL = 9;
+let current = 1;
+const slides = [];
+for (let i = 1; i <= TOTAL; i++) slides.push(document.getElementById('slide-' + i));
+
+const dotsEl = document.getElementById('dots');
+for (let i = 1; i <= TOTAL; i++) {
+  const d = document.createElement('span');
+  d.className = 'dot' + (i === 1 ? ' active' : '');
+  d.addEventListener('click', () => goTo(i, i > current ? 1 : -1));
+  dotsEl.appendChild(d);
+}
+const dotEls = dotsEl.querySelectorAll('.dot');
+const navCounter = document.getElementById('navCounter');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+
+function pad2(n) { return n < 10 ? '0' + n : '' + n; }
+
+function updateNav() {
+  navCounter.textContent = pad2(current) + ' / ' + pad2(TOTAL);
+  dotEls.forEach((d, i) => d.classList.toggle('active', i === current - 1));
+  prevBtn.disabled = current === 1;
+  nextBtn.disabled = current === TOTAL;
+}
+
+function goTo(n, dir) {
+  if (n < 1 || n > TOTAL || n === current) return;
+  const direction = dir || (n > current ? 1 : -1);
+  const outgoing = slides[current - 1];
+  const incoming = slides[n - 1];
+  outgoing.classList.remove('active');
+  outgoing.style.transform = direction > 0 ? 'translateX(-40px)' : 'translateX(40px)';
+  outgoing.style.opacity = '0';
+  outgoing.style.pointerEvents = 'none';
+
+  incoming.style.transform = direction > 0 ? 'translateX(40px)' : 'translateX(-40px)';
+  void incoming.offsetWidth; // force reflow
+  incoming.classList.add('active');
+  incoming.style.transform = 'translateX(0)';
+  incoming.style.opacity = '1';
+  incoming.style.pointerEvents = 'all';
+
+  current = n;
+  updateNav();
+
+  // Lazy chart init when reaching slide 7
+  if (n === 7 && !chartInited) initChart();
+  if (n === 8 && !cashflowInited) initCashflowChart();
+}
+
+slides[0].classList.add('active');
+slides[0].style.transform = 'translateX(0)';
+slides[0].style.opacity = '1';
+slides[0].style.pointerEvents = 'all';
+
+prevBtn.addEventListener('click', () => goTo(current - 1, -1));
+nextBtn.addEventListener('click', () => goTo(current + 1, 1));
+document.addEventListener('keydown', e => {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') goTo(current + 1, 1);
+  if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   goTo(current - 1, -1);
+});
+
+// TOC click handlers
+document.querySelectorAll('[data-go]').forEach(el => {
+  el.addEventListener('click', () => {
+    const n = parseInt(el.getAttribute('data-go'), 10);
+    if (!isNaN(n)) goTo(n, n > current ? 1 : -1);
+  });
+});
+
+updateNav();
+
+// ═══════════════════════════════════════════════════════════════
+// SLIDE 3 — TRANSITION GANTT (programmatic build)
+// 31 columns: Jun-26 (col 0) → Dec-28 (col 30)
+// ═══════════════════════════════════════════════════════════════
+const MONTH_LABELS = [
+  'J26','J','A','S','O','N','D',                // 2026 Jun..Dec  (cols 0..6)
+  'J27','F','M','A','M','J','J','A','S','O','N','D',  // 2027        (cols 7..18)
+  'J28','F','M','A','M','J','J','A','S','O','N','D'   // 2028        (cols 19..30)
+];
+const YEAR_BOUNDARIES = { 0: 2026, 7: 2027, 19: 2028 };
+const YEAR_SPANS = [
+  { y: 2026, start: 0,  end: 6  },
+  { y: 2027, start: 7,  end: 18 },
+  { y: 2028, start: 19, end: 30 }
+];
+
+const ROLES = [
+  { name: 'CEO',                sub: 'Founding · Tier-driven', segments: [
+      { from: 0,  to: 8,  tier: 't1', label: 'RM 3,000' },
+      { from: 9,  to: 13, tier: 't2', label: 'RM 3,900' },
+      { from: 14, to: 18, tier: 't3', label: 'RM 5,000' },
+      { from: 19, to: 30, tier: 't4', label: '+5% uplift' }
+  ]},
+  { name: 'DCEO',               sub: 'Mirrors CEO', segments: [
+      { from: 0,  to: 8,  tier: 't1', label: 'RM 3,000' },
+      { from: 9,  to: 13, tier: 't2', label: 'RM 3,900' },
+      { from: 14, to: 18, tier: 't3', label: 'RM 5,000' },
+      { from: 19, to: 30, tier: 't4', label: '+5% uplift' }
+  ]},
+  { name: 'Akmal',              sub: 'Dev Transfer', segments: [
+      { from: 0,  to: 1,  tier: 'muted', label: '— not yet hired —' },
+      { from: 2,  to: 18, tier: 't2',    label: 'RM 2,300' },
+      { from: 19, to: 30, tier: 't4',    label: '+5% (Feb-28)' }
+  ]},
+  { name: 'Iffat',              sub: 'Dev New Hire', segments: [
+      { from: 0,  to: 1,  tier: 'muted', label: '— not yet hired —' },
+      { from: 2,  to: 18, tier: 't2',    label: 'RM 2,100' },
+      { from: 19, to: 30, tier: 't4',    label: '+5% (Feb-28)' }
+  ]},
+  { name: 'IT Operations',      sub: 'New Hire', segments: [
+      { from: 0,  to: 6,  tier: 'muted', label: '— not yet hired —' },
+      { from: 7,  to: 18, tier: 't2',    label: 'RM 1,900' },
+      { from: 19, to: 30, tier: 't4',    label: '+5%' }
+  ]}
+];
+
+const MILESTONES = [
+  { col: 2,  cls: '',      label: 'Aug-26 · Devs join' },
+  { col: 7,  cls: 'staff', label: 'Jan-27 · IT Ops joins' },
+  { col: 9,  cls: '',      label: 'Mar-27 · T1 fires' },
+  { col: 14, cls: 'warn',  label: 'Aug-27 · MD-Status / T3' },
+  { col: 19, cls: 'staff', label: 'Jan-28 · +5% uplift' }
+];
+
+(function buildGantt() {
+  const grid = document.getElementById('ganttGrid');
+  // Year header row: blank cell + 3 spanning year headers
+  // We instead simulate by adding individual month cells with year-start markers.
+
+  // Row 1: year header (single label spanning each year)
+  const yhBlank = document.createElement('div');
+  yhBlank.className = 'gantt-row-label';
+  yhBlank.style.background = 'var(--text)';
+  yhBlank.style.color = '#fff';
+  yhBlank.innerHTML = '<span style="font-family:Playfair Display,serif; font-style:italic; font-size:12px;">Role</span>';
+  grid.appendChild(yhBlank);
+
+  YEAR_SPANS.forEach(span => {
+    const cells = span.end - span.start + 1;
+    const yh = document.createElement('div');
+    yh.className = 'gantt-yhead y-' + span.y;
+    yh.style.gridColumn = 'span ' + cells;
+    yh.textContent = span.y;
+    grid.appendChild(yh);
+  });
+
+  // Row 2: month abbreviations
+  const mhBlank = document.createElement('div');
+  mhBlank.className = 'gantt-row-label';
+  mhBlank.innerHTML = '<span class="role-sub" style="font-size:9px;">Month</span>';
+  grid.appendChild(mhBlank);
+  for (let c = 0; c <= 30; c++) {
+    const mh = document.createElement('div');
+    mh.className = 'gantt-mhead' + (YEAR_BOUNDARIES[c] && c !== 0 ? ' year-start' : '');
+    mh.textContent = MONTH_LABELS[c].replace(/\d/g, '').slice(0, 1) || MONTH_LABELS[c];
+    grid.appendChild(mh);
+  }
+
+  // Role rows
+  ROLES.forEach(role => {
+    const lbl = document.createElement('div');
+    lbl.className = 'gantt-row-label';
+    lbl.innerHTML = role.name + '<span class="role-sub">· ' + role.sub + '</span>';
+    grid.appendChild(lbl);
+
+    // For each column, create a cell. Within a cell that starts a segment,
+    // place an absolutely-positioned bar that spans (segment.to - segment.from + 1) columns.
+    for (let c = 0; c <= 30; c++) {
+      const cell = document.createElement('div');
+      cell.className = 'gantt-cell gantt-bar-cell';
+      // Start of a segment?
+      const seg = role.segments.find(s => s.from === c);
+      if (seg) {
+        const span = seg.to - seg.from + 1;
+        cell.style.gridColumn = 'span ' + span;
+        const bar = document.createElement('div');
+        bar.className = 'bar ' + seg.tier;
+        bar.textContent = seg.label;
+        bar.title = role.name + ' · ' + seg.label + ' (' + MONTH_LABELS[seg.from] + '–' + MONTH_LABELS[seg.to] + ')';
+        cell.appendChild(bar);
+        grid.appendChild(cell);
+        c = seg.to; // skip ahead — the spanned cells are "inside" this one
+      } else {
+        grid.appendChild(cell);
+      }
+    }
+  });
+
+  // Milestones row
+  const mGrid = document.getElementById('ganttMilestones');
+  const lblM = document.createElement('div');
+  lblM.className = 'gm-label';
+  lblM.textContent = 'Milestones';
+  mGrid.appendChild(lblM);
+  for (let c = 0; c <= 30; c++) {
+    const cell = document.createElement('div');
+    cell.className = 'gm-cell';
+    const ms = MILESTONES.find(m => m.col === c);
+    if (ms) {
+      const mk = document.createElement('div');
+      mk.className = 'gm-marker ' + ms.cls;
+      cell.appendChild(mk);
+      const tg = document.createElement('div');
+      tg.className = 'gm-tag ' + ms.cls;
+      tg.textContent = ms.label;
+      cell.appendChild(tg);
+    }
+    mGrid.appendChild(cell);
+  }
+})();
+
+// ═══════════════════════════════════════════════════════════════
+// SLIDE 5 — CTC TABLE
+// ═══════════════════════════════════════════════════════════════
+function ctcRow(roleName, tierLabel, base) {
+  const allow = 450;
+  const epf = (base + allow) * 0.13;
+  const socso = (base + allow) * 0.0175;
+  const eis = (base + allow) * 0.002;
+  const hrdf = (base + allow) * 0.01;
+  const ins = 150;
+  const ctc = (base + allow) * 1.1495 + ins;
+  return {
+    role: roleName, tier: tierLabel,
+    base, allow,
+    epf: Math.round(epf), socso: Math.round(socso * 100) / 100,
+    eis: Math.round(eis * 100) / 100, hrdf: Math.round(hrdf * 100) / 100,
+    ins, ctc: Math.round(ctc * 100) / 100
+  };
+}
+
+const CTC_ROWS = [
+  { tier: 'Tier 1 · Jun-26 baseline (CEO/DCEO pre-trigger)', rows: [
+      ctcRow('CEO',  'Base RM 3,000', 3000),
+      ctcRow('DCEO', 'Base RM 3,000', 3000)
+  ]},
+  { tier: 'Tier 2 · Mar-27 (CEO/DCEO after Rev ≥ RM 27k)', rows: [
+      ctcRow('CEO',  'RM 3,900', 3900),
+      ctcRow('DCEO', 'RM 3,900', 3900)
+  ]},
+  { tier: 'Tier 3 · Aug-27 (MD-Status · Rev ≥ RM 40k)', rows: [
+      ctcRow('CEO',  'RM 5,000', 5000),
+      ctcRow('DCEO', 'RM 5,000', 5000)
+  ]},
+  { tier: 'Developer & Operations Roles (Optimum hire dates)', rows: [
+      ctcRow('Akmal · Dev Transfer',  'Aug-26 · RM 2,300', 2300),
+      ctcRow('Iffat · Dev New Hire',  'Aug-26 · RM 2,100', 2100),
+      ctcRow('IT Operations',         'Jan-27 · RM 1,900', 1900)
+  ]}
+];
+
+(function buildCTC() {
+  const tbody = document.getElementById('ctcTableBody');
+  CTC_ROWS.forEach(group => {
+    const tr = document.createElement('tr');
+    tr.className = 'tier-row';
+    tr.innerHTML = '<td colspan="9">' + group.tier + '</td>';
+    tbody.appendChild(tr);
+    let totalCTC = 0;
+    group.rows.forEach(r => {
+      totalCTC += r.ctc;
+      const row = document.createElement('tr');
+      row.innerHTML =
+        '<td>' + r.role + '<span class="role-tier">' + r.tier + '</span></td>' +
+        '<td>' + rmExact(r.base) + '</td>' +
+        '<td>' + rmExact(r.allow) + '</td>' +
+        '<td>' + rmExact(r.epf) + '</td>' +
+        '<td>' + r.socso.toFixed(2) + '</td>' +
+        '<td>' + r.eis.toFixed(2) + '</td>' +
+        '<td>' + r.hrdf.toFixed(2) + '</td>' +
+        '<td>' + rmExact(r.ins) + '</td>' +
+        '<td class="ctc">' + rmExact(r.ctc) + '</td>';
+      tbody.appendChild(row);
+    });
+    const totRow = document.createElement('tr');
+    totRow.className = 'total';
+    totRow.innerHTML = '<td colspan="8" style="text-align:right;">Group CTC subtotal · monthly</td><td>' + rmExact(totalCTC) + '</td>';
+    tbody.appendChild(totRow);
+  });
+
+  // Milestone payroll snapshots (monthly Cost_Mgmt_Payroll_Total at key months — Optimum)
+  const milestones = [
+    { l: 'Jun 2026', v: 8232,  n: 'CEO + DCEO only' },
+    { l: 'Aug 2026', v: 14624, n: '+ Akmal + Iffat' },
+    { l: 'Jan 2027', v: 17475, n: '+ IT Operations' },
+    { l: 'Aug 2027', v: 22073, n: 'T3 MD-Status' },
+    { l: 'Feb 2028', v: 23010, n: 'Devs +5% (profit-gated)' }
+  ];
+  const foot = document.getElementById('ctcMilestones');
+  milestones.forEach(m => {
+    const c = document.createElement('div');
+    c.className = 'ctc-mile';
+    c.innerHTML = '<div class="l">' + m.l + '</div><div class="v">' + rmExact(m.v) + '</div><div class="n">' + m.n + '</div>';
+    foot.appendChild(c);
+  });
+})();
+
+// ═══════════════════════════════════════════════════════════════
+// SLIDE 7 — CHART + TOGGLE
+// ═══════════════════════════════════════════════════════════════
+let chart = null, chartInited = false, currentScenario = 'opt';
+
+function initChart() {
+  const ctx = document.getElementById('forecastChart').getContext('2d');
+  const d = DATA[currentScenario];
+  chart = new Chart(ctx, {
+    data: {
+      labels: YEARS,
+      datasets: [
+        { type: 'line', label: 'Net (post-tax)', data: d.net, yAxisID: 'y',
+          borderColor: '#0a7b6c', backgroundColor: 'rgba(10,123,108,.10)',
+          borderWidth: 2.5, pointRadius: 4, fill: true, tension: .35, order: 0 },
+        { type: 'line', label: 'Cash · Year-end', data: d.cash, yAxisID: 'y1',
+          borderColor: '#7c3aed', backgroundColor: 'rgba(124,58,237,.04)',
+          borderWidth: 2, pointRadius: 3, fill: false, borderDash: [5,4], tension: .25, order: 0 },
+        { type: 'bar', label: 'Revenue', data: d.rev,
+          backgroundColor: 'rgba(29,78,216,.15)', borderColor: '#1d4ed8',
+          borderWidth: 1.5, borderRadius: 3, order: 1, yAxisID: 'y' },
+        { type: 'bar', label: 'OPEX (pre-tax)', data: d.opex,
+          backgroundColor: 'rgba(153,27,27,.12)', borderColor: '#991b1b',
+          borderWidth: 1.5, borderRadius: 3, order: 2, yAxisID: 'y' }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: '#fff', borderColor: '#dfe2e8', borderWidth: 1,
+          titleColor: '#161b2e', bodyColor: '#3b4460', titleFont: { family: 'DM Sans', weight: '700' }, bodyFont: { family: 'DM Sans' }, padding: 10,
+          callbacks: { label: c => '  ' + c.dataset.label + ': ' + rm(c.raw) }
+        }
+      },
+      scales: {
+        y: { beginAtZero: true, position: 'left', grid: { color: '#dfe2e8' }, ticks: { callback: v => rm(v), font: { family: 'DM Sans', size: 10 } } },
+        y1: { beginAtZero: true, position: 'right', grid: { drawOnChartArea: false }, ticks: { callback: v => rm(v), font: { family: 'DM Sans', size: 10, style: 'italic' }, color: '#7c3aed' } },
+        x: { grid: { display: false }, ticks: { font: { family: 'DM Sans', size: 11 } } }
+      }
+    }
+  });
+  chartInited = true;
+  refreshKPIs();
+}
+
+function setScenario(sc) {
+  currentScenario = sc;
+  document.querySelectorAll('.sc-btn').forEach(b => b.classList.toggle('active', b.dataset.sc === sc));
+  if (chart) {
+    const d = DATA[sc];
+    chart.data.datasets[0].data = d.net;
+    chart.data.datasets[1].data = d.cash;
+    chart.data.datasets[2].data = d.rev;
+    chart.data.datasets[3].data = d.opex;
+    chart.update();
+  }
+  document.getElementById('chartSub').textContent = DATA[sc].sub;
+  const dt = document.getElementById('scenarioDetail');
+  dt.classList.remove('opt','del','wst');
+  dt.classList.add(sc);
+  dt.innerHTML = '<span class="sd-tag">' + DATA[sc].label + ' scenario</span> · ' + DATA[sc].detail;
+  refreshKPIs();
+}
+
+function refreshKPIs() {
+  const d = DATA[currentScenario];
+  const last = 5; // 2031
+  const opt = DATA.opt;
+  document.getElementById('kpiRev').textContent  = rm(d.rev[last]);
+  document.getElementById('kpiOpex').textContent = rm(d.opex[last] + d.tax[last]);
+  document.getElementById('kpiNet').textContent  = rm(d.net[last]);
+  document.getElementById('kpiCash').textContent = rm(d.cash[last]);
+
+  function pct(a, b) { return Math.round((a / b) * 100); }
+  if (currentScenario === 'opt') {
+    document.getElementById('kpiRevNote').textContent  = 'baseline';
+    document.getElementById('kpiOpexNote').textContent = 'OPEX + tax';
+    document.getElementById('kpiNetNote').textContent  = 'post-tax';
+    document.getElementById('kpiCashNote').textContent = 'closing balance';
+  } else {
+    document.getElementById('kpiRevNote').textContent  = pct(d.rev[last], opt.rev[last])  + '% vs Optimum';
+    document.getElementById('kpiOpexNote').textContent = pct(d.opex[last] + d.tax[last], opt.opex[last] + opt.tax[last]) + '% vs Optimum';
+    document.getElementById('kpiNetNote').textContent  = pct(d.net[last], opt.net[last])  + '% vs Optimum';
+    document.getElementById('kpiCashNote').textContent = pct(d.cash[last], opt.cash[last]) + '% vs Optimum';
+  }
+}
+
+document.querySelectorAll('.sc-btn').forEach(btn => {
+  btn.addEventListener('click', () => setScenario(btn.dataset.sc));
+});
+
+// ══════════════════════════════════════════════════════════════
+// SLIDE 8 — MONTHLY CASHFLOW (67 months · Jun-26 → Dec-31)
+// Source: Cash_Balance row from QCXIS_Forecast_<Scenario>.csv
+// ══════════════════════════════════════════════════════════════
+const MONTHLY = {
+  opt: [109517.56,120026.87,125184.52,131078.58,134594.4,141962.73,142255.16,151815.86,162854.73,170612.53,183530.22,198108.95,208081.12,224856.06,241367.42,258740.28,278255.78,297396.63,290156.83,315715.59,343422.97,369367.36,403950.87,441269.13,478842.88,518649.44,564132.28,611508.68,662429.23,712673.57,686146.87,747816.92,809003.85,863749.18,926868.59,989907.48,1051255.45,1101878.74,1164192.95,1224977.28,1286647.33,1344774.5,1278210.5,1347521.07,1416348.52,1478734.37,1549494.3,1620173.71,1689162.2,1742426.01,1812380.74,1880805.59,1950116.16,2015883.85,1939629.46,2018799.45,2097486.32,2169731.59,2250350.94,2330889.77,2409737.68,2467860.91,2547675.06,2625959.33,2705129.32,2780756.43,2691594.05],
+  del: [109517.56,119715.25,131268.19,143257.11,152541.88,165431.86,166683.41,173846.75,182001.98,186643.75,195584.61,205678.53,210755.62,222182.05,235507.35,249306.93,264676.17,279489.17,275182.54,294644.26,314737.15,329071.24,349135.02,370338.1,390547.48,412291.87,437464.29,465034.64,495069.08,524505.92,509867.45,550809.21,593263.53,632484.9,680262.11,729889.56,779975.7,821297.6,876014.9,931207.27,989108.54,1045432.92,1004888.04,1074198.61,1143026.06,1205411.91,1276171.84,1346851.25,1415839.74,1469103.55,1539058.28,1607483.13,1676793.7,1742561.39,1666307,1745476.99,1824163.86,1896409.13,1977028.48,2057567.31,2136415.22,2194538.45,2274352.6,2352636.87,2431806.86,2507433.97,2418271.59],
+  wst: [109517.56,119185.51,129656.78,140053.3,147191.64,157514.77,157408.42,170359.68,183550.37,195165.45,199547.76,204295.61,203396.24,205869.52,209275.31,212560.15,216523.03,219660.33,212661.92,218061.66,223395.43,226790.8,233593.06,240756.34,246489.16,252428.75,259396.11,266156.34,273144.5,279107.53,273935.31,286074.69,298899.1,306855.38,318690.19,330881.47,342735.07,345143.79,359184.04,373401.58,388907.42,403575.96,396517.34,419656.06,443423.65,464668.36,491221.93,518625.26,545975.74,558787.97,588449.6,618091.4,649135.62,678886.05,658983.77,698318.36,737351.56,772366.2,812604.97,852793.51,891927.17,910608.75,950345.2,989127.24,1028461.83,1065586.21,1030674.35]
+};
+
+// Build month labels (Jun-26 … Dec-31, 67 entries)
+const MONTH_NAMES = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const MONTHLY_LABELS = (function(){
+  const out = [];
+  let y = 2026, m = 5; // Jun-26 (zero-indexed month 5)
+  for (let i = 0; i < 67; i++) {
+    out.push(MONTH_NAMES[m] + '-' + String(y).slice(2));
+    m++; if (m > 11) { m = 0; y++; }
+  }
+  return out;
+})();
+
+let cashflowChart = null, cashflowInited = false;
+function initCashflowChart() {
+  const ctx = document.getElementById('cashflowChart').getContext('2d');
+  const baseline = new Array(67).fill(100000);
+  cashflowChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: MONTHLY_LABELS,
+      datasets: [
+        { label: 'Optimum',    data: MONTHLY.opt, borderColor: '#0a7b6c', backgroundColor: 'rgba(10,123,108,.06)',  borderWidth: 2.2, pointRadius: 0, pointHoverRadius: 4, fill: true,  tension: .28 },
+        { label: 'Delayed',    data: MONTHLY.del, borderColor: '#b45309', backgroundColor: 'rgba(180,83,9,.05)',    borderWidth: 2.2, pointRadius: 0, pointHoverRadius: 4, fill: false, tension: .28 },
+        { label: 'Worst Case', data: MONTHLY.wst, borderColor: '#991b1b', backgroundColor: 'rgba(153,27,27,.05)',   borderWidth: 2.2, pointRadius: 0, pointHoverRadius: 4, fill: false, tension: .28 },
+        { label: 'RM 100k Capital', data: baseline, borderColor: '#94a3b8', borderWidth: 1.5, borderDash: [6,4], pointRadius: 0, pointHoverRadius: 0, fill: false }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: '#fff', borderColor: '#dfe2e8', borderWidth: 1,
+          titleColor: '#161b2e', bodyColor: '#3b4460',
+          titleFont: { family: 'DM Sans', weight: '700' }, bodyFont: { family: 'DM Sans' }, padding: 10,
+          callbacks: { label: c => '  ' + c.dataset.label + ': ' + rmExact(c.raw) }
+        }
+      },
+      scales: {
+        y: { beginAtZero: true, grid: { color: '#dfe2e8' }, ticks: { callback: v => rm(v), font: { family: 'DM Sans', size: 10 } } },
+        x: {
+          grid: { display: false },
+          ticks: {
+            font: { family: 'DM Sans', size: 9 },
+            maxRotation: 0, autoSkip: false,
+            callback: function(val, idx) {
+              const lbl = MONTHLY_LABELS[idx];
+              // Show Jun-26, then every Jan-, plus final Dec-31
+              if (idx === 0) return lbl;
+              if (lbl.startsWith('Jan')) return lbl;
+              if (idx === 66) return lbl;
+              return '';
+            }
+          }
+        }
+      }
+    }
+  });
+  cashflowInited = true;
+}
+</script>
+</body>
+</html>
